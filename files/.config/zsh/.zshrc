@@ -7,19 +7,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Add to path
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Better color
-export COLORTERM=truecolor
-
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Keep 5000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=5000
-SAVEHIST=5000
-HISTFILE=~/.zsh_history
 
 # CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
@@ -73,28 +62,13 @@ zstyle ':completion:*' menu select
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-# [ User configuration ] ======================================================
+# source $HOME/
+# alias shx="sudo hx --config $XDG_CONFIG_HOME/helix/config.toml"
 
-export LANG=en_US.UTF-8
+# alias ls="ls --color=auto"
+# alias ll="ls -lah --color=auto"
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='hx'
-else
-  export EDITOR='hx'
-fi
-
-# [ Apps env ] ----------------------------------------------------------------
-export CARGO_HOME=$XDG_CONFIG_HOME/cargo
-
-# [ Aliases ] -----------------------------------------------------------------
-
-alias shx='sudo hx --config $XDG_CONFIG_HOME/helix/config.toml'
-
-alias ls='ls --color=auto'
-alias ll='ls -lah --color=auto'
-
-alias grep='grep --color=auto'
+# alias grep="grep --color=auto"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
