@@ -5,7 +5,6 @@ DOTFILES=~/.dotfiles/files
 # In $HOME, default be ~
 HOME=~
 ln -sv $DOTFILES/.zshenv $HOME/.zshenv
-ln -sv $DOTFILES/.aliases.sh $HOME/.aliases.sh
 
 # In $XDG_CONFIG_HOME, default be ~/.config
 DOTFILES_XDG_CONFIG_HOME=$DOTFILES/.config
