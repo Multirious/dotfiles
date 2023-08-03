@@ -30,3 +30,8 @@ alias glo='git log --pretty="oneline"'
 alias glol='git log --graph --oneline --decorate'
 alias gsw='git switch'
 alias gb='git branch'
+
+# [ cargo ]
+alias cgr='cargo run'
+alias cgb='cargo build'
+alias cargo doc='cargo +nightly doc --open --all-features --no-deps'
