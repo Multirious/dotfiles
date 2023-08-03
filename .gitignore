@@ -1,2 +1,12 @@
-.config/tmux/plugins/
-.config/helix/runtime/
+.config/tmux/*
+!.config/tmux/tmux.conf
+
+.config/helix/*
+!.config/helix/config.toml
+!.config/helix/languages.toml
+
+.config/git/*
+!.config/git/config
+
+.config/zsh/*
+!.config/zsh/.zshrc

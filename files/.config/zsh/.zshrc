@@ -1,4 +1,4 @@
-# [ Zsh configuration ] =======================================================
+# [ zsh configuration ] =======================================================
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -9,9 +9,6 @@ fi
 
 # Add to path
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
 
 # Better color
 export COLORTERM=truecolor
@@ -26,10 +23,6 @@ HISTFILE=~/.zsh_history
 
 # CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
-
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # auto-update (in days).
 # zstyle ':omz:update' frequency 13
@@ -80,8 +73,6 @@ zstyle ':completion:*' menu select
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
-
 # [ User configuration ] ======================================================
 
 export LANG=en_US.UTF-8
@@ -93,9 +84,12 @@ else
   export EDITOR='hx'
 fi
 
-# [ Aliases ] ----------------------------------------------------------------
+# [ Apps env ] ----------------------------------------------------------------
+export CARGO_HOME=$XDG_CONFIG_HOME/cargo
 
-alias shx='sudo hx --config ~/.config/helix/config.toml'
+# [ Aliases ] -----------------------------------------------------------------
+
+alias shx='sudo hx --config $XDG_CONFIG_HOME/helix/config.toml'
 
 alias ls='ls --color=auto'
 alias ll='ls -lah --color=auto'

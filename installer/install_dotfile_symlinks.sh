@@ -1,13 +1,18 @@
-# In $HOME
-ln -sv ~/.dotfiles/files/.gitconfig ~/.gitconfig
-ln -sv ~/.dotfiles/files/.zshrc ~/.zshrc
-ln -sv ~/.dotfiles/files/.zshenv ~/.zshenv
+# These variables must be the same with .zshenv
+# except this one
+DOTFILES=~/.dotfiles/files
 
-# In $XDG_CONFIG_HOME
-[ ! -d ~/.config ] && mkdir -v ~/.config
-ln -sv ~/.dotfiles/files/.config/helix ~/.config/helix
-ln -sv ~/.dotfiles/files/.config/tmux ~/.config/tmux
+# In $HOME, default be ~
+HOME=~
+ln -sv $DOTFILES/.zshenv $HOME/.zshenv
 
-# Specialized config locations
-[ ! -d ~/.cargo ] && mkdir -v ~/.cargo
-ln -sv ~/.dotfiles/files/.cargo/cargo.toml ~/.cargo/cargo.toml
+# In $XDG_CONFIG_HOME, default be ~/.config
+DOTFILES_XDG_CONFIG_HOME=$DOTFILES/.config
+XDG_CONFIG_HOME=~/.config
+[ ! -d ~/.config ] && mkdir -vp $XDG_CONFIG_HOME
+ln -sv $DOTFILES_XDG_CONFIG_HOME/helix $XDG_CONFIG_HOME/helix
+ln -sv $DOTFILES_XDG_CONFIG_HOME/tmux $XDG_CONFIG_HOME/tmux
+ln -sv $DOTFILES_XDG_CONFIG_HOME/zsh $XDG_CONFIG_HOME/zsh
+ln -sv $DOTFILES_XDG_CONFIG_HOME/git $XDG_CONFIG_HOME/git
+
+# Specialized config locations (none yet)
