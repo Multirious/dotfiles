@@ -1,3 +1,8 @@
+chmod +x ~/.dotfiles/installer/*
+
+echo "> Linkin' dot files"
+~/.dotfiles/installer/link_dotfiles.sh
+
 echo "> Prerequisite"
 echo ">     Initializing necessary directoies"
 ~/.dotfiles/installer/prerequisite_dirs.sh
@@ -24,8 +29,5 @@ echo ">     Installing fonts"
 ~/.dotfiles/installer/install_fonts.sh
 echo ">     Generating SSH key"
 ~/.dotfiles/installer/generate_ssh_key.sh
-
-echo "> Linkin' dot files"
-~/.dotfiles/installer/link_dotfiles.sh
 
 echo "> Done!"
