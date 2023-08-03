@@ -1,14 +1,9 @@
-# [ zsh configuration ] =======================================================
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
@@ -62,13 +57,7 @@ zstyle ':completion:*' menu select
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-# source $HOME/
-# alias shx="sudo hx --config $XDG_CONFIG_HOME/helix/config.toml"
-
-# alias ls="ls --color=auto"
-# alias ll="ls -lah --color=auto"
-
-# alias grep="grep --color=auto"
+source $HOME/.aliases
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
