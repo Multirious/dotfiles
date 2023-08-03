@@ -3,10 +3,6 @@ chmod +x ~/.dotfiles/installer/*
 echo "> Linkin' dot files"
 ~/.dotfiles/installer/link_dotfiles.sh
 
-echo "> Prerequisite"
-echo ">     Initializing necessary directoies"
-~/.dotfiles/installer/prerequisite_dirs.sh
-
 echo "> Installing apps with apt"
 ~/.dotfiles/installer/apt_installs.sh
 
@@ -17,11 +13,9 @@ echo ">     Installing tpm"
 ~/.dotfiles/installer/install_tpm.sh
 echo ">     Installing rust"
 ~/.dotfiles/installer/install_rust.sh
-echo ">     Installing more rust env"
-~/.dotfiles/installer/install_rust_env.sh
 
 echo ">     Installing oh my zsh"
-echo "      Remember to exit zsh to continue!"
+echo "      Exit zsh to continue app installation!"
 ~/.dotfiles/installer/install_ohmyzsh.sh
 
 echo "> Apps Prerequisite"
