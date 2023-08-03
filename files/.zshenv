@@ -1,2 +1,2 @@
+# source cargo env
 . "$HOME/.cargo/env"
-path+=~/.local/bin
