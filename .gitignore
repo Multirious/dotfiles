@@ -1,12 +1,12 @@
-.config/tmux/*
+files/.config/tmux/
 !.config/tmux/tmux.conf
 
-.config/helix/*
-!.config/helix/config.toml
-!.config/helix/languages.toml
+files/.config/helix/
+!files/.config/helix/config.toml
+!files/.config/helix/languages.toml
 
-.config/git/*
-!.config/git/config
+files/.config/git/
+!files/.config/git/config
 
-.config/zsh/*
-!.config/zsh/.zshrc
+files/.config/zsh/
+!files/.config/zsh/.zshrc
