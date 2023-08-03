@@ -65,6 +65,11 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # see 'man strftime' for details.
 HIST_STAMPS="dd/mm/yyyy"
 
+# Setup  tab-completion menu
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
