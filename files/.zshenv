@@ -4,7 +4,7 @@
 export DOTFILES="$HOME/.dotfiles"
 
 # [ terminal ]
-export TERM='rxvt-256color'
+# export TERM='rxvt-256color' # what is this cfg?
 export COLORTERM=truecolor
 export LANG=en_US.UTF-8
 
