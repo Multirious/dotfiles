@@ -8,8 +8,8 @@ fi
 if [ ! -d ~/.local/share ]; then
   mkdir --verbose -p ~/.local/share
 fi
-if [ ! -d ~/.local/share/font ]; then
-  mkdir --verbose -p ~/.local/share/font
+if [ ! -d ~/.local/share/fonts ]; then
+  mkdir --verbose -p ~/.local/share/fonts
 fi
 if [ ! -d ~/.config ]; then
   mkdir --verbose -p ~/.config
@@ -54,10 +54,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "> Apps Prerequisite"
 
 echo ">     Installing fonts"
-curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o ~/.local/share/MesloLGS_NF_Regular.ttf
-curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o ~/.local/share/MesloLGS_NF_Bold.ttf
-curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o ~/.local/share/MesloLGS_NF_Italic.ttf
-curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o ~/.local/share/MesloLGS_NF_Bold Italic.ttf
+curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf -o ~/.local/share/fonts/MesloLGS_NF_Regular.ttf
+curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf -o ~/.local/share/fonts/MesloLGS_NF_Bold.ttf
+curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf -o ~/.local/share/fonts/MesloLGS_NF_Italic.ttf
+curl -L https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf -o ~/.local/share/fonts/MesloLGS_NF_Bold Italic.ttf
 fc-cache -f
 
 echo ">     Generating SSH key"
