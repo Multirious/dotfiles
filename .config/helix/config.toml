@@ -1,0 +1,43 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+mouse = false
+scrolloff = 8
+cursorline = true
+idle-timeout = 0
+completion-trigger-len = 0
+rulers = [80, 120]
+color-modes = true
+
+[editor.search]
+smart-case = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "block"
+
+[editor.file-picker]
+hidden = false
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "all"
+
+[editor.whitespace.characters]
+nbsp = "⍽"
+tab = "→"
+newline = "⏎"
+
+[editor.indent-guides]
+render = true
+character = "╎"
+
+[keys.insert]
+k.j = "normal_mode"
+
+# my special keybinds pack
+[keys.normal."+"]
+l = ":lsp-restart"

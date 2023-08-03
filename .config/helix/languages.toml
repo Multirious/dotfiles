@@ -1,0 +1,39 @@
+[[language]]
+name = "rust"
+
+[language.config]
+cargo.extraEnv = { CARGO_TARGET_DIR = "/mnt/Storage/my_files/projects/rust/ra_target" }
+checkOnSave.command = "clippy" 
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+
+[language.debugger]
+command = "codelldb"
+name = "codelldb"
+port-arg = "--port {}"
+transport = "tcp"
+
+[[language.debugger.templates]]
+name = "binary"
+request = "launch"
+[[language.debugger.templates.completion]]
+completion = "filename"
+name = "binary"
+
+[language.debugger.templates.args]
+program = "{0}"
+runInTerminal = true
+
+[[language]]
+name = "gdscript"
+roots = ["project.godot"]
+language-server = { command = "nc", args = ["127.0.0.1", "6005"], language-id = "gdscript" }
+
+[[grammar]]
+name = "gdscript"
+source = { git = "https://github.com/PrestonKnopp/tree-sitter-gdscript", rev = "a4b57cc3bcbfc24550e858159647e9238e7ad1ac" }
