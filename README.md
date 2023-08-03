@@ -7,7 +7,7 @@ This repository contains configuration files for the following applications:
 - git
 - cargo
 
-Install them [here](apps_install_guide.md).
+See this [guide](apps_install_guide.md) for installing them.
 
 # Installation
 ```bash
