@@ -20,7 +20,7 @@ export XDG_CACHE_HOME="$HOME/.cache"       # at default
 
 # === [ zsh ]
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"   # move zsh to xdg config
-export HISTFILE="$ZDOTDIR/.zsh_history" # History filepath
+export HISTFILE="$ZDOTDIR/zsh_history" # History filepath
 export HISTSIZE=10000                   # Maximum events for internal history
 export SAVEHIST=10000                   # Maximum events in history file
 

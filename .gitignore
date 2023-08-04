@@ -1,13 +1,4 @@
-files/.config/tmux/
-!.config/tmux/tmux.conf
-
-files/.config/helix/
-!files/.config/helix/config.toml
-!files/.config/helix/languages.toml
-
-files/.config/git/
-!files/.config/git/config
-
-files/.config/zsh/
-!files/.config/zsh/.zshrc
-!files/.config/zsh/completion.zsh
+files/.config/tmux/plugins/
+files/.config/helix/runtime
+files/.config/zsh/zsh_history
+files/.config/zsh/.zcompdump
