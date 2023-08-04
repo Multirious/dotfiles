@@ -9,6 +9,14 @@ sudo apt install tmux zsh curl git man wget fuse
 
 ## Manual ones
 
+### zsh
+If you already installed zsh,
+run 
+```sh
+chsh -s $(which zsh)
+```
+to set zsh as the default shell.
+
 ### Helix
 See [docs](https://docs.helix-editor.com/install.html) or quick guide below.
 1. Find the prefered [release](https://github.com/helix-editor/helix/releases/).
