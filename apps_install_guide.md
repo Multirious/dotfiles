@@ -10,12 +10,19 @@ sudo apt install tmux zsh curl git man wget fuse
 ## Manual ones
 
 ### zsh
-If you already installed zsh,
-run 
+If you've already installed zsh,
+set zsh as the default shell by: 
 ```sh
 chsh -s $(which zsh)
 ```
-to set zsh as the default shell.
+
+### zplug
+See [repo](https://github.com/zplug/zplug).
+If you've already installed zsh,
+install zplug by:
+```sh
+curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+```
 
 ### Helix
 See [docs](https://docs.helix-editor.com/install.html) or quick guide below.
