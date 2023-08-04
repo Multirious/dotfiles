@@ -5,6 +5,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# === [ some zsh configs ]
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
 # CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 
@@ -33,21 +37,26 @@ HYPHEN_INSENSITIVE="true"
 
 HIST_STAMPS="dd/mm/yyyy"
 
+# === [ navigation ]
+setopt AUTO_CD              # Go to folder path without using cd.
+
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
-setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
-popd .
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd .
 
-# Setup completion
+# === [ completion ]
 source $XDG_CONFIG_HOME/zsh/completion.zsh
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+# === [ aliases ]
+source $XDG_CONFIG_HOME/aliases/aliases.sh
 
+# === [ built-in plugins]
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(git)
 
-source $XDG_CONFIG_HOME/aliases/aliases.sh
+# === [ zplug ]
 
+
+# === [ p10k theme ]
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

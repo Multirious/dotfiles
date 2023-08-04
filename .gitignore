@@ -10,3 +10,4 @@ files/.config/git/
 
 files/.config/zsh/
 !files/.config/zsh/.zshrc
+!files/.config/zsh/completion.zsh
