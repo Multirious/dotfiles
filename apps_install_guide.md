@@ -36,7 +36,7 @@ See [docs](https://docs.helix-editor.com/install.html) or quick guide below.
 4. Installing runtime folder.
    ```sh
    git clone --depth=1 https://github.com/helix-editor/helix /tmp/helix
-   cp /tmp/helix/runtime ~/.config/helix
+   cp -r /tmp/helix/runtime ~/.config/helix
    ```
 
 ### Rust
