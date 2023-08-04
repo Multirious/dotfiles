@@ -5,3 +5,5 @@
 [user]
 	name = Multirious
 	email = multirious@outlook.com
+[pull]
+	rebase = true
