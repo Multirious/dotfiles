@@ -34,13 +34,12 @@ export VISUAL="hx"
 # === [ languages ]
 
 #    --- [ rust ]
-export CARGO_HOME=$XDG_CONFIG_HOME/cargo
+export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 # source cargo env
 # if there is one
-[ -f "$HOME/.cargo/env"  ] && . "$HOME/.cargo/env"
+[ -f "$XDG_CONFIG_HOME/cargo/env" ] && source "$XDG_CONFIG_HOME/cargo/env"
 
 # === [ path ]
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-[ -d "$XDG_CONFIG_HOME/cargo/env" ] && . "$XDG_CONFIG_HOME/cargo/env"
