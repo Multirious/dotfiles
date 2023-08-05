@@ -43,9 +43,22 @@ source $XDG_CONFIG_HOME/zsh/completion.zsh
 # === [ aliases ]
 source $XDG_CONFIG_HOME/aliases/aliases.sh
 
+# === [ scripts ]
+source $XDG_CONFIG_HOME/zsh/scripts.zsh
+
 # === [ zplug ]
 source $XDG_CONFIG_HOME/zsh/zplug.zsh
 
 # === [ p10k theme ]
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# === [ tmux on startup]
+# See https://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux 
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  read "reply?Run tmux? (y)"$'\n'"> "
+  if [[ "$reply" =~ ^[Yy]$ ]]; then
+    tmux new-session -A -s main
+  fi
+fi
+

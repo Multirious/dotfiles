@@ -12,6 +12,7 @@ alias edal="$EDITOR $XDG_CONFIG_HOME/aliases/aliases.sh"
 alias edrc="$EDITOR $XDG_CONFIG_HOME/zsh/.zshrc"
 alias edenv="$EDITOR ~/.zshenv"
 alias edplug="$EDITOR $XDG_CONFIG_HOME/zsh/zplug.zsh"
+alias edscpt="$EDITOR $XDG_CONFIG_HOME/zsh/scripts.zsh"
 
 # === [ ls ]
 alias ls='ls --color=auto'

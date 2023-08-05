@@ -37,7 +37,7 @@ export VISUAL="hx"
 export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
 # source cargo env
 # if there is one
-[ -f "$XDG_CONFIG_HOME/cargo/env" ] && source "$XDG_CONFIG_HOME/cargo/env"
+[[ -f "$XDG_CONFIG_HOME/cargo/env" ]] && source "$XDG_CONFIG_HOME/cargo/env"
 
 # === [ path ]
 export PATH="$HOME/bin:$PATH"
