@@ -1,4 +1,4 @@
-source ~/.zplug/init.zsh
+source $XDG_CONFIG_HOME/zplug/init.zsh
 
 # === [ plugins ]
 
