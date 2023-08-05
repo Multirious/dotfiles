@@ -8,9 +8,10 @@ for index ({1..9}) alias "$index"="cd +${index}"; unset index
 alias shx="sudo hx --config $XDG_CONFIG_HOME/helix/config.toml"
 
 # === [ edit ]
-alias edalias="$EDITOR $XDG_CONFIG_HOME/aliases/aliases.sh"
+alias edal="$EDITOR $XDG_CONFIG_HOME/aliases/aliases.sh"
 alias edrc="$EDITOR $XDG_CONFIG_HOME/zsh/.zshrc"
 alias edenv="$EDITOR ~/.zshenv"
+alias edplug="$EDITOR $XDG_CONFIG_HOME/zsh/zplug.zsh"
 
 # === [ ls ]
 alias ls='ls --color=auto'

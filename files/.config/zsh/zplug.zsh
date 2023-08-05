@@ -2,7 +2,9 @@ source $XDG_CONFIG_HOME/zplug/init.zsh
 
 # === [ plugins ]
 
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "romkatv/powerlevel10k", as:theme, depth:1
+zplug "zsh-users/zsh-autosuggestions", use:"zsh-autosuggestions.zsh", depth:1
 
 # ===============
 

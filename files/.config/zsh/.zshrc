@@ -43,10 +43,6 @@ source $XDG_CONFIG_HOME/zsh/completion.zsh
 # === [ aliases ]
 source $XDG_CONFIG_HOME/aliases/aliases.sh
 
-# === [ built-in plugins]
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git)
-
 # === [ zplug ]
 source $XDG_CONFIG_HOME/zsh/zplug.zsh
 
