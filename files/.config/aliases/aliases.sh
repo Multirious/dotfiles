@@ -46,4 +46,5 @@ alias gb='git branch'
 # === [ cargo ]
 alias cgr='cargo run'
 alias cgb='cargo build'
+alias cgt='cargo test'
 alias cgd='cargo +nightly doc --open --all-features --no-deps'
