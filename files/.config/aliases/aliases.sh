@@ -43,6 +43,9 @@ alias glol='git log --graph --oneline --decorate'
 alias gsw='git switch'
 alias gb='git branch'
 
+# === [ tmux ]
+alias tma='tmux a -t'
+
 # === [ cargo ]
 alias cgr='cargo run'
 alias cgb='cargo build'
