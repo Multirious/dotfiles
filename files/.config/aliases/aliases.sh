@@ -45,6 +45,7 @@ alias gb='git branch'
 
 # === [ tmux ]
 alias tma='tmux a -t'
+alias tmls='tmux ls'
 
 # === [ cargo ]
 alias cgr='cargo run'
