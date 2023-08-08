@@ -44,7 +44,7 @@ alias gsw='git switch'
 alias gb='git branch'
 
 # === [ tmux ]
-alias tma='tmux a -t'
+alias tma='tmux_no_nest_attach'
 alias tmls='tmux ls'
 
 # === [ cargo ]
