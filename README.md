@@ -14,7 +14,7 @@ for freshly just installed system if not you can skip:
 ```sh
 sudo apt-get -qqy update
 sudo apt-get -qqy upgrade
-sudo aptget -qqy install git
+sudo apt-get -qqy install git
 ```
 then
 ```sh
