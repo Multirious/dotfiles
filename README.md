@@ -10,7 +10,14 @@ This repository contains configuration files for the following applications:
 See this [guide](apps_install_guide.md) for installing them.
 
 # Symlink Installation
-```bash
+for freshly just installed system if not you can skip:
+```sh
+sudo apt-get -qqy update
+sudo apt-get -qqy upgrade
+sudo aptget -qqy install git
+```
+then
+```sh
 git clone https://<pat>@github.com/Multirious/dotfiles ~/.dotfiles
 ~/.dotfiles/installer/install_dotfile_symlinks.sh
 ```
