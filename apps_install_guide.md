@@ -65,3 +65,5 @@ ssh-keygen -t ed25519 -C "multirious@outlook.com"
 clip < ~/.ssh/id_ed25519.pub
 ```
 
+### wslu
+If you're on wsl, you may need [`wslu`](https://github.com/wslutilities/wslu)
