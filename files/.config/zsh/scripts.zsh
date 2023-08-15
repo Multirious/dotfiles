@@ -16,7 +16,6 @@ function _tmux_new_session() {
   session_name=$1
   window_name="${2:-"Window"}"
   tmux new-session -d -s $session_name -n $window_name
-  [[ $? -ne 0 ]] && return 1
 }
 
 # Create a tmux session in current directory.

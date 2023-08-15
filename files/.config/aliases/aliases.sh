@@ -46,9 +46,13 @@ alias gb='git branch'
 # === [ tmux ]
 alias tma='tmux_no_nest_attach'
 alias tmls='tmux ls'
+alias tmkill='tmux kill-session -t'
 
 # === [ cargo ]
 alias cgr='cargo run'
 alias cgb='cargo build'
 alias cgt='cargo test'
 alias cgd='cargo +nightly doc --open --all-features --no-deps'
+
+# === [ random shit ]
+alias bell='tput bel' # ring system bell notification
