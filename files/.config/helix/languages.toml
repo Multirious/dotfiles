@@ -2,7 +2,7 @@
 name = "rust"
 
 [language.config]
-cargo.extraEnv = { CARGO_TARGET_DIR = "/home/peach/ra_target" }
+cargo.extraEnv = { CARGO_TARGET_DIR = "/home/peach/cargo_target" }
 checkOnSave.command = "clippy" 
 
 [language.auto-pairs]
