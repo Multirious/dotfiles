@@ -53,10 +53,7 @@ alias cgr='cargo run'
 alias cgb='cargo build'
 alias cgt='cargo test'
 alias cgd='cargo +nightly doc --open --all-features --no-deps'
-alias cgrw='cgr --target x86_64-pc-windows-gnu'
-alias cgbw='cgb --target x86_64-pc-windows-gnu'
-alias cgtw='cgt --target x86_64-pc-windows-gnu'
-alias cgdw='cgd --target x86_64-pc-windows-gnu'
+alias cbt_w='CARGO_BUILD_TARGET=x86_64-pc-windows-gnu'
 
 # === [ random shit ]
 alias bell='tput bel' # ring system bell notification
