@@ -3,7 +3,7 @@ cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_target"
 checkOnSave.command = "clippy" 
 
 [language-server.godot]
-command = "nc"
+command = "ncat.exe"
 args = ["127.0.0.1", "6005"]
 
 [[language]]
