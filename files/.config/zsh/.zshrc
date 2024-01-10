@@ -55,10 +55,10 @@ source $XDG_CONFIG_HOME/zsh/zplug.zsh
 
 # === [ tmux on startup]
 # See https://unix.stackexchange.com/questions/43601/how-can-i-set-my-default-shell-to-start-up-tmux 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  read "reply?Run tmux? (y)"$'\n'"> "
-  if [[ "$reply" =~ ^[Yy]$ ]]; then
-    tmux new-session -A -s main
-  fi
-fi
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   read "reply?Run tmux? (y)"$'\n'"> "
+#   if [[ "$reply" =~ ^[Yy]$ ]]; then
+#     tmux new-session -A -s main
+#   fi
+# fi
 
