@@ -1,3 +1,6 @@
+[language-server.rust-analyzer]
+timeout = 600
+
 [language-server.rust-analyzer.config]
 cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_target" 
 checkOnSave.command = "clippy" 
