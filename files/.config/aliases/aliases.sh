@@ -46,7 +46,7 @@ alias gb='git branch'
 # === [ tmux ]
 alias tma='tmux_no_nest_attach'
 alias tmls='tmux ls'
-alias tmkill='tmux kill-session -t'
+alias texit='tmux kill-session -t'
 
 # === [ cargo ]
 alias cgr='cargo run'
@@ -57,3 +57,6 @@ alias cgbt_w='CARGO_BUILD_TARGET=x86_64-pc-windows-gnu'
 
 # === [ random shit ]
 alias bell='tput bel' # ring system bell notification
+
+# === [ program quick ]
+alias pq="ls ~/mulgram | fzf | xargs -I path zsh -c \" cd ~/mulgram/path && tmux new-session -d -s path -n 'Edit n stuff' && tmux split-window -t path -h && tmux select-pane -t 0 && tmux send-keys -t path:0.0 'hx .' Enter && tmux new-window -t path:1 -n "Other" && tmux select-window -t path:1 && tmux select-window -t path:0 && tmux select-pane -t 1\" && tma"
