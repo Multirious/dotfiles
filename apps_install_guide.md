@@ -1,6 +1,7 @@
 # Apps install guide 
 This is mostlikely not a full installation but more like a quick guide.
-> ℹ️ **_Note_**: Symlinks should be already installed before installing app. (i'm not sure if there are gonna be any problem)
+> [!NOTE]
+> Symlinks should be already installed before installing app. (i'm not sure if there are gonna be any problem)
 
 ## Install with apt
 ```sh
