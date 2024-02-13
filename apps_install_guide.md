@@ -66,5 +66,11 @@ ssh-keygen -t ed25519 -C "multirious@outlook.com"
 clip < ~/.ssh/id_ed25519.pub
 ```
 
+## WSL Utils
+Stuff you may need for WSL
+
 ### wslu
-If you're on wsl, you may need [`wslu`](https://github.com/wslutilities/wslu)
+[`wslu`](https://github.com/wslutilities/wslu)
+
+### usbipd
+usb support for WSL2
