@@ -70,7 +70,9 @@ clip < ~/.ssh/id_ed25519.pub
 Stuff you may need for WSL
 
 ### wslu
+extra functionality
 [`wslu`](https://github.com/wslutilities/wslu)
 
-### usbipd
+### usbipd-win
 usb support for WSL2
+[`usbipd-win`](https://github.com/dorssel/usbipd-win)
