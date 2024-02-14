@@ -5,7 +5,7 @@ This is mostlikely not a full installation but more like a quick guide.
 
 ## Install with apt
 ```sh
-sudo apt install tmux zsh curl git man wget fuse tldr fzf xclip
+sudo apt install tmux zsh curl git man wget fuse tldr fzf xclip gitk
 ```
 
 ## Programming Environment
