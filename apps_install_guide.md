@@ -10,7 +10,7 @@ sudo apt install tmux zsh curl git man wget fuse tldr fzf xclip gitk
 
 ## Programming Environment
 ```sh
-sudo apt install mingw-w64 gcc clang python3 python3-pip
+sudo apt install build-essential mingw-w64 gcc clang python3 python3-pip
 ```
 
 ## Manual ones
