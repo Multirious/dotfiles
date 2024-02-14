@@ -8,6 +8,11 @@ This is mostlikely not a full installation but more like a quick guide.
 sudo apt install tmux zsh curl git man wget fuse tldr fzf
 ```
 
+## Programming Environment
+```sh
+sudo apt install mingw-w64 gcc clang
+```
+
 ## Manual ones
 
 ### zsh
