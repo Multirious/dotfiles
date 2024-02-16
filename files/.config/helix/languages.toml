@@ -12,9 +12,17 @@ args = ["127.0.0.1", "6005"]
 [language-server.arduino-language-server]
 command = "arduino-language-server"
 
+[language-server.ra-multiplex]
+command = "ra-multiplex"
+args = ["client", "--server-path", "rust-analyzer"]
 
-# [[language]]
-# name = "rust"
+[language-server.ra-multiplex.config]
+cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_target" 
+checkOnSave.command = "clippy" 
+
+[[language]]
+name = "rust"
+language-servers = ["ra-multiplex", "rust-analyzer"]
 
 # [language.debugger]
 # command = "codelldb"
