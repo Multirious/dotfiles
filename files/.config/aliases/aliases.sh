@@ -81,3 +81,7 @@ alias clear="clear -x"
 alias bell='tput bel' # ring system bell notification
 alias ping='dc_notify ""'
 
+# === [ wsl ]
+alias wsl_compact_memory='echo 1 | sudo tee /proc/sys/vm/compact_memory'
+alias wsl_drop_caches='echo 1 | sudo tee /proc/sys/vm/drop_caches'
+
