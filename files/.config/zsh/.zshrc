@@ -41,7 +41,7 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 source $XDG_CONFIG_HOME/zsh/completion.zsh
 
 # === [ aliases ]
-source $XDG_CONFIG_HOME/aliases/aliases.sh
+source $XDG_CONFIG_HOME/zsh/aliases.sh
 
 # === [ scripts ]
 source $XDG_CONFIG_HOME/zsh/scripts.zsh

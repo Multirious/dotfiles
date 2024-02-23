@@ -11,7 +11,7 @@ zplug "jeffreytse/zsh-vi-mode"
 
 #    --- [ "jeffreytse/zsh-vi-mode" ]
 function zvm_config() {
-    ZVM_VI_INSERT_ESCAPE_BINDKEY=kj
+    ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 }
 
 # === [ loading plugins ]
