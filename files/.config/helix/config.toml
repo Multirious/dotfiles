@@ -36,7 +36,7 @@ render = true
 character = "╎"
 
 [keys.insert]
-k.j = "normal_mode"
+j.k = "normal_mode"
 
 # my special keybinds pack
 [keys.normal."+"]
