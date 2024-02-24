@@ -1,19 +1,9 @@
-#!/bin/bash
-
 # === [ zsh ]
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 # === [ helix ]
 alias shx="sudo /home/peach/.local/bin/hx --config $XDG_CONFIG_HOME/helix/config.toml"
-
-# # === [ edit ]
-# alias edit="$EDITOR"
-# alias file_aliases="$XDG_CONFIG_HOME/aliases/aliases.sh"
-# alias file_rc="$XDG_CONFIG_HOME/zsh/.zshrc"
-# alias file_env="~/.zshenv"
-# alias file_zplug="$XDG_CONFIG_HOME/zsh/zplug.zsh"
-# alias file_script="$XDG_CONFIG_HOME/zsh/scripts.zsh"
 
 # === [ ls ]
 alias ls='ls --color=auto'
@@ -44,27 +34,16 @@ alias gsw='git switch'
 alias gb='git branch'
 
 # === [ tmux ]
-alias tma='tmux_no_nest_attach'
+alias tma='tmux attach'
 alias tmls='tmux ls'
 alias texit='tmux kill-session -t'
-# quickly open up a project in mulgram with tmux
-
 alias pq='
-  find ~/my_files/projects/programming/current -maxdepth 2 -mindepth 2 |
-    cut --characters=51- |
-    fzf |
-    xargs -I path zsh -c "
-      cd ~/my_files/projects/programming/current/path &&
-      tmux new-session -d -s path -n \"Edit n stuff\" &&
-      tmux split-window -t path -h &&
-      tmux select-pane -t 0 &&
-      tmux send-keys -t path:0.0 \"hx .\" Enter &&
-      tmux new-window -t path:1 -n \"Other\" &&
-      tmux select-window -t path:1 &&
-      tmux select-window -t path:0 &&
-      tmux select-pane -t 1
-    " &&
-  tma
+  select_repository | xargs -I path zsh -c "
+    source $ZDOTDIR/functions.zsh
+    cd $GIT_REPOS/path &&
+    tmux_programing_session \"path\"
+  " &&
+  tmux attach
 '
 
 # === [ cargo ]

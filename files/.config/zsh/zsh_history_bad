@@ -1,0 +1,17 @@
+zsh_history_fix
+ls
+cd .scripts
+ls
+chmod +x zsh_history_fix
+cd ..
+zsh_history_fix
+cd .scripts/zsh_history_fix
+cd .scripts
+hx zsh_history_fix
+ls /usr/bin
+ls /usr/bin/env
+/usr/bin/env zsh
+hx zsh_history_fix
+cd ..
+zsh_history_fix
+ls

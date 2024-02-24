@@ -35,12 +35,13 @@ export HELIX_RUNTIME="$XDG_RUNTIME_DIR/helix_runtime"
 # === [ languages ]
 
 #    --- [ rust ]
-export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
-# source cargo env
-# if there is one
-[[ -f "$XDG_CONFIG_HOME/cargo/env" ]] && source "$XDG_CONFIG_HOME/cargo/env"
+[[ -f "~/.cargo/env" ]] && source "~/.cargo/env"
+
+# === [ other ]
+export GIT_REPOS=$(readlink -f ~/git_repositories)
 
 # === [ path ]
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.scripts:$PATH"
