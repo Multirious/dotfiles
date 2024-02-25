@@ -30,18 +30,16 @@ export ZPLUG_HOME="$XDG_CONFIG_HOME/zplug"
 # === [ editor ]
 export EDITOR="hx"
 export VISUAL="hx"
-export HELIX_RUNTIME="$XDG_RUNTIME_DIR/helix_runtime"
 
 # === [ languages ]
 
 #    --- [ rust ]
-[[ -f "~/.cargo/env" ]] && source "~/.cargo/env"
+[[ -f ~/.cargo/env ]] && source ~/.cargo/env
 
 # === [ other ]
 export GIT_REPOS=$(readlink -f ~/git_repositories)
 
 # === [ path ]
+export PATH="/usr/local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-export PATH="$HOME/.scripts:$PATH"

@@ -37,14 +37,9 @@ alias gb='git branch'
 alias tma='tmux attach'
 alias tmls='tmux ls'
 alias texit='tmux kill-session -t'
-alias pq='
-  select_repository | xargs -I path zsh -c "
-    source $ZDOTDIR/functions.zsh
-    cd $GIT_REPOS/path &&
-    tmux_programing_session \"path\"
-  " &&
-  tmux attach
-'
+
+alias pq='program-quick'
+alias phere='program-here'
 
 # === [ cargo ]
 alias cgr='cargo run'

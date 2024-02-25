@@ -43,9 +43,6 @@ source $XDG_CONFIG_HOME/zsh/completion.zsh
 # === [ aliases ]
 source $XDG_CONFIG_HOME/zsh/aliases.zsh
 
-# === [ scripts ]
-source $XDG_CONFIG_HOME/zsh/functions.zsh
-
 # === [ zplug ]
 source $XDG_CONFIG_HOME/zsh/zplug.zsh
 
