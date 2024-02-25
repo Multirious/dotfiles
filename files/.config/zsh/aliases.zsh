@@ -38,15 +38,7 @@ alias tma='tmux attach'
 alias tmls='tmux ls'
 alias texit='tmux kill-session -t'
 
-alias pq='program-quick'
-alias phere='program-here'
-
-# === [ cargo ]
-alias cgr='cargo run'
-alias cgb='cargo build'
-alias cgt='cargo test'
-alias cgd='cargo +nightly doc --open --all-features --no-deps'
-alias cgbt_w='CARGO_BUILD_TARGET=x86_64-pc-windows-gnu'
+alias pg='program'
 
 # === [ others]
 alias clear="clear -x"
