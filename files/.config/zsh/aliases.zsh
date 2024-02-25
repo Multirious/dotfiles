@@ -33,6 +33,9 @@ alias glol='git log --graph --oneline --decorate'
 alias gsw='git switch'
 alias gb='git branch'
 
+alias gcc="gcm \"Commit from $(hostname)\""
+alias gccc="gcm \"Continue from $(hostname)\""
+
 # === [ tmux ]
 alias tma='tmux attach'
 alias tmls='tmux ls'
