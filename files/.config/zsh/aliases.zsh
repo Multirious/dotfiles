@@ -36,7 +36,7 @@ alias gb='git branch'
 alias gcc="gcm \"Commit from $(hostname)\""
 alias gccc="gcm \"Continue from $(hostname)\""
 alias ggcc="gaa; gcc; gph"
-alias ggccc="gaa; gcm gccc; gph"
+alias ggccc="gaa; gccc; gph"
 
 # === [ tmux ]
 alias tma='tmux attach'

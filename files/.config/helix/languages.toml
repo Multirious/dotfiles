@@ -2,7 +2,7 @@
 timeout = 600
 
 [language-server.rust-analyzer.config]
-cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_target" 
+cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_builds" 
 checkOnSave.command = "clippy" 
 
 [language-server.godot]
@@ -14,15 +14,15 @@ command = "arduino-language-server"
 
 [language-server.ra-multiplex]
 command = "ra-multiplex"
-args = ["client", "--server-path", "rust-analyzer"]
+args = ["client", "--server-path", "/home/peach/.cargo/bin/rust-analyzer"]
 
 [language-server.ra-multiplex.config]
-cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_target" 
+cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_builds" 
 checkOnSave.command = "clippy" 
 
 [[language]]
 name = "rust"
-language-servers = ["ra-multiplex", "rust-analyzer"]
+language-servers = ["ra-multiplex"]
 
 # [language.debugger]
 # command = "codelldb"
