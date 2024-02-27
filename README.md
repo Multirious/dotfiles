@@ -28,5 +28,5 @@ if [ -z "$gh_token" ]; then
 fi
 
 git clone "https://$gh_token@github.com/Multirious/dotfiles" ~/.dotfiles
-~/.dotfiles/installer/install_dotfile_symlinks.sh
+~/.dotfiles/install.sh
 ```
