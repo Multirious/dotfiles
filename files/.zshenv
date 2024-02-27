@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-# === [ dotfiles ]
-export DOTFILES="$HOME/.dotfiles"
-
 # === [ terminal ]
 # export TERM='rxvt-256color' # what is this cfg?
 export COLORTERM=truecolor
@@ -34,7 +31,8 @@ export VISUAL="hx"
 # === [ languages ]
 
 #    --- [ rust ]
-[[ -f ~/.cargo/env ]] && source ~/.cargo/env
+export CARGO_HOME="$HOME/.cargo"
+[[ -f "$CARGO_HOME/env" ]] && source "$CARGO_HOME/env"
 
 # === [ other ]
 export GIT_REPOS=$(readlink -f ~/git_repositories)

@@ -1,0 +1,9 @@
+[Unit]
+Description=Rust analyzer multiplex server
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c "~/.local/bin/ra-multiplex service"
+
+[Install]
+WantedBy=default.target
