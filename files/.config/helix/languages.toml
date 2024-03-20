@@ -22,7 +22,7 @@ checkOnSave.command = "clippy"
 
 [[language]]
 name = "rust"
-language-servers = ["ra-multiplex"]
+language-servers = ["rust-analyzer"]
 
 # [language.debugger]
 # command = "codelldb"
