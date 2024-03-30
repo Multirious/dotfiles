@@ -9,6 +9,8 @@ idle-timeout = 0
 completion-trigger-len = 0
 rulers = [80, 120]
 color-modes = true
+popup-border = "all"
+jump-label-alphabet = "fjdkrueivmchgytnbslwoxaqpz"
 
 [editor.search]
 smart-case = false
