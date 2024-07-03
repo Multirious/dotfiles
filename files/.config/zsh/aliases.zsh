@@ -30,13 +30,10 @@ alias gdc='git diff --cached'
 alias gl='git log'
 alias glo='git log --pretty="oneline"'
 alias glol='git log --graph --oneline --decorate'
+alias glh='glol --color=always | head -10'
 alias gsw='git switch'
 alias gb='git branch'
-
-alias gcc="gcm \"Commit from $(hostname)\""
-alias gccc="gcm \"Continue from $(hostname)\""
-alias ggcc="gaa; gcc; gph"
-alias ggccc="gaa; gccc; gph"
+alias ggc="gaa; gcm \"Commit from $(hostname)\"; gph"
 
 # === [ tmux ]
 alias tma='tmux attach'
