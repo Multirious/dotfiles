@@ -3,7 +3,7 @@ alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 # === [ helix ]
-alias shx="sudo /home/peach/.local/bin/hx --config $XDG_CONFIG_HOME/helix/config.toml"
+alias shx="sudo /home/peach/.local/bin/hx --config /home/peach/.config/helix/config.toml"
 
 # === [ ls ]
 alias ls='ls --color=auto'
