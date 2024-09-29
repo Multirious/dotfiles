@@ -43,3 +43,7 @@ j.k = "normal_mode"
 # my special keybinds pack
 [keys.normal."+"]
 l = ":lsp-restart"
+
+[keys.normal.space]
+f = "file_picker_in_current_directory"
+"S-f" = "file_picker"
