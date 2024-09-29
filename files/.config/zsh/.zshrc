@@ -59,3 +59,4 @@ source $XDG_CONFIG_HOME/zsh/zplug.zsh
 #   fi
 # fi
 
+. "$HOME/.cargo/env"
