@@ -1,0 +1,7 @@
+# Usage: try_source filename
+try_source () {
+    if [ -r "$1" ]; then
+        . "$1"
+    fi
+}
+
