@@ -1,4 +1,4 @@
-# My dotfiles
+# My (old) dotfiles
 
 This repository contains configuration files for the following applications:
 - tmux, tpm
