@@ -1,8 +1,10 @@
 # My Nix-based dotfiles repository
 Dotfiles repository that utilizes Nix for improved
 configurability, consistency, and reproducibility.
+Caching system to allows working in environment without Nix.
 This repository also contains generalized shell configuration
 as described by [this blog][1].
+Overall, a super portable and flexible config for me.
 
 To link without Nix, run:
 ```bash
@@ -25,8 +27,7 @@ Nix rawdogged-derivation and script.
   why don't I just script them up my self?
 - home-manager is not a requirement if for whatever reasons I didn't install it.
 - The configs are built a lot faster than using home-manager.
-- I didn't use flake because they are mostly useless in this case, they are
-  kinda hard to use, and I want this config to be portable as much as possible.
-  So, Nix is the only requirement
+- I didn't use flake because they are mostly useless in this case and they are
+  kinda hard to use.
 
 [1]: https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html
