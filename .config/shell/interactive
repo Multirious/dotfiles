@@ -25,6 +25,8 @@ if [ -t 0 ]; then
   alias gc='git commit'
   alias gs='git status'
   alias gl='git log'
+  alias gps='git push'
+  alias gpu='git pull'
 
   alias hxc='hx_cfg'
   alias hxcl='hx_cfg_link'
