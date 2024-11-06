@@ -1,0 +1,38 @@
+# If in a terminal
+if [ -t 0 ]; then
+  # Disable messsages from other users
+  mesg n
+
+  function hx_cfg() {
+    dir="$HOME/dotfiles/.config/"
+    path=$(find $dir | sed "s|^$dir||" | fzf)
+    hx "$dir/$path" -w $dir
+  }
+
+  function hx_cfg_link() {
+    hx_cfg && $HOME/dotfiles/link
+  }
+
+  alias ls='ls --color=auto'
+  alias ll='ls -alF'
+  alias la='ls -A'
+  alias l='ls -CF'
+
+  alias grep='grep --color=auto'
+
+  alias gaa='git add .'
+  alias gcm='git commit -m'
+  alias gc='git commit'
+  alias gs='git status'
+  alias gl='git log'
+  alias gps='git push'
+  alias gpu='git pull'
+
+  alias hxc='hx_cfg'
+  alias hxcl='hx_cfg_link'
+
+  # If colors
+  # if [ `tput colors` -ge 8 ]; then
+  # fi
+fi
+

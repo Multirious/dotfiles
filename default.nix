@@ -8,52 +8,70 @@
       })
     ];
     config = {};
-  }
+  },
 }: 
 let
   files = pkgs.callPackage ./files.nix {};
-  link_script = /* bash */ ''
+  names = builtins.toString (builtins.attrNames files.names);
+  cached_link_script= /* bash */ ''
+    #!/bin/bash
+    files_dir="$(dirname $(realpath "$0"))"
+
+    ${common_link_script}
+  '';
+  nix_link_script= /* bash */ ''
     #!${pkgs.bash}/bin/bash
-
     export PATH="${pkgs.coreutils}/bin"
-
     files_dir="${files}"
 
-    paths="${ builtins.toString (builtins.attrNames files.names) }"
+    ${common_link_script}
+  '';
+  common_link_script = /* bash */ ''
+    names="${names}"
 
     if [ -z ''${HOME+x} ]; then
       echo "HOME variable is unsetted"
       exit 1
     fi
 
-    unavailable_paths=""
-    for path in $paths; do
-      path="$HOME/$path"
+    if [[ $1 == "-f" ]]; then
+      force="true"
+    fi
 
-      if [ ! -e "$path" ] || { [ -L "$path" ] && [[ $(readlink -f "$path") =~ /nix/store* ]]; }; then
-        :
-      else
-        unavailable_paths="$path $unavailable_paths"
-      fi
-    done
+    unavailable_paths=""
+    if [[ $force != "true" ]]; then
+      for name in $names; do
+        path="$HOME/$name"
+
+        if \
+          [ ! -e "$path" ] \
+          || { [ -L "$path" ] && [[ "$(readlink -f "$path")" =~ /nix/store* ]]; } \
+          || { [ -L "$path" ] && [[ "$(readlink -f "$path")" == "$(readlink -f "$files_dir/$name")" ]]; } \
+        then
+          :
+        else
+          unavailable_paths="$path $unavailable_paths"
+        fi
+      done
+    fi
 
     if [[ $unavailable_paths != "" ]]; then
-      echo "These paths are not available for linking. Please either remove or back them up."
+      echo "These paths are not available for linking."
+      echo "Please either remove, back them up, or use the -f flag to replace the files."
       echo "''${unavailable_paths// /$'\n'}"
       exit 1
     fi
 
     linked="false"
-    for path in $paths; do
-      [ $(readlink -f "$files_dir/$path") -nt $(readlink -f "$HOME/$path") ]
-      if [[ "$(readlink -f "$files_dir/$path")" != "$(readlink -f "$HOME/$path")" ]]; then
-        if [ -e "$HOME/$path" ]; then
-          rm "$HOME/$path"
-          ln -s "$files_dir/$path" "$HOME/$path"
-          echo "Replaced ~/$path"
+    for name in $names; do
+      if [[ "$(readlink -f "$files_dir/$name")" != "$(readlink -f "$HOME/$name")" ]]; then
+        if [ -e "$HOME/$name" ] || [ -L "$HOME/$name" ]; then
+          rm "$HOME/$name"
+          ln -s "$files_dir/$name" "$HOME/$name"
+          echo "Replaced ~/$name"
         else
-          ln -s "$files_dir/$path" "$HOME/$path"
-          echo "Created ~/$path"
+          ln -s "$files_dir/$name" "$HOME/$name"
+          echo "Created ~/$name"
         fi
         linked="true"
       fi
@@ -63,6 +81,31 @@ let
       echo "No new links were created"
     fi
   '';
+  update_cache_script= /* bash */ ''
+    #!${pkgs.bash}/bin/bash
+    export PATH="${pkgs.coreutils}/bin"
+
+    if [[ $# != 1 ]]; then
+      echo "Expects one directory as an argument"
+      exit 1
+    fi
+
+    files="${files}"
+    dir="$1"
+
+    shopt -s extglob
+
+    if [ -d "$dir/cached" ]; then
+      chmod +w "$dir/cached/"*
+      rm -r "$dir/cached/"*
+    else
+      mkdir "$dir/cached"
+    fi
+    
+    cp -Lr --no-preserve=all "$files/." "$dir/cached"
+    cp -L "$(dirname $(realpath "$0"))/link_cached" "$dir/cached"
+    chmod +x "$dir/cached/link_cached"
+  '';
 in
 derivation {
   name = "dotfiles";
@@ -70,6 +113,8 @@ derivation {
   builder = "${pkgs.bash}/bin/bash";
   coreutils = pkgs.coreutils;
   args = [ ./build.sh ];
-  inherit link_script;
+  inherit nix_link_script;
+  inherit cached_link_script;
+  inherit update_cache_script;
   inherit files;
 }

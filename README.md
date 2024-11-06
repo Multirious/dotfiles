@@ -4,7 +4,12 @@ configurability, consistency, and reproducibility.
 This repository also contains generalized shell configuration
 as described by [this blog][1].
 
-After Nix is installed, simply run:
+To link without Nix, run:
+```bash
+./cached/link_cached
+```
+
+If Nix is installed, run:
 ```bash
 ./link.sh
 ```
