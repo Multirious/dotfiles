@@ -1,4 +1,7 @@
 # My Nix-based dotfiles repository
+Note: This is meant to be privated and only documented for me to read so I don't forget stuff.
+The only reason this is public is so I don't have to bother logging in and creating new GitHub token.
+
 Dotfiles repository that utilizes Nix for improved
 configurability, consistency, and reproducibility.
 Caching system to allows working in environment without Nix.
