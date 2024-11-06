@@ -1,5 +1,5 @@
 # My Nix-based dotfiles repository
-Dotfiles repository that utilizes Nix for greater
+Dotfiles repository that utilizes Nix for improved
 configurability, consistency, and reproducibility.
 This repository also contains generalized shell configuration
 as described by [this blog][1].
