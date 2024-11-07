@@ -102,7 +102,8 @@ let
       mkdir "$dir/cached"
     fi
     
-    cp -Lr --no-preserve=all "$files/." "$dir/cached"
+    cp -Lr --preserve=mode "$files/." "$dir/cached"
+    chmod -R +w "$dir/cached"
     cp -L "$(dirname $(realpath "$0"))/link_cached" "$dir/cached"
     chmod +x "$dir/cached/link_cached"
   '';

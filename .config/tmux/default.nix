@@ -1,7 +1,7 @@
 { pkgs }:
 let 
   configs = pkgs.callPackage ./configs.nix {};
-  plugins_config = pkgs.callPackage ./plugins.nix { inherit (configs) plugins; };
+  plugins = pkgs.callPackage ./plugins.nix { inherit (configs) plugins; };
 in
 derivation {
   name = "dotconfig-tmux";
@@ -10,5 +10,6 @@ derivation {
   args = [ ./build.sh ];
   coreutils = "${pkgs.coreutils}/bin";
   inherit (configs) config;
-  inherit plugins_config;
+  plugins_config = plugins.config_text;
+  plugins = "${plugins}";
 }
