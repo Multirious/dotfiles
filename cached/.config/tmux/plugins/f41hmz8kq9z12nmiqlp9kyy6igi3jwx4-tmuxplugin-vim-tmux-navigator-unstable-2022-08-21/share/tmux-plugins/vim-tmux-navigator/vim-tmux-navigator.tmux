@@ -1,4 +1,4 @@
-#!/nix/store/717iy55ncqs0wmhdkwc5fg2vci5wbmq8-bash-5.2p32/bin/bash
+#!/usr/bin/env bash
 
 version_pat='s/^tmux[^0-9]*([.0-9]+).*/\1/p'
 

@@ -1,8 +1,15 @@
-{ pkgs, lib, plugins, ... }:
+{ pkgs, lib, plugins, dontpatch ? false }:
 let
-  pluginName = p: if lib.types.package.check p then p.pname else p.plugin.pname;
-  pluginRtp = p: if lib.types.package.check p then p.rtp else p.plugin.rtp;
-  pluginOut = p: if lib.types.package.check p then p.outPath else p.plugin.outPath;
+  isPackage = lib.types.package.check;
+  pluginName = p: if isPackage p then p.pname else p.plugin.pname;
+  pluginRtp = p: if isPackage p then p.rtp else p.plugin.rtp;
+  pluginOut = p: if isPackage p then p.outPath else p.plugin.outPath;
+  unpatchedPlugins = builtins.map
+    (p: if isPackage p
+      then p.overrideAttrs (attrs: { dontPatchShebangs = true; })
+      else p // { plugin = p.plugin.overrideAttrs (attrs: { dontPatchShebangs = true; }); }
+    )
+    plugins;
 in
 derivation {
   name = "dotconfig-tmux-plugins";
@@ -10,9 +17,13 @@ derivation {
   builder = [ "${pkgs.bash}/bin/bash" ];
   args = [ ./build_plugins.sh ];
   coreutils = "${pkgs.coreutils}/bin";
-  plugins_store_path = "${builtins.toString (map (p: pluginOut p) plugins)}";
+  plugins_store_path = builtins.toString (
+    map
+      (p: pluginOut p)
+      (if dontpatch then unpatchedPlugins else plugins)
+  );
 } // {
-  config_text = ''
+  configText = ''
     ${
       lib.concatMapStringsSep
         "\n\n"
@@ -22,7 +33,7 @@ derivation {
           ${p.config or ""}
           run-shell '#{d:current_file}/plugins/${lib.removePrefix "/nix/store/" (pluginRtp p)}''\'''
         )
-        plugins
+        (if dontpatch then unpatchedPlugins else plugins)
     }
     # ============================================= #
   '';

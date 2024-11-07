@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, dontpatch ? false }:
 let
   configs = pkgs.callPackage ./configs.nix {};
 in

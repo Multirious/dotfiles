@@ -11,8 +11,9 @@
   },
 }: 
 let
-  files = pkgs.callPackage ./files.nix {};
-  names = builtins.toString (builtins.attrNames files.names);
+  patchedFiles = pkgs.callPackage ./files.nix {};
+  unpatchedFiles = pkgs.callPackage ./files.nix { dontpatch = true; };
+  names = builtins.toString (builtins.attrNames patchedFiles.names);
   cached_link_script= /* bash */ ''
     #!/bin/bash
     files_dir="$(dirname $(realpath "$0"))"
@@ -22,7 +23,7 @@ let
   nix_link_script= /* bash */ ''
     #!${pkgs.bash}/bin/bash
     export PATH="${pkgs.coreutils}/bin"
-    files_dir="${files}"
+    files_dir="${patchedFiles}"
 
     ${common_link_script}
   '';
@@ -90,7 +91,7 @@ let
       exit 1
     fi
 
-    files="${files}"
+    files="${unpatchedFiles}"
     dir="$1"
 
     shopt -s extglob
@@ -105,7 +106,7 @@ let
     cp -Lr --preserve=mode "$files/." "$dir/cached"
     chmod -R +w "$dir/cached"
     cp -L "$(dirname $(realpath "$0"))/link_cached" "$dir/cached"
-    chmod +x "$dir/cached/link_cached"
+    chmod +wx "$dir/cached/link_cached"
   '';
 in
 derivation {
@@ -117,5 +118,6 @@ derivation {
   inherit nix_link_script;
   inherit cached_link_script;
   inherit update_cache_script;
-  inherit files;
+  patched_files = patchedFiles;
+  unpatched_files = unpatchedFiles;
 }

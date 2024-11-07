@@ -1,1 +1,6 @@
-nix-build "$(dirname $0)" && ./result/link
+#!/usr/bin/env bash
+set -e
+script_dir="$(dirname $(realpath "$0"))"
+nix-build "$script_dir" -o "$script_dir/result"
+"$script_dir/result/update_cache" "$script_dir"
+"$script_dir/result/link" "$@"

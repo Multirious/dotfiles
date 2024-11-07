@@ -35,12 +35,12 @@
     bind '"' split-window -v -c "#{pane_current_path}"
     bind % split-window -h -c "#{pane_current_path}"
   '';
-  plugins = [
+  plugins = with pkgs.tmuxPlugins; [
      {
-       plugin = pkgs.tmuxPlugins.catppuccin;
+       plugin = catppuccin;
        config  = "set -g @catppuccin_flavour 'mocha'";
      }
-     pkgs.tmuxPlugins.yank
-     pkgs.tmuxPlugins.vim-tmux-navigator
+     yank
+     vim-tmux-navigator
   ];
 }
