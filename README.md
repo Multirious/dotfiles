@@ -13,6 +13,8 @@ To link without Nix, run:
 ```bash
 ./cached/link_cached
 ```
+The `cached` directory contains the built Nix derivation with all symbolic links from /nix/store resolved and copied including plugins.
+This creates a standalone dotfiles collection without any required dependecy, not even plugin managers. Pretty cool!
 
 If Nix is installed, run:
 ```bash
