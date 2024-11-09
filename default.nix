@@ -97,8 +97,7 @@ let
     shopt -s extglob
 
     if [ -d "$dir/cached" ]; then
-      chmod +w "$dir/cached/"*
-      rm -r "$dir/cached/"*
+      rm -rf "$dir/cached"
     else
       mkdir "$dir/cached"
     fi

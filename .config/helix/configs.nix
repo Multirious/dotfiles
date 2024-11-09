@@ -12,6 +12,7 @@
     completion-trigger-len = 0
     rulers = [80, 120]
     color-modes = true
+    true-color = true
     popup-border = "all"
     jump-label-alphabet = "fjdkrueivmchgytnbslwoxaqpz"
 
