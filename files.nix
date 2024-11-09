@@ -14,6 +14,7 @@ let
     ".config/bash" = ./.config/bash;
 
     ".config/home-manager" = ./.config/home-manager;
+    ".config/starship.toml" = ./.config/starship.toml;
 
     ".config/tmux" = pkgs.callPackage ./.config/tmux { inherit dontpatch; };
     ".config/helix" = pkgs.callPackage ./.config/helix { inherit dontpatch; };

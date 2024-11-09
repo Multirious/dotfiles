@@ -1,2 +1,5 @@
+#!/usr/bin/env bash
+
 . ~/.config/shell/interactive
 
+eval "$(starship init bash)"

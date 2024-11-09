@@ -15,6 +15,8 @@
     git
     zsh
     fzf
+    home-manager
+    starship
     (nerdfonts.override { fonts = ["Hack"]; })
   ];
   fonts.fontconfig.enable = true;
