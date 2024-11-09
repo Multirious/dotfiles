@@ -2,13 +2,15 @@
 
 . ~/.config/shell/interactive
 
-HYPHEN_INSENSITIVE="true"
-HIST_STAMPS="dd/mm/yyyy"
+eval "$(starship init zsh)"
 
-setopt AUTO_CD
-setopt AUTO_PUSHD
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_SILENT
+# HYPHEN_INSENSITIVE="true"
+# HIST_STAMPS="dd/mm/yyyy"
 
-source ~/.config/zsh/completion.zsh
-source ~/.config/zsh/dirs.zsh
+# setopt AUTO_CD
+# setopt AUTO_PUSHD
+# setopt PUSHD_IGNORE_DUPS
+# setopt PUSHD_SILENT
+
+# source ~/.config/zsh/completion.zsh
+# source ~/.config/zsh/dirs.zsh
