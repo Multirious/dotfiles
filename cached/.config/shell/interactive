@@ -15,7 +15,7 @@ if [ -t 0 ]; then
   alias gc='git commit'
   alias gs='git status'
   alias gl='git log'
-  alias gps='git push'
+  alias gph='git push'
   alias gpu='git pull'
 
   alias hxc='hx "$HOME/dotfiles/.config/" && "$HOME/dotfiles/link"'
