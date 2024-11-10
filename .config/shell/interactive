@@ -10,6 +10,7 @@ if [ -t 0 ]; then
 
   alias grep='grep --color=auto'
 
+  alias ga='git add'
   alias gaa='git add .'
   alias gcm='git commit -m'
   alias gc='git commit'
