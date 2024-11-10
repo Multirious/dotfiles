@@ -10,6 +10,8 @@ if [ -t 0 ]; then
 
   alias grep='grep --color=auto'
 
+  alias clear='clear -x'
+
   alias ga='git add'
   alias gaa='git add .'
   alias gcm='git commit -m'
@@ -26,6 +28,15 @@ if [ -t 0 ]; then
 
   . ~/.config/shell/scripts
 
+  
+  if command -v tmux &> /dev/null \
+    && [ -n "$PS1" ] \
+    && [[ ! "$TERM" =~ screen ]] \
+    && [[ ! "$TERM" =~ tmux ]] \
+    && [ -z "$TMUX" ]
+  then
+    exec tmux new-session -A -s main
+  fi
   # If colors
   # if [ `tput colors` -ge 8 ]; then
   # fi
