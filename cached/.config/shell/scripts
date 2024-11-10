@@ -1,0 +1,70 @@
+#!/bin/sh
+
+function tmux_develop_session {
+  set -e
+
+  if [ ! $# -eq 2 ]; then
+    echo "Expecting a session name and a directory" >> /dev/stderr
+    return 1
+  fi
+
+  name="$1"
+  dir="$2"
+
+  tmux new-session -d -s "$name" -n "Develop" -c "$dir"
+
+  tmux split-window -t "$name" -h -c "$dir"
+  tmux send-keys -t "$name":0.0 "hx ." Enter
+  tmux new-window -t "$name":1 -n "Other" -c "$dir"
+
+  tmux select-window -t "$name":0
+  tmux select-pane -t "$name":0.0
+}
+
+function tmux_develop {
+  if [ ! $# -eq 1 ]; then
+    echo "Expecting a directory" >> /dev/stderr
+    return 1
+  fi
+  
+  dir="$(realpath "./$1")"
+
+  if [ ! -d "$dir" ]; then
+    echo "Directory not found" >> /dev/stderr
+    return 1
+  fi
+
+  name="$(basename "$dir")"
+
+  if tmux has-session -t="$name" 2>/dev/null; then
+    echo "Session $name already exists"
+    return 1
+  fi
+
+  tmux_develop_session $name $dir
+
+  if [ -n "$TMUX" ]; then
+    tmux switch -t="$name"
+  else
+    tmux attach-session -t="$name"
+  fi
+}
+
+function tmux_fzf_sessions {
+  name=$(tmux list-session | fzf)
+
+  if [ -z "$name" ]; then
+    echo "No session selected" >> /dev/stderr
+    return 1
+  fi
+  
+  name=${name%%:*}
+  current_session=$(tmux display-message -p '#S')
+
+  if [ "$current_session" -eq "$name" ]; then
+    echo "You're already in this session" >> /dev/stderr
+    return 1
+  fi
+
+  tmux attach-session -t="$name"
+}

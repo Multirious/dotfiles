@@ -20,6 +20,11 @@ if [ -t 0 ]; then
 
   alias hxc='hx "$HOME/dotfiles/.config/" && "$HOME/dotfiles/link"'
 
+  alias dev='tmux_develop'
+  alias ses='tmux_fzf_sessions'
+
+  . ~/.config/shell/scripts
+
   # If colors
   # if [ `tput colors` -ge 8 ]; then
   # fi

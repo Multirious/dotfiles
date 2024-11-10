@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   config = /* bash */''
+    set-option -g status-position top
+
     # better colors
     set-option -sa terminal-overrides ",xterm*:Tc"
 
@@ -14,15 +16,15 @@
     bind -n M-H previous-window
     bind -n M-L next-window
 
-    set -g @catppuccin_flavour 'mocha'
+    # set -g @catppuccin_flavour 'mocha'
 
-    set -g @plugin 'tmux-plugins/tpm'
-    set -g @plugin 'tmux-plugins/tmux-sensible'
-    set -g @plugin 'christoomey/vim-tmux-navigator'
-    set -g @plugin 'dreamsofcode-io/catppuccin-tmux'
-    set -g @plugin 'tmux-plugins/tmux-yank'
+    # set -g @plugin 'tmux-plugins/tpm'
+    # set -g @plugin 'tmux-plugins/tmux-sensible'
+    # set -g @plugin 'christoomey/vim-tmux-navigator'
+    # set -g @plugin 'dreamsofcode-io/catppuccin-tmux'
+    # set -g @plugin 'tmux-plugins/tmux-yank'
 
-    run '~/.tmux/plugins/tpm/tpm'
+    # run '~/.tmux/plugins/tpm/tpm'
 
     # set vi-mode
     set-window-option -g mode-keys vi

@@ -18,6 +18,9 @@
     home-manager
     starship
     (nerdfonts.override { fonts = ["Hack"]; })
+
+    rust-analyzer
+    cargo
   ];
   fonts.fontconfig.enable = true;
 
