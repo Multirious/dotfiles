@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  config = /* bash */''
+  config = /*bash*/''
     set-option -g status-position top
 
     # better colors
@@ -34,15 +34,35 @@
     bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
     # open split pane with current path
-    bind '"' split-window -v -c "#{pane_current_path}"
-    bind % split-window -h -c "#{pane_current_path}"
+    bind 'h' split-window -v -c "#{pane_current_path}"
+    bind 'v' split-window -h -c "#{pane_current_path}"
+    unbind '%'
+    unbind '"'
   '';
   plugins = with pkgs.tmuxPlugins; [
-     {
-       plugin = catppuccin;
-       config  = "set -g @catppuccin_flavour 'mocha'";
-     }
-     yank
-     vim-tmux-navigator
+    {
+      plugin = catppuccin;
+      preConfig = /*bash*/''
+        # set -g @catppuccin_flavor "latte"
+
+        # set -g @catppuccin_status_background "none"
+      '';
+      postConfig  = /*bash*/''
+        # set -g status-right-length 100
+        # set -g status-left-length 100
+        # set -g status-right '#[fg=#{@thm_crust},bg=#{@thm_teal}] tf: #S '
+        # set -g status-left ""
+        # set -g status-right "#{E:@catppuccin_status_application}"
+        # set -agF status-right "#{E:@catppuccin_status_cpu}"
+        # set -ag status-right "#{E:@catppuccin_status_session}"
+        # set -ag status-right "#{E:@catppuccin_status_uptime}"
+        # set -agF status-right "#{E:@catppuccin_status_battery}"
+      '';
+    }
+    yank
+    vim-tmux-navigator
+    cpu
+    battery
   ];
 }
+#:w<ret>:sh ./link && tmux source<minus>file ~/.config/tmux/tmux.conf && echo "tmux updated"<ret>

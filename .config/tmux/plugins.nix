@@ -22,19 +22,33 @@ derivation {
       (p: pluginOut p)
       (if dontpatch then unpatchedPlugins else plugins)
   );
-} // {
-  configText = ''
-    ${
-      lib.concatMapStringsSep
-        "\n\n"
-        (p: ''
+} // (
+  let
+    pluginsText = lib.concatMapStringsSep
+      "\n"
+      (p:
+        let 
+          preConfig = if builtins.hasAttr "preConfig" p
+            then "${lib.trim p.preConfig}\n"
+            else "";
+          postConfig = if builtins.hasAttr "postConfig" p
+            then "\n${lib.trim p.postConfig}"
+            else "";
+          runPlugin = "run-shell '#{d:current_file}/plugins/${lib.removePrefix "/nix/store/" (pluginRtp p)}'";
+        in
+        ''
           # ${pluginName p}
           # ---------------------
-          ${p.config or ""}
-          run-shell '#{d:current_file}/plugins/${lib.removePrefix "/nix/store/" (pluginRtp p)}''\'''
-        )
-        (if dontpatch then unpatchedPlugins else plugins)
-    }
-    # ============================================= #
-  '';
-}
+          ${preConfig}${runPlugin}${postConfig}
+        ''
+      )
+      (if dontpatch then unpatchedPlugins else plugins);
+  in
+  {
+    configText = ''
+      ${pluginsText}
+      # ============================================= #
+    '';
+  }
+)
+
