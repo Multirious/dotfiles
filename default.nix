@@ -2,9 +2,6 @@
   pkgs ? import <nixpkgs> {
     overlays = [
       (final: prev: {
-        lib = prev.lib.extend (libFinal: libPrev: {
-          inherit  (prev.callPackage ./mylib.nix {}) attrsToKv;
-        });
         inherit (prev.callPackage ./make-config.nix {}) mkConfig;
       })
     ];

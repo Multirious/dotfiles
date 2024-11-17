@@ -1,5 +1,11 @@
 { pkgs, dontPatch ? false }:
 let
+  attrsToKv = attrs:
+    pkgs.lib.concatStringsSep ":"
+    (map
+      (k: "${k}=${attrs.${k}}")
+      (builtins.attrNames attrs)
+    );
   names = {
     ".bash_logout" = ./.bash_logout;
     ".bashrc" = ./.bashrc;
@@ -28,7 +34,7 @@ derivation {
   args = [ ./files.sh ];
   coreutils = pkgs.coreutils;
   system = builtins.currentSystem;
-  paths = pkgs.lib.attrsToKv names;
+  paths = attrsToKv names;
 } // {
   inherit names;
 }
