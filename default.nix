@@ -5,6 +5,7 @@
         lib = prev.lib.extend (libFinal: libPrev: {
           inherit  (prev.callPackage ./mylib.nix {}) attrsToKv;
         });
+        inherit (prev.callPackage ./make-config.nix {}) mkConfig;
       })
     ];
     config = {};
@@ -12,7 +13,7 @@
 }: 
 let
   patchedFiles = pkgs.callPackage ./files.nix {};
-  unpatchedFiles = pkgs.callPackage ./files.nix { dontpatch = true; };
+  unpatchedFiles = pkgs.callPackage ./files.nix { dontPatch = true; };
   names = builtins.toString (builtins.attrNames patchedFiles.names);
   cached_link_script= /* bash */ ''
     #!/bin/bash

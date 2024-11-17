@@ -1,13 +1,8 @@
-{ pkgs, dontpatch ? false }:
-let
-  configs = pkgs.callPackage ./configs.nix {};
-in
-derivation {
+{ mkConfig, pkgs, dontPatch ? false }:
+mkConfig {
   name = "dotconfig-helix";
-  system = builtins.currentSystem;
-  builder = "${pkgs.bash}/bin/bash";
-  args = [ ./build.sh ];
-  inherit (pkgs) coreutils;
-  config_editor = configs.editor;
-  config_languages = configs.languages;
+  files = {
+    "config.toml" = ./config.toml;
+    "languages.toml" = ./languages.toml;
+  };
 }

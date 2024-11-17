@@ -1,4 +1,4 @@
-{ pkgs, dontpatch ? false }:
+{ pkgs, dontPatch ? false }:
 let
   names = {
     ".bash_logout" = ./.bash_logout;
@@ -17,9 +17,9 @@ let
     ".config/home-manager" = ./.config/home-manager;
     ".config/starship.toml" = ./.config/starship.toml;
 
-    ".config/tmux" = pkgs.callPackage ./.config/tmux { inherit dontpatch; };
-    ".config/helix" = pkgs.callPackage ./.config/helix { inherit dontpatch; };
-    ".config/git" = pkgs.callPackage ./.config/git { inherit dontpatch; };
+    ".config/tmux" = pkgs.callPackage ./.config/tmux { inherit dontPatch; };
+    ".config/helix" = pkgs.callPackage ./.config/helix { inherit dontPatch; };
+    ".config/git" = pkgs.callPackage ./.config/git { inherit dontPatch; };
   };
 in
 derivation {

@@ -1,4 +1,4 @@
-{ pkgs, lib, plugins, dontpatch ? false }:
+{ pkgs, lib, plugins, dontPatch ? false }:
 let
   isPackage = lib.types.package.check;
   pluginPname = p: if isPackage p then p.pname else p.plugin.pname;
@@ -21,7 +21,7 @@ derivation {
   plugins_store_path = builtins.toString (
     map
       (p: pluginOutPath p)
-      (if dontpatch then unpatchedPlugins else plugins)
+      (if dontPatch then unpatchedPlugins else plugins)
   );
 } // (
   let
@@ -47,7 +47,7 @@ derivation {
           ${pre}${runPlugin}${post}
         ''
       )
-      (if dontpatch then unpatchedPlugins else plugins);
+      (if dontPatch then unpatchedPlugins else plugins);
   in
   {
     configText = ''

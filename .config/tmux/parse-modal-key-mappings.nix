@@ -1,4 +1,4 @@
-{ pkgs, keymap }:
+{ pkgs, modalKeyMappings }:
 let
   inherit (pkgs) lib;
   attrsRec = set:
@@ -28,8 +28,8 @@ let
     ;
   attrsPath = set:
     builtins.listToAttrs (_attrsPath "" set);
-  keyPaths = attrsPath keymap;
-  keys = attrsRec keymap;
+  keyPaths = attrsPath modalKeyMappings;
+  keys = attrsRec modalKeyMappings;
   keyBinds = builtins.listToAttrs (
     map
     (key: {

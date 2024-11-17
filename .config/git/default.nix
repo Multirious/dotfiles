@@ -1,12 +1,12 @@
-{ pkgs, dontpatch ? false }:
+{ mkConfig, pkgs, dontPatch ? false }:
 let
-  configs = pkgs.callPackage ./configs.nix {};
+  gitk = ./gitk;
+  config = ./config;
 in
-derivation {
+mkConfig {
   name = "dotconfig-git";
-  system = builtins.currentSystem;
-  builder = "${pkgs.bash}/bin/bash";
-  args = [ ./build.sh ];
-  inherit (pkgs) coreutils;
-  config = configs.config;
+  files = {
+    inherit config;
+    inherit gitk;
+  };
 }
