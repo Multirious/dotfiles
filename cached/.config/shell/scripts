@@ -61,10 +61,14 @@ function tmux_fzf_sessions {
   name=${name%%:*}
   current_session=$(tmux display-message -p '#S')
 
-  if [ "$current_session" -eq "$name" ]; then
+  if [ "$current_session" = "$name" ]; then
     echo "You're already in this session" >> /dev/stderr
     return 1
   fi
 
-  tmux attach-session -t="$name"
+  if [ -n "$TMUX" ]; then
+    tmux switch -t="$name"
+  else
+    tmux attach-session -t="$name"
+  fi
 }

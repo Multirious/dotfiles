@@ -5,6 +5,9 @@ let
     inherit (configs) plugins;
     inherit dontpatch;
   };
+  keyBindings = pkgs.callPackage ./modal_keymap.nix {
+    inherit (configs) keymap;
+  };
 in
 derivation {
   name = "dotconfig-tmux";
@@ -15,4 +18,5 @@ derivation {
   inherit (configs) config;
   plugins_config = plugins.configText;
   plugins = "${plugins}";
+  key_bindings = "${keyBindings}";
 }

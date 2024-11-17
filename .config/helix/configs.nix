@@ -98,6 +98,10 @@
     # runInTerminal = true
 
     [[language]]
+    name = "nix"
+    language-servers = ["nixd"]
+
+    [[language]]
     name = "gdscript"
     language-servers = ["godot"]
 

@@ -18,6 +18,7 @@
     home-manager
     starship
     (nerdfonts.override { fonts = ["Hack"]; })
+    jq
 
     rust-analyzer
     cargo

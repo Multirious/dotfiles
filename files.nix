@@ -7,6 +7,7 @@ let
     ".profile" = ./.profile;
     ".zshenv" = ./.zshenv;
     ".zshrc" = ./.zshrc;
+    ".zprofile" = ./.zprofile;
 
     ".config/shell" = ./.config/shell;
     ".config/sh" = ./.config/sh;

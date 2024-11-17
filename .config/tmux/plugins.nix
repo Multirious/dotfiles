@@ -1,9 +1,10 @@
 { pkgs, lib, plugins, dontpatch ? false }:
 let
   isPackage = lib.types.package.check;
-  pluginName = p: if isPackage p then p.pname else p.plugin.pname;
+  pluginPname = p: if isPackage p then p.pname else p.plugin.pname;
+  pluginName = p: if isPackage p then p.pluginName else p.plugin.pluginName;
   pluginRtp = p: if isPackage p then p.rtp else p.plugin.rtp;
-  pluginOut = p: if isPackage p then p.outPath else p.plugin.outPath;
+  pluginOutPath = p: if isPackage p then p.outPath else p.plugin.outPath;
   unpatchedPlugins = builtins.map
     (p: if isPackage p
       then p.overrideAttrs (attrs: { dontPatchShebangs = true; })
@@ -19,7 +20,7 @@ derivation {
   coreutils = "${pkgs.coreutils}/bin";
   plugins_store_path = builtins.toString (
     map
-      (p: pluginOut p)
+      (p: pluginOutPath p)
       (if dontpatch then unpatchedPlugins else plugins)
   );
 } // (
@@ -28,18 +29,22 @@ derivation {
       "\n"
       (p:
         let 
-          preConfig = if builtins.hasAttr "preConfig" p
-            then "${lib.trim p.preConfig}\n"
+          pluginRtpPath = lib.removePrefix "/nix/store/" (pluginRtp p);
+          pluginDir = lib.removePrefix "/nix/store/" (pluginOutPath p);
+          runPlugin = "run-shell '#{d:current_file}/plugins/${pluginRtpPath}'";
+          pre = if builtins.hasAttr "pre" p
+            then "${lib.trim p.pre}\n"
             else "";
-          postConfig = if builtins.hasAttr "postConfig" p
-            then "\n${lib.trim p.postConfig}"
+          post = if builtins.hasAttr "post" p
+            then if builtins.isFunction p.post
+              then "\n${lib.trim (p.post "/home/peach/.config/tmux/plugins/${pluginDir}/share/tmux-plugins/${lib.removePrefix "tmux-plugin" (pluginName p.plugin)}")}" 
+              else "\n${lib.trim p.post}"
             else "";
-          runPlugin = "run-shell '#{d:current_file}/plugins/${lib.removePrefix "/nix/store/" (pluginRtp p)}'";
         in
         ''
-          # ${pluginName p}
+          # ${pluginPname p}
           # ---------------------
-          ${preConfig}${runPlugin}${postConfig}
+          ${pre}${runPlugin}${post}
         ''
       )
       (if dontpatch then unpatchedPlugins else plugins);
