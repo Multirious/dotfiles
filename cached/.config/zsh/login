@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 . ~/.config/shell/login
 
-export HISTFILE=".zsh-hsts"
+export HISTFILE="~/.zsh-hsts"
 export SAVEHIST="1000"
 export HISTSIZE="1000"
