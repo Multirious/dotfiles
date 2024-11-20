@@ -1,82 +1,165 @@
 { pkgs, modalKeyMappings }:
 let
   inherit (pkgs) lib;
+  inherit (lib.attrsets)
+    nameValuePair foldlAttrs mapAttrs
+    mapAttrs' filterAttrs mapAttrsToList;
+
+  debug = v: builtins.trace (builtins.toJSON v) v;
+
+  escapeFormat = s:
+    builtins.replaceStrings
+    [ "#" "," ]
+    [ "##" "#," ]
+    s;
+
+  # Merge all attributes into the same set recursively
+  # {
+  #   a = "1";
+  #   b = {
+  #     c = "2";
+  #     d = "3";
+  #   };
+  #   c = "4";
+  # {
+  #
+  # Into
+  #
+  # {
+  #   a = null;
+  #   b = null;
+  #   c = null;
+  #   d = null;
+  # }
   attrsRec = set:
-    lib.lists.foldl
-    (res: attr:
-      res // (
-      if builtins.isAttrs set."${attr}"
-       then attrsRec set."${attr}" // { "${attr}" = null; }
-       else { "${attr}" = null; } 
+    foldlAttrs
+    (acc: name: value:
+      acc // (
+        if builtins.isAttrs value
+        then (attrsRec value) // { "${name}" = null; }
+        else { "${name}" = null; }
       )
     )
     {}
-    (builtins.attrNames set);
+    set;
+
+  # Convert nested attributes into space seperated path
+  # {
+  #   a = "1";
+  #   b = {
+  #     c = "2";
+  #     d = "3";
+  #   };
+  #   c = "4";
+  # {
+  #
+  # Into
+  #
+  # {
+  #   " a" = "1";
+  #   " b c" = "2";
+  #   " b d" = "3";
+  #   " c" = "4";
+  # }
   _attrsPath = path: set:
-      lib.lists.foldl
-      (list: key:
-        list ++ (if builtins.isAttrs set."${key}"
-          then _attrsPath "${path} ${key}" set."${key}"
-          else [{
-            name = "${path} ${key}";
-            value = set."${key}";
-          }]
+      foldlAttrs
+      (acc: name: value:
+        let currPath = "${path} ${name}";
+        in
+        acc // (
+          if builtins.isAttrs value
+          then _attrsPath currPath value
+          else { "${currPath}" = value; }
         )
       )
-      []
-      (builtins.attrNames set)
-    ;
-  attrsPath = set:
-    builtins.listToAttrs (_attrsPath "" set);
-  keyPaths = attrsPath modalKeyMappings;
-  keys = attrsRec modalKeyMappings;
-  keyBinds = builtins.listToAttrs (
-    map
-    (key: {
-      name = key;
-      value = builtins.listToAttrs (
-        map
-        (keyPath: {
-          name = keyPath;
-          value = keyPaths."${keyPath}";
-        })
-        (
-          builtins.filter
-          (path: lib.strings.hasSuffix key path)
-          (builtins.attrNames keyPaths)
-        )
-      );
-    })
-    (builtins.attrNames keys)
-  );
-  fixIndent = string:
-    builtins.replaceStrings ["\n"] ["\n  "] (lib.trim string);
-  keybindTexts = map
-    (key: ''
-      bind-key -T copy-mode-vi ${key} {
-        set-option -Fp @current_keys '#{@current_keys} ${key}'
-        ${lib.concatMapStringsSep
-          "\n  "
-          (path:
-            let
-              value = keyBinds."${key}"."${path}";
-            in
-            fixIndent
-            ''
-              if-shell -F '#{==:"#{@current_keys}","${path}"}' {
-                ${fixIndent value}
-                set-option -p @current_keys '''
-              }
-            ''
-          )
-          (builtins.attrNames keyBinds."${key}")
-        }
+      {}
+      set;
+  attrsPath = set: _attrsPath "" set;
+
+  _enumSubpaths = path:
+    lib.lists.foldl
+    (acc: c:
+      let curr = "${acc.curr} ${c}";
+      in
+      {
+        inherit curr;
+        enumerated = acc.enumerated ++ [ curr ];
       }
-    '')
-    (builtins.attrNames keyBinds);
+    )
+    { curr = ""; enumerated = []; }
+    (builtins.filter
+      (s: s != "")
+      (lib.strings.splitString " " path)
+    );
+  enumSubpaths = path: (_enumSubpaths path).enumerated;
+  enumSubpathsMany = paths:
+    lib.lists.unique
+    (lib.lists.foldl
+      (acc: path:
+        acc ++ (enumSubpaths path)
+      )
+      []
+      paths
+    );
+
+  pathMappings = attrsPath modalKeyMappings;
+  keys = attrsRec modalKeyMappings;
+  keyPathMappings = 
+    mapAttrs
+    (key: value:
+      filterAttrs
+        (path: mapping: lib.strings.hasSuffix key path)
+        pathMappings
+    )
+    keys;
+  indented = string:
+    builtins.replaceStrings ["\n"] ["\n  "] (lib.trim string);
+  allSubpaths = enumSubpathsMany (builtins.attrNames pathMappings);
+  keyBindings =
+    lib.strings.concatStrings
+    (mapAttrsToList
+      (keyRoot: pathMappings:
+      let
+        mappingChecks = mapAttrsToList
+          (path: mapping: ''
+            if-shell -F '#{==:#{@current_keys},${escapeFormat path}}' {
+              ${indented mapping}
+              set-option -up @current_keys
+          '')
+          pathMappings;
+        modeChecks =
+          builtins.filter
+          (path: lib.strings.hasSuffix keyRoot path)
+          allSubpaths;
+        modeChecksRegex = 
+          lib.strings.concatStringsSep "|"
+          (map
+            (path: "^${escapeFormat (lib.strings.escapeRegex path)}$")
+            modeChecks
+          );
+      in
+      ''
+        bind-key -T copy-mode-vi ${keyRoot} {
+          set-option -Fp @current_keys '#{@current_keys} ${keyRoot}'
+          ${lib.strings.concatMapStringsSep
+            "\n  } { "
+            (s: indented (indented s))
+            mappingChecks
+          }
+          ${ if builtins.length mappingChecks > 0 then "} { " else "" }if-shell -F '#{!=:#{m|r:${modeChecksRegex},#{@current_keys}},1}' {
+            set-option -up @current_keys
+          }${lib.concatStrings (lib.replicate (builtins.length mappingChecks) "}")}
+        }
+      '')
+      keyPathMappings
+    );
 in
 /*bash*/''
 set-option -g @mode 'normal'
 set-option -g @current_keys '''
-${ lib.concatStrings keybindTexts }
+set-hook -ag after-copy-mode {
+  set-option -up @mode
+  set-option -up @current_keys
+}
+${ keyBindings }
 ''
