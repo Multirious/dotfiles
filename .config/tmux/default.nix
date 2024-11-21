@@ -311,8 +311,6 @@ let
 
     bind -n M-z resize-pane -Z
 
-    bind -n M-n new-window
-
     bind -n M-1 select-window -t 1
     bind -n M-2 select-window -t 2
     bind -n M-3 select-window -t 3
