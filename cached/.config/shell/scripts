@@ -14,11 +14,11 @@ function tmux_develop_session {
   tmux new-session -d -s "$name" -n "Develop" -c "$dir"
 
   tmux split-window -t "$name" -h -c "$dir"
-  tmux send-keys -t "$name":0.0 "hx ." Enter
-  tmux new-window -t "$name":1 -n "Other" -c "$dir"
+  tmux send-keys -t "$name":1.1 "hx ." Enter
+  tmux new-window -t "$name":2 -n "Other" -c "$dir"
 
-  tmux select-window -t "$name":0
-  tmux select-pane -t "$name":0.0
+  tmux select-window -t "$name":1
+  tmux select-pane -t "$name":1.1
 }
 
 function tmux_develop {

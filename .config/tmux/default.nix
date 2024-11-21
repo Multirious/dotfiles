@@ -234,6 +234,7 @@ let
     set -g status-position top
     set -g set-clipboard on
     set -g base-index 1
+    set -g pane-base-index 1
     set -g renumber-windows on
     set -g pane-border-indicators colour
     set -g pane-border-lines single
@@ -243,6 +244,7 @@ let
     set -g status-interval 1
     set -g status-keys vi
     set -g mouse on
+    set -g detach-on-destroy off
 
     set -g monitor-activity off
     set -g monitor-bell on
@@ -252,6 +254,8 @@ let
     set -g bell-action any
     set -g silence-action other
     set -g activity-action none
+
+    run-shell -b 'while IFS= read -r line; do; result=$(echo "$line" | cut -d' ' -f1); echo "$result"; done < $(tmux show-hooks -g)'
 
     set-hook -gu alert-silence
     set-hook -ga alert-silence {
@@ -275,8 +279,6 @@ let
         set -w @bell_flag 0
       }
     }
-
-    run-shell -b 'while IFS= read -r line; do; result=$(echo "$line" | cut -d' ' -f1); echo "$result"; done < $(tmux show-hooks -g)'
 
     unbind '%'
     unbind '"'
