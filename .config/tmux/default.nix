@@ -255,7 +255,7 @@ let
     set -g silence-action other
     set -g activity-action none
 
-    run-shell -b 'while IFS= read -r line; do; result=$(echo "$line" | cut -d' ' -f1); echo "$result"; done < $(tmux show-hooks -g)'
+    # run-shell -b 'while IFS= read -r line; do; result=$(echo "$line" | cut -d' ' -f1); echo "$result"; done < $(tmux show-hooks -g)'
 
     set-hook -gu alert-silence
     set-hook -ga alert-silence {
@@ -372,8 +372,10 @@ let
     %hidden is_view_mode='#{==:#{pane_mode},view-mode}'
     %hidden is_tree_mode='#{==:#{pane_mode},tree-mode}'
     %hidden is_other_mode='#{!=:#{m|r:^$|copy-mode|view-mode|tree-mode,#{pane_mode}},1}'
+    %hidden is_vi_keys='#{||:#{E:is_copy_mode},#{E:is_view_mode}}'
+    %hidden is_any_current_keys='#{!=:#{@current_keys},}'
     set -g @pane_border_left '#{?pane_active,#{?#{E:is_no_mode}, NORM ,}#{?#{E:is_copy_mode}, #[fg=#{@copy_mode_color}]COPY ,}#{?#{E:is_view_mode}, #[fg=#{@view_mode_color}]VIEW ,}#{?#{E:is_tree_mode}, #[fg=#{@tree_mode_color}]TREE ,}#{?#{E:is_other_mode}, #[fg=#{@bg}]#{s|-mode||:#{pane_mode}} ,}#[default],}#[default]'
-    set -g @pane_border_right '#{?pane_active,#{?#{E:is_copy_mode}, #{e|+|:#{E:copy_cursor_y_abs},1}:#{e|+|:#{copy_cursor_x},1} #[default],},}'
+    set -g @pane_border_right '#{?pane_active,#{?#{E:is_vi_keys},#{?#{E:is_any_current_keys}, #{s| ||:#{@current_keys} } ,} #{e|+|:#{E:copy_cursor_y_abs},1}:#{e|+|:#{copy_cursor_x},1} #[default],},}'
     set -g @pane_border_center '#{?pane_active,#{?#{window_zoomed_flag},#[fg=#{@bg} bg=terminal]#[bg=#{@bg} fg=#{@fg}] 󰍉 #[fg=#{@bg} bg=terminal]#[default],},}'
     set -g pane-border-style 'fg=#{@bg}'
     set -g pane-active-border-style 'fg=#{@a1}'
