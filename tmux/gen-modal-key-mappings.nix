@@ -3,9 +3,207 @@ let
   inherit (pkgs) lib;
   inherit (lib.attrsets)
     nameValuePair foldlAttrs mapAttrs
-    mapAttrs' filterAttrs mapAttrsToList;
+    mapAttrs' filterAttrs mapAttrsToList
+    mapAttrsRecursive;
 
   debug = v: builtins.trace (builtins.toJSON v) v;
+
+  extraVar =''
+    %hidden copy_cursor_y_abs='#{e|-|:#{e|+|:#{history_size},#{copy_cursor_y}},#{scroll_position}}'
+    %hidden selection_latest_x='#{?#{>:#{selection_start_y},#{selection_end_y}},#{selection_start_x},#{?#{<:#{selection_start_y},#{selection_end_y}},#{selection_end_x},#{?#{>:#{selection_start_x},#{selection_end_x}},#{selection_start_x},#{selection_end_x}}}}'
+    %hidden selection_latest_y='#{?#{>:#{selection_start_y},#{selection_end_y}},#{selection_start_y},#{selection_end_y}}'
+    %hidden selection_forward='#{&&:#{==:#{copy_cursor_x},#{E:selection_latest_x}},#{==:#{E:copy_cursor_y_abs},#{E:selection_latest_y}}}'
+    %hidden selection_height='#{?#{>:#{selection_start_y},#{selection_end_y}},#{e|-|:#{selection_start_y},#{selection_end_y}},#{e|-|:#{selection_end_y},#{selection_start_y}}}'
+    %hidden selection_oneline='#{==:#{selection_start_y},#{selection_end_y}}'
+  '';
+
+  actions = {
+    select_mode = /*bash*/''
+      if -F '#{!=:#{@mode},extend}' {
+        set -p @mode 'extend'
+      } {
+        set -p @mode 'normal'
+      }
+    '';
+    move_left = /*bash*/''
+      send -X cursor-left
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    move_down = /*bash*/''
+      send -X cursor-down
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    move_up = /*bash*/''
+      send -X cursor-up
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    move_right = /*bash*/''
+      send -X cursor-right
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    move_next_word_start = /*bash*/''
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+      send -X next-word
+    '';
+    move_prev_word_start = /*bash*/''
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+      send -X previous-word
+    '';
+    move_next_word_end = /*bash*/''
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+      send -X next-word-end
+    '';
+    # "move_next_long_word_start" = 
+    # "move_prev_long_word_start" = 
+    # "move_next_long_word_end" = 
+    cursor_half_page_up = /*bash*/''
+      send -X halfpage-up
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    cursor_half_page_down = /*bash*/''
+      send -X halfpage-down
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    yank = /*bash*/''
+      send -X copy-selection-and-cancel
+      run -b "tmux show-buffer | xclip -sel clip"
+    '';
+    extend_line_below = /*bash*/''
+      ${extraVar}
+      if -F '#{E:selection_forward}' {
+        send -X other-end
+      } 
+      send -X start-of-line
+      send -X other-end
+      send -X cursor-right
+      send -X end-of-line
+    '';
+    extend_to_line_bounds = /*bash*/''
+      ${extraVar}
+      if -F '#{E:selection_forward}' {
+        send -X end-of-line
+        send -X other-end
+        send -X start-of-line
+        send -X other-end
+      } {
+        send -X start-of-line
+        send -X other-end
+        send -X end-of-line
+        send -X other-end
+      }
+    '';
+    shrink_to_line_bounds = /*bash*/''
+      ${extraVar}
+      if -F '#{!=:#{E:selection_oneline},1}' {
+        if -F '#{==:#{E:selection_height},1}' {
+          if -F '#{E:selection_forward}' {
+
+          } {
+
+          } 
+        } {
+          if -F '#{E:selection_forward}' {
+            send -X cursor-right
+            send -X cursor-up
+            send -X end-of-line
+            send -X other-end
+            send -X cursor-left
+            send -X cursor-down
+            send -X start-of-line
+            send -X other-end
+          } {
+            send -X cursor-left
+            send -X cursor-down
+            send -X start-of-line
+            send -X other-end
+            send -X cursor-right
+            send -X cursor-up
+            send -X end-of-line
+            send -X other-end
+          } 
+        }
+      }
+    '';
+    goto_start = /*bash*/''
+      send -X history-top
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    goto_end = /*bash*/''
+      send -X history-bottom
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    goto_line_start = /*bash*/''
+      send -X start-of-line
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    goto_line_end = /*bash*/''
+      send -X end-of-line
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    goto_line_first_nonwhitespace = /*bash*/''
+      send -X back-to-indentation
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    collapse_selections = /*bash*/''
+      send -X begin-selection
+    '';
+    flip_selections = /*bash*/''
+      send -X other-end
+    '';
+    ensure_selections_forward = /*bash*/''
+      ${extraVar}
+      if -F '#{!=:#{E:selection_forward},1}' {
+        send -X other-end
+      }
+    '';
+    goto_next_paragraph = /*bash*/''
+      send -X next-paragraph
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    goto_prev_paragraph = /*bash*/''
+      send -X previous-paragraph
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    match_brackets = /*bash*/''
+      send -X next-matching-bracket
+      if -F '#{!=:#{@mode},extend}' "send -X begin-selection"
+    '';
+    search = /*bash*/''
+      command-prompt -T search -p "search:" {
+        set -up @mode
+        set -up @current_keys
+        send -X clear-selection
+        send -X search-forward "%%"
+      }
+    '';
+    rsearch = /*bash*/''
+      command-prompt -T search -p "search:" {
+        set -up @mode
+        set -up @current_keys
+        send -X clear-selection
+        send -X search-backward "%%"
+      }
+    '';
+    search_next = /*bash*/''
+      set -up @mode
+      set -up @current_keys
+      send -X clear-selection
+      send -X search-again
+    '';
+    search_prev = /*bash*/''
+      set -up @mode
+      set -up @current_keys
+      send -X clear-selection
+      send -X search-reverse
+    '';
+    # "search_selection" = 
+  };
+
+  keyMappingActions = mapAttrsRecursive
+    (path: action:
+      actions."${action}" ? null
+    )
+    modalKeyMappings;
 
   escapeFormat = s:
     builtins.replaceStrings
