@@ -1,8 +1,9 @@
-# currently extremely basic because i don't know shit
-
 autoload -U compinit; compinit
 
 _comp_options+=(globdots) # With hidden files
 
-# menu style
-zstyle ':completion:*' menu select
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+zstyle ':completion:*' menu select search
+
