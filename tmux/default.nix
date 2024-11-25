@@ -9,8 +9,8 @@ let
     ''
       run-shell '#{d:current_file}/plugins/${rtp}'
     '';
-  genModalKeyMappings = (modalKeyMappings:
-    callPackage ./gen-modal-key-mappings.nix { inherit modalKeyMappings; }
+  keyMapper = (modalKeyMappings:
+    callPackage ./tmux-key-mapper.nix { inherit modalKeyMappings; }
   );
 
   plugins = with pkgs.tmuxPlugins; {
@@ -227,7 +227,7 @@ let
     '';
   };
   helixConf = writeText "dotconfig-tmux-helixconf" ''
-    ${genModalKeyMappings modalKeyMappings}
+    ${keyMapper modalKeyMappings}
   '';
   config = writeText "dotconfig-tmuxconf" (/*bash*/''
     set -sa terminal-overrides ",xterm*:Tc"
@@ -287,10 +287,18 @@ let
     unbind -T copy-mode-vi -a
     unbind -T copy-mode -a
 
-    bind -n M-h select-pane -L
-    bind -n M-j select-pane -D 
-    bind -n M-k select-pane -U
-    bind -n M-l select-pane -R
+    bind -n M-h if -F '#{!=:#{window_zoomed_flag},1}' {
+      select-pane -L
+    }
+    bind -n M-j if -F '#{!=:#{window_zoomed_flag},1}' {
+      select-pane -D
+    }
+    bind -n M-k if -F '#{!=:#{window_zoomed_flag},1}' {
+      select-pane -U
+    }
+    bind -n M-l if -F '#{!=:#{window_zoomed_flag},1}' {
+      select-pane -R
+    }
 
     bind -n M-[ previous-window
     bind -n M-] next-window

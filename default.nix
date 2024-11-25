@@ -4,9 +4,11 @@
       (final: prev:
         let
           mylib = prev.callPackage ./lib {};
+          keyMappings = import ./keyMappings;
         in
         {
-          inherit (mylib) mkConfig mkDotfiles mkFiles; 
+          inherit (mylib) mkConfig mkDotfiles mkFiles;
+          inherit keyMappings;
         }
       )
     ];
@@ -28,7 +30,7 @@ mkDotfiles ({ dontPatch }:
 
     ".config/shell" = ./shell;
     ".config/sh" = ./sh;
-    ".config/zsh" = ./zsh;
+    ".config/zsh" = callPackage ./zsh { inherit dontPatch; };
     ".config/bash" = ./bash;
 
     ".config/home-manager" = ./home-manager;

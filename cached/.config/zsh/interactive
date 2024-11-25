@@ -14,3 +14,4 @@ setopt PUSHD_SILENT
 
 source ~/.config/zsh/completion.zsh
 source ~/.config/zsh/dirs.zsh
+source ~/.config/zsh/helix.zsh
