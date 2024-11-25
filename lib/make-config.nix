@@ -1,5 +1,6 @@
 { callPackage, pkgs, lib }:
 let
+  inherit (lib.lists) foldl;
   mkConfig =
     { name,
       files,
@@ -7,7 +8,7 @@ let
       dontPatch ? false
     }:
     let
-      fileArgs = lib.lists.foldl
+      fileArgs = foldl
         (list: name:
           let
             value = files."${name}";
@@ -25,7 +26,7 @@ let
       inherit name;
       system = builtins.currentSystem;
       builder = "${pkgs.bash}/bin/bash";
-      args = [ ./generic-config-builder.sh ] ++ fileArgs;
+      args = [ ./config-builder.sh ] ++ fileArgs;
       coreutils = pkgs.coreutils;
     };
 in

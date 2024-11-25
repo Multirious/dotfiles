@@ -21,7 +21,7 @@ if [ -t 0 ]; then
   alias gph='git push'
   alias gpu='git pull'
 
-  alias hxc='hx "$HOME/dotfiles/.config/" && "$HOME/dotfiles/link"'
+  alias hxc='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
 
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
@@ -35,7 +35,7 @@ if [ -t 0 ]; then
     && [[ ! "$TERM" =~ tmux ]] \
     && [ -z "$TMUX" ]
   then
-    tmux -f ~/.config/tmux/tmux.conf new-session -A -s main
+    exec tmux -f ~/.config/tmux/tmux.conf new-session -A -s main
   fi
   # If colors
   # if [ `tput colors` -ge 8 ]; then
