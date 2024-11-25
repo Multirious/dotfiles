@@ -12,3 +12,5 @@
 	rebase = true
 [gpg]
 	format = ssh
+[diff]
+	algorithm = patience
