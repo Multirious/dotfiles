@@ -2,7 +2,6 @@
 let
   mapZshHelixKeys = keyMappings:
   /*bash*/''
-    bindkey
   '';
 in
 { inherit mapZshHelixKeys; }

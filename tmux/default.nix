@@ -22,12 +22,15 @@ let
         rev = "v2.1.0";
         hash = "sha256-kWixGC3CJiFj+YXqHRMbeShC/Tl+1phhupYAIo9bivE=";
       };
-      dontPatchShebangs = dontPatch;
     });
   };
   pluginsDrv = symlinkJoin {
     name = "dotconfig-tmux-plugins";
-    paths = builtins.attrValues plugins;
+    paths = map
+      (p: p.overrideAttrs (attr: {
+        dontPatchShebangs = dontPatch;
+      }))
+      (builtins.attrValues plugins);
   };
 
   modalKeyMappings =
