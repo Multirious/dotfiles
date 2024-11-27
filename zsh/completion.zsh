@@ -1,4 +1,5 @@
-autoload -U compinit; compinit
+autoload -U compinit
+compinit -d "$XDG_STATE_HOME/zsh/compdump"
 
 _comp_options+=(globdots) # With hidden files
 

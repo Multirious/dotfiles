@@ -2,4 +2,13 @@
 
 . ~/.config/shell/interactive
 
-eval "$(starship init bash)"
+[ -d "$XDG_STATE_HOME/bash" ] || mkdir -p "$XDG_STATE_HOME/bash"
+[ -f "$XDG_STATE_HOME/bash/history" ] || touch "$XDG_STATE_HOME/bash/history"
+
+export HISTFILE="$XDG_STATE_HOME/bash/history"
+export HISTSIZE=1000
+export HISTFILESIZE=1000
+
+if has_command starship; then
+  eval "$(starship init bash)"
+fi

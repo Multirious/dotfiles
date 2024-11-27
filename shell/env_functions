@@ -5,3 +5,8 @@ try_source () {
     fi
 }
 
+# Usage: if has_command command
+has_command () {
+    command -v "$1" 2>&1 >/dev/null
+    return $?
+}
