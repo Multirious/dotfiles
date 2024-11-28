@@ -1,47 +1,61 @@
 ZH_MODE=normal
 ZH_EXTENDING=0
-ZH_SELECTION_START=0
-ZH_SELECTION_END=0
-ZH_PREV_SELECTION_START=0
-ZH_PREV_SELECTION_END=0
-ZH_PREV_CURSOR=0
-
-function __helix_update_prev {
-  ZH_PREV_SELECTION_START=$ZH_SELECTION_START
-  ZH_PREV_SELECTION_END=$ZH_SELECTION_END
-  ZH_PREV_CURSOR=$CURSOR
-}
+ZH_SELECTION_LEFT=0
+ZH_SELECTION_RIGHT=0
 
 function dbg {
   tmux send -t 2 "$1" Enter
 }
 
-function __helix_selection_head {
-  if ((ZH_PREV_SELECTION_START == ZH_PREV_SELECTION_END)); then
-    echo both
-  elif ((ZH_PREV_CURSOR == ZH_PREV_SELECTION_START)); then
-    echo start
-  elif ((ZH_PREV_CURSOR == ZH_PREV_SELECTION_END)); then
-    echo end
-  else
-    echo none
+function __helix_update_mark {
+  REGION_ACTIVE=1
+  if (( (ZH_SELECTION_RIGHT - ZH_SELECTION_LEFT) <= 1 )); then
+    REGION_ACTIVE=0
+    MARK=$ZH_SELECTION_LEFT
+  elif (( CURSOR == (ZH_SELECTION_RIGHT + 1) )); then
+    MARK=$ZH_SELECTION_LEFT
+  elif (( CURSOR == ZH_SELECTION_LEFT )); then
+    MARK=$ZH_SELECTION_RIGHT
   fi
 }
 
-function __helix_update_mark {
-  REGION_ACTIVE=1
-  if ((CURSOR == ZH_SELECTION_START)); then
-    MARK=$(($ZH_SELECTION_END+1))
-  else
-    MARK=$(($ZH_SELECTION_START))
+function helix-move_right {
+  local prev_cursor=$CURSOR
+  CURSOR=$((CURSOR + 1))
+  if (( prev_cursor == (ZH_SELECTION_RIGHT + 1) )); then
+    if (( ZH_EXTENDING != 1 )); then
+      ZH_SELECTION_LEFT=$ZH_SELECTION_RIGHT
+    fi
+    ZH_SELECTION_RIGHT=$((CURSOR + 1))
+  elif (( prev_cursor == ZH_SELECTION_LEFT )); then
+    ZH_SELECTION_LEFT=$CURSOR
+    if (( ZH_EXTENDING != 1 )); then
+      ZH_SELECTION_RIGHT=$((CURSOR + 1))
+    fi
   fi
-  
+
+  __helix_update_mark
+}
+
+function helix-move_left {
+  local prev_cursor=$CURSOR
+  CURSOR=$((CURSOR - 1))
+  if (( prev_cursor == ZH_SELECTION_LEFT )); then
+    if (( ZH_EXTENDING != 1 )); then
+      ZH_SELECTION_RIGHT=$ZH_SELECTION_LEFT
+    fi
+    ZH_SELECTION_LEFT=$CURSOR
+  elif (( prev_cursor == ( ZH_SELECTION_RIGHT + 1) )); then
+    ZH_SELECTION_RIGHT=$((CURSOR + 1))
+    if (( ZH_EXTENDING != 1 )); then
+      ZH_SELECTION_LEFT=$CURSOR
+    fi
+  fi
+
+  __helix_update_mark
 }
 
 function helix-move_next_word_start {
-  __helix_update_prev
-  local selection_head=$(__helix_selection_head)
-
   local substring="${BUFFER:$(($CURSOR + 1))}"
   if [[ $substring =~ '([a-zA-Z0-9_]+ *|[^a-zA-Z0-9_]+)' ]]; then
     local mlen="${#match[$MBEGIN]}"
@@ -50,16 +64,13 @@ function helix-move_next_word_start {
     CURSOR="${#BUFFER}"
   fi
 
-  ZH_SELECTION_END=$CURSOR
-  ZH_SELECTION_START=$(($ZH_PREV_SELECTION_END + 1))
+  ZH_SELECTION_RIGHT=$CURSOR
+  ZH_SELECTION_LEFT=$(($ZH_PREV_SELECTION_RIGHT + 1))
 
   __helix_update_mark
 }
 
 function helix-move_prev_word_start {
-  __helix_update_prev
-  local selection_head=$(__helix_selection_head)
-
   # word another-word some@123host && more sauce @a@
   local rev_buffer="$(echo "$BUFFER" | rev)"
   local substring="${rev_buffer:$((-$CURSOR))}"
@@ -70,16 +81,13 @@ function helix-move_prev_word_start {
     CURSOR="${#BUFFER}"
   fi
 
-  ZH_SELECTION_END=$(($ZH_PREV_SELECTION_START - 1))
-  ZH_SELECTION_START=$CURSOR
+  ZH_SELECTION_RIGHT=$(($ZH_PREV_SELECTION_LEFT - 1))
+  ZH_SELECTION_LEFT=$CURSOR
 
   __helix_update_mark
 }
 
 function helix-move_next_word_end {
-  __helix_update_prev
-  local selection_head=$(__helix_selection_head)
-
   # word another-word some@123host && more sauce @a@
   local substring="${BUFFER:$(($CURSOR + 1))}"
   if [[ $substring =~ '( *[a-zA-Z0-9_]+| ?[^ a-zA-Z0-9_]+)' ]]; then
@@ -89,53 +97,8 @@ function helix-move_next_word_end {
     CURSOR="${#BUFFER}"
   fi
 
-  ZH_SELECTION_END=$CURSOR
-  ZH_SELECTION_START=$(($ZH_PREV_SELECTION_END + 1))
-
-  __helix_update_mark
-}
-# function helix-down {
-#   zle -U vi-backward-char
-# }
-# function helix-down {
-#   zle -U vi-backward-char
-# }
-function helix-move_right {
-  __helix_update_prev
-  local selection_head=$(__helix_selection_head)
-
-  CURSOR=$(($CURSOR + 1))
-  if [[ $selection_head == start ]]; then
-    ZH_SELECTION_START=$CURSOR
-    if ((ZH_EXTENDING == 0)); then
-      ZH_SELECTION_END=$(($ZH_SELECTION_START))
-    fi
-  else
-    ZH_SELECTION_END=$CURSOR
-    if ((ZH_EXTENDING == 0)); then
-      ZH_SELECTION_START=$(($ZH_PREV_SELECTION_END + 1))
-    fi
-  fi
-
-  __helix_update_mark
-}
-
-function helix-move_left {
-  __helix_update_prev
-  local selection_head=$(__helix_selection_head)
-
-  CURSOR=$(($CURSOR - 1))
-  if [[ $selection_head == end ]]; then
-    ZH_SELECTION_END=$CURSOR
-    if ((ZH_EXTENDING == 0)); then
-      ZH_SELECTION_START=$(($ZH_PREV_SELECTION_END - 1))
-    fi
-  else
-    ZH_SELECTION_START=$CURSOR
-    if ((ZH_EXTENDING == 0)); then
-      ZH_SELECTION_END=$(($ZH_PREV_SELECTION_START - 1))
-    fi
-  fi
+  ZH_SELECTION_RIGHT=$CURSOR
+  ZH_SELECTION_LEFT=$(($ZH_PREV_SELECTION_RIGHT + 1))
 
   __helix_update_mark
 }
@@ -147,7 +110,7 @@ function helix-delete_char_backward {
 function helix-insert {
   bindkey -A hins main
   ZH_HELIX_MODE=insert
-  CURSOR=$(($ZH_SELECTION_START))
+  CURSOR=$(($ZH_SELECTION_LEFT))
   echo -ne '\e[5 q'
   __helix_update_mark
 }
@@ -155,7 +118,7 @@ function helix-insert {
 function helix-append {
   bindkey -A hins main
   ZH_HELIX_MODE=append
-  CURSOR=$(($ZH_SELECTION_END + 1))
+  CURSOR=$(($ZH_SELECTION_RIGHT + 1))
   echo -ne '\e[5 q'
   __helix_update_mark
 }
@@ -183,17 +146,15 @@ function helix-select {
 }
 
 function helix-self_insert {
-  __helix_update_prev
-
   zle .self-insert
 
   case $ZH_HELIX_MODE in
     insert)
-      ZH_SELECTION_START=$(($ZH_SELECTION_START + 1))
-      ZH_SELECTION_END=$(($ZH_SELECTION_END + 1))
+      ZH_SELECTION_LEFT=$(($ZH_SELECTION_LEFT + 1))
+      ZH_SELECTION_RIGHT=$(($ZH_SELECTION_RIGHT + 1))
       ;;
     append)
-      ZH_SELECTION_END=$(($ZH_SELECTION_END + 1))
+      ZH_SELECTION_RIGHT=$(($ZH_SELECTION_RIGHT + 1))
       ;;
   esac
 
@@ -202,11 +163,10 @@ function helix-self_insert {
 
 function helix-accept {
   ZH_EXTENDING=0
-  ZH_SELECTION_START=0
-  ZH_SELECTION_END=0
-  ZH_PREV_SELECTION_START=0
-  ZH_PREV_SELECTION_END=0
-  ZH_PREV_CURSOR=0
+  ZH_SELECTION_LEFT=0
+  ZH_SELECTION_RIGHT=0
+  ZH_PREV_SELECTION_LEFT=0
+  ZH_PREV_SELECTION_RIGHT=0
 }
 
 zle -N helix-move_left
