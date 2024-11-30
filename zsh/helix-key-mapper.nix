@@ -98,6 +98,40 @@ let
       zle down-line
     }
 
+    function zhm_goto_line_start {
+      local prev_cursor=$CURSOR
+      CURSOR=0
+      if (( prev_cursor == ZHM_SELECTION_LEFT )); then
+        if (( ZHM_EXTENDING != 1 )); then
+          ZHM_SELECTION_RIGHT=$ZHM_SELECTION_LEFT
+        fi
+        ZHM_SELECTION_LEFT=$CURSOR
+      elif (( (prev_cursor + 1) == ZHM_SELECTION_RIGHT )); then
+        ZHM_SELECTION_RIGHT=$((CURSOR + 1))
+        if (( ZHM_EXTENDING != 1 )); then
+          ZHM_SELECTION_LEFT=$CURSOR
+        fi
+      fi
+      __zhm_update_mark
+    }
+
+    function zhm_goto_line_end {
+      local prev_cursor=$CURSOR
+      CURSOR=$((''${#BUFFER} - 1))
+      if (( (prev_cursor + 1) == ZHM_SELECTION_RIGHT )); then
+        if (( ZHM_EXTENDING != 1 )); then
+          ZHM_SELECTION_LEFT=$ZHM_SELECTION_RIGHT
+        fi
+        ZHM_SELECTION_RIGHT=$((CURSOR + 1))
+      elif (( prev_cursor == ZHM_SELECTION_LEFT )); then
+        ZHM_SELECTION_LEFT=$CURSOR
+        if (( ZHM_EXTENDING != 1 )); then
+          ZHM_SELECTION_RIGHT=$((CURSOR + 1))
+        fi
+      fi
+      __zhm_update_mark
+    }
+
     function zhm_history_prev {
       ZHM_EXTENDING=0
       ZHM_SELECTION_LEFT=0
@@ -256,7 +290,7 @@ let
       bindkey -A hins main
       export ZHM_MODE=insert
       CURSOR=$ZHM_SELECTION_LEFT
-      echo -ne "m$ZHM_CURSOR_INSERT"
+      echo -ne "$ZHM_CURSOR_INSERT"
       __zhm_update_mark
     }
 
@@ -449,6 +483,8 @@ let
     zle -N zhm_move_right
     zle -N zhm_move_up
     zle -N zhm_move_down
+    zle -N zhm_goto_line_start
+    zle -N zhm_goto_line_end
     zle -N zhm_history_next
     zle -N zhm_history_prev
     zle -N zhm_move_next_word_start
@@ -476,6 +512,8 @@ let
     bindkey -M hnor l zhm_move_right
     bindkey -M hnor j zhm_move_down
     bindkey -M hnor k zhm_move_up
+    bindkey -M hnor gh zhm_goto_line_start
+    bindkey -M hnor gl zhm_goto_line_end
     bindkey -M hnor ^N zhm_history_next
     bindkey -M hnor ^P zhm_history_prev
     bindkey -M hnor i zhm_insert
