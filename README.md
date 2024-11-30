@@ -1,4 +1,4 @@
-# Multirious's insane dotfiles repository
+# Multirious' insane dotfiles repository
 My massive Nix-based dotfiles repository with too much configuration but I like it.
 
 To link without Nix, run:
