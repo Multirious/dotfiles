@@ -1,4 +1,4 @@
-\e{ pkgs }:
+{ pkgs }:
 let
   mapZshHelixKeys = keyMappings: /*zsh*/''
     export ZHM_MODE=insert
@@ -11,10 +11,10 @@ let
     ZHM_BEFORE_INSERT_SELECTION_LEFT=0
     ZHM_BEFORE_INSERT_SELECTION_RIGHT=0
 
-    ZHM_CURSOR_NORMAL='\e[2 q\e]12;blue\a'
-    ZHM_CURSOR_SELECT='\e[2 q\e]12;red\a'
+    ZHM_CURSOR_NORMAL='\e[2 q\e]12;#B4BEFE\a'
+    ZHM_CURSOR_SELECT='\e[2 q\e]12;#F2CDCD\a'
     ZHM_CURSOR_INSERT='\e[5 q\e]12;white\a'
-    zle_highlight=(region:fg=white,bg=8)
+    zle_highlight=(region:fg=white,bg=#45475A)
 
     function dbg {
       tmux send -t 2 -l -- "$*"
@@ -88,6 +88,14 @@ let
       fi
 
       __zhm_update_mark
+    }
+
+    function zhm_move_up {
+      zle up-line
+    }
+
+    function zhm_move_down {
+      zle down-line
     }
 
     function zhm_history_prev {
@@ -377,7 +385,7 @@ let
       bindkey -A hins main
       export ZHM_MODE=insert
       CURSOR=$ZHM_SELECTION_LEFT
-      echo -ne "\e[0m$ZHM_CURSOR_INSERT"
+      echo -ne "$ZHM_CURSOR_INSERT"
 
       __zhm_update_mark
     }
@@ -425,10 +433,10 @@ let
       ZHM_HISTORY_IDX=1
       case $ZHM_MODE in
         insert)
-          echo -ne "\e[0m$ZHM_CURSOR_INSERT"
+          echo -ne "$ZHM_CURSOR_INSERT"
           ;;
         normal)
-          echo -ne "\e[0m$ZHM_CURSOR_NORMAL"
+          echo -ne "$ZHM_CURSOR_NORMAL"
           ;;
       esac
     }
@@ -439,6 +447,8 @@ let
 
     zle -N zhm_move_left
     zle -N zhm_move_right
+    zle -N zhm_move_up
+    zle -N zhm_move_down
     zle -N zhm_history_next
     zle -N zhm_history_prev
     zle -N zhm_move_next_word_start
@@ -464,6 +474,8 @@ let
     
     bindkey -M hnor h zhm_move_left
     bindkey -M hnor l zhm_move_right
+    bindkey -M hnor j zhm_move_down
+    bindkey -M hnor k zhm_move_up
     bindkey -M hnor ^N zhm_history_next
     bindkey -M hnor ^P zhm_history_prev
     bindkey -M hnor i zhm_insert
@@ -489,10 +501,10 @@ let
     bindkey -M hins "^P" zhm_history_prev
     bindkey -M hins "^N" zhm_history_next
 
-    echo -ne "\e[0m$ZHM_CURSOR_INSERT"
+    echo -ne "$ZHM_CURSOR_INSERT"
   '';
 
 in
 { inherit mapZshHelixKeys; }
 #<esc>gelvgl"@y;
-#:w<ret>:sh ~/dotfiles/link <gt>/dev/null; tmux kill-pane -t 3; tmux split-window -t 2 -v; tmux send -t 2 jk%di; tmux send -t 3 "iword Space another-word Space some@123host Space \\&\\& Space more Space sauce" <ret>
+#:w<ret>:sh ~/dotfiles/link <gt>/dev/null; tmux kill-pane -t 3; tmux split-window -t 2 -v; tmux send -t 2 jk%di; tmux send -t 3 "word Space another-word Space some@123host Space \\&\\& Space more Space sauce" Escape b <ret>

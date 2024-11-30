@@ -233,7 +233,9 @@ let
     ${keyMapper modalKeyMappings}
   '';
   config = writeText "dotconfig-tmuxconf" (/*bash*/''
+    set -g default-terminal "xterm-256color"
     set -sa terminal-overrides ",xterm*:Tc"
+
     set -g status-position top
     set -g set-clipboard on
     set -g base-index 1

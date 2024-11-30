@@ -1,4 +1,4 @@
-    export ZHM_MODE=normal
+    export ZHM_MODE=insert
     ZHM_EXTENDING=0
     ZHM_SELECTION_LEFT=0
     ZHM_SELECTION_RIGHT=0
@@ -7,13 +7,11 @@
     ZHM_BEFORE_INSERT_CURSOR=0
     ZHM_BEFORE_INSERT_SELECTION_LEFT=0
     ZHM_BEFORE_INSERT_SELECTION_RIGHT=0
-    ZHM_IN_CMD_HISTORY=0
 
-    ZHM_CURSOR_NORMAL='\e[2 q\e]12;white\a'
-    ZHM_CURSOR_SELECT='\e[2 q\e]12;red\a'
+    ZHM_CURSOR_NORMAL='\e[2 q\e]12;#B4BEFE\a'
+    ZHM_CURSOR_SELECT='\e[2 q\e]12;#F2CDCD\a'
     ZHM_CURSOR_INSERT='\e[5 q\e]12;white\a'
-    ZHM_CURSOR_SELECTION=''
-    zle_highlight=(region:fg=white,bg=8)
+    zle_highlight=(region:fg=white,bg=#45475A)
 
     function dbg {
       tmux send -t 2 -l -- "$*"
@@ -87,6 +85,14 @@
       fi
 
       __zhm_update_mark
+    }
+
+    function zhm_move_up {
+      zle up-line
+    }
+
+    function zhm_move_down {
+      zle down-line
     }
 
     function zhm_history_prev {
@@ -247,7 +253,7 @@
       bindkey -A hins main
       export ZHM_MODE=insert
       CURSOR=$ZHM_SELECTION_LEFT
-      echo -ne "$ZHM_CURSOR_INSERT"
+      echo -ne "\e[0m$ZHM_CURSOR_INSERT"
       __zhm_update_mark
     }
 
@@ -258,7 +264,7 @@
       bindkey -A hins main
       export ZHM_MODE=insert
       CURSOR=$ZHM_SELECTION_RIGHT
-      echo -ne "$ZHM_CURSOR_INSERT"
+      echo -ne "\e[0m$ZHM_CURSOR_INSERT"
       CURSOR=$((CURSOR - 1))
       __zhm_update_mark
       CURSOR=$((CURSOR + 1))
@@ -281,7 +287,7 @@
       bindkey -A hnor main
       export ZHM_MODE=normal
       ZHM_EXTENDING=0
-      echo -ne "$ZHM_CURSOR_NORMAL"
+      echo -ne "\e[0m$ZHM_CURSOR_NORMAL"
       __zhm_update_mark
     }
 
@@ -290,10 +296,10 @@
       export ZHM_MODE=normal
       if ((ZHM_EXTENDING == 1)); then
         ZHM_EXTENDING=0
-        echo -ne "$ZHM_CURSOR_NORMAL"
+        echo -ne "\e[0m$ZHM_CURSOR_NORMAL"
       else
         ZHM_EXTENDING=1
-        echo -ne "$ZHM_CURSOR_SELECT"
+        echo -ne "\e[0m$ZHM_CURSOR_SELECT"
       fi
       __zhm_update_mark
     }
@@ -438,6 +444,8 @@
 
     zle -N zhm_move_left
     zle -N zhm_move_right
+    zle -N zhm_move_up
+    zle -N zhm_move_down
     zle -N zhm_history_next
     zle -N zhm_history_prev
     zle -N zhm_move_next_word_start
@@ -459,10 +467,12 @@
     bindkey -N hnor
     bindkey -N hins
 
-    bindkey -A hnor main
+    bindkey -A hins main
     
     bindkey -M hnor h zhm_move_left
     bindkey -M hnor l zhm_move_right
+    bindkey -M hnor j zhm_move_down
+    bindkey -M hnor k zhm_move_up
     bindkey -M hnor ^N zhm_history_next
     bindkey -M hnor ^P zhm_history_prev
     bindkey -M hnor i zhm_insert
@@ -487,5 +497,6 @@
     bindkey -M hins "jk" zhm_normal
     bindkey -M hins "^P" zhm_history_prev
     bindkey -M hins "^N" zhm_history_next
-    echo -ne '\e[2 q'
+
+    echo -ne "$ZHM_CURSOR_INSERT"
 
