@@ -1,6 +1,8 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+format = "$all$character${custom.zhm_mode}"
+
 palette = "catppuccin_mocha"
 
 # Starship modules
@@ -9,6 +11,13 @@ palette = "catppuccin_mocha"
 success_symbol = "[[󰄛](green) ❯](peach)"
 error_symbol = "[[󰄛](red) ❯](peach)"
 vimcmd_symbol = "[󰄛 ❮](subtext1)" # For use with zsh-vi-mode
+
+[custom.zhm_mode]
+# format = "$output"
+when = "echo 0"
+command = "echo something"
+# prefix = ""
+# shell = [ "zsh", "-c" ]
 
 [directory]
 truncation_length = 4
