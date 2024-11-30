@@ -253,7 +253,7 @@
       bindkey -A hins main
       export ZHM_MODE=insert
       CURSOR=$ZHM_SELECTION_LEFT
-      echo -ne "\e[0m$ZHM_CURSOR_INSERT"
+      echo -ne "m$ZHM_CURSOR_INSERT"
       __zhm_update_mark
     }
 
