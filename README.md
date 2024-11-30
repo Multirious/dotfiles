@@ -1,5 +1,5 @@
 # Multirious' insane dotfiles repository
-My massive Nix-based dotfiles repository with too much configuration.
+My Nix-based dotfiles repository with too much configuration.
 
 To link without Nix, run:
 ```bash
