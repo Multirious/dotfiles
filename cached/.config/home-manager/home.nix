@@ -18,6 +18,7 @@
     starship
     (nerdfonts.override { fonts = ["Hack"]; })
     jq
+    neofetch
 
     rust-analyzer
     cargo

@@ -14,15 +14,15 @@ let
   );
 
   plugins = with pkgs.tmuxPlugins; {
-    yank = yank;
-    catppuccin = catppuccin.overrideAttrs (attr: {
-      src = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "tmux";
-        rev = "v2.1.0";
-        hash = "sha256-kWixGC3CJiFj+YXqHRMbeShC/Tl+1phhupYAIo9bivE=";
-      };
-    });
+    # yank = yank;
+    # catppuccin = catppuccin.overrideAttrs (attr: {
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "catppuccin";
+    #     repo = "tmux";
+    #     rev = "v2.1.0";
+    #     hash = "sha256-kWixGC3CJiFj+YXqHRMbeShC/Tl+1phhupYAIo9bivE=";
+    #   };
+    # });
   };
   pluginsDrv = symlinkJoin {
     name = "dotconfig-tmux-plugins";
@@ -346,8 +346,6 @@ let
     bind -T copy-mode-vi Escape set -up @current_keys \; set -up @mode
 
     source-file -F "#{d:current_file}/helix.conf"
-
-    ${runPlugin plugins.yank}
 
     set -g @a1 'brightred'
     set -g @a2 'yellow'
