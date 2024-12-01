@@ -43,9 +43,13 @@ let
       n = "search_next";
       N = "search_prev";
       "*" = "search_selection";
+      Ctrl-p = "prev";
+      Ctrl-n = "next";
     };
     insert = {
       j.k = "normal_mode";
+      Ctrl-p = "prev";
+      Ctrl-n = "next";
     };
   };
   definitions = {
@@ -84,6 +88,8 @@ let
     search_next = "Search next";
     search_prev = "Search previous";
     search_selection = "Use current selection as the search pattern";
+    next = "Generic next";
+    prev = "Generic previous";
   };
 in
 {
