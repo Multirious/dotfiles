@@ -53,9 +53,10 @@ let
     };
   };
   definitions = {
-    normal_mode = "Enter normal mode";
-    select_mode = "Enter select mode";
-    insert_mode = "Enter insert mode";
+    normal = "Normal";
+    select = "Select";
+    insert = "Insert";
+    append = "Append";
     move_left = "Move left";
     move_down = "Move down";
     move_up = "Move up";
@@ -88,8 +89,6 @@ let
     search_next = "Search next";
     search_prev = "Search previous";
     search_selection = "Use current selection as the search pattern";
-    next = "Generic next";
-    prev = "Generic previous";
   };
 in
 {

@@ -28,7 +28,6 @@ if [ -t 0 ]; then
 
   . ~/.config/shell/scripts
 
-  
   if command -v tmux &> /dev/null \
     && [ -n "$PS1" ] \
     && [[ ! "$TERM" =~ screen ]] \

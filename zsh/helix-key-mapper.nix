@@ -132,6 +132,27 @@ let
       __zhm_update_mark
     }
 
+    function zhm_goto_line_first_nonwhitespace {
+      local prev_cursor=$CURSOR
+      if [[ $BUFFER =~ "\s*" ]]; then
+        CURSOR=$MEND
+      else
+        CURSOR=0
+      fi
+      if (( prev_cursor == ZHM_SELECTION_LEFT )); then
+        if (( ZHM_EXTENDING != 1 )); then
+          ZHM_SELECTION_RIGHT=$ZHM_SELECTION_LEFT
+        fi
+        ZHM_SELECTION_LEFT=$CURSOR
+      elif (( (prev_cursor + 1) == ZHM_SELECTION_RIGHT )); then
+        ZHM_SELECTION_RIGHT=$((CURSOR + 1))
+        if (( ZHM_EXTENDING != 1 )); then
+          ZHM_SELECTION_LEFT=$CURSOR
+        fi
+      fi
+      __zhm_update_mark
+    }
+
     function zhm_history_prev {
       ZHM_EXTENDING=0
       ZHM_SELECTION_LEFT=0
@@ -160,16 +181,16 @@ let
       # word another-word some@123host && more sauce
       local prev_cursor=$CURSOR
       local substring="''${BUFFER:$CURSOR}"
-      if [[ $substring =~ '([a-zA-Z0-9_]+ *|[^a-zA-Z0-9_ ]+ *)' ]]; then
-        local mlen=''${#match[$MBEGIN]}
+      if [[ $substring =~ '[a-zA-Z0-9_]+ *|[^a-zA-Z0-9_ ]+ *' ]]; then
         local skip=0
-        if (( mlen > 1 )); then
-          CURSOR=$((CURSOR + mlen - 1))
-        else
-          local substring="''${BUFFER:$((CURSOR + 1))}"
-          if [[ $substring =~ '([a-zA-Z0-9_]+ *|[^a-zA-Z0-9_]+) *' ]]; then
-            local mlen=''${#match[$MBEGIN]}
-            CURSOR=$((CURSOR + mlen))
+        CURSOR=$((CURSOR + MEND - 1))
+        if (( MBEGIN > 1)); then
+          skip=1
+        fi
+        if (( MEND <= 1)); then
+          if [[ "''${substring:1}" =~ '[a-zA-Z0-9_]+ *|[^a-zA-Z0-9_ ]+ *' ]]
+          then
+            CURSOR=$((CURSOR + MEND))
             skip=1
           fi
         fi
@@ -200,20 +221,22 @@ let
     }
 
     function zhm_move_prev_word_start {
-      local rev_buffer="$(echo "$BUFFER" | rev)"
       local prev_cursor=$CURSOR
+      local rev_buffer="$(echo "$BUFFER" | rev)"
       local substring="''${rev_buffer:$((-CURSOR - 1))}"
-      if [[ $substring =~ '( *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *)' ]]; then
-        local mlen=''${#match[$MBEGIN]}
+      if [[ $substring =~ ' *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *' ]]; then
         local skip=0
-        if (( mlen > 1 )); then
-          local buffer_len=''${#BUFFER}
-          CURSOR=$((CURSOR - mlen + (CURSOR < buffer_len ? 1 : 0)))
-        else
-          local substring="''${rev_buffer:$((-CURSOR))}"
-          if [[ $substring =~ '( *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *)' ]]; then
-            local mlen=''${#match[$MBEGIN]}
-            CURSOR=$((CURSOR - mlen))
+        if (( CURSOR == ''${#BUFFER} )); then
+          CURSOR=$((CURSOR - 1))
+        fi
+        CURSOR=$((CURSOR - MEND + 1))
+        if (( MBEGIN > 1)); then
+          skip=1
+        fi
+        if (( MEND <= 1)); then
+          if [[ "''${substring:1}" =~ ' *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *' ]]
+          then
+            CURSOR=$((CURSOR - MEND))
             skip=1
           fi
         fi
@@ -244,16 +267,16 @@ let
     function zhm_move_next_word_end {
       local prev_cursor=$CURSOR
       local substring="''${BUFFER:$CURSOR}"
-      if [[ $substring =~ '( *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *)' ]]; then
-        local mlen=''${#match[$MBEGIN]}
+      if [[ $substring =~ ' *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *' ]]; then
         local skip=0
-        if (( mlen > 1 )); then
-          CURSOR=$((CURSOR + mlen - 1))
-        else
-          local substring="''${BUFFER:$((CURSOR + 1))}"
-          if [[ $substring =~ '( *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *)' ]]; then
-            local mlen=''${#match[$MBEGIN]}
-            CURSOR=$((CURSOR + mlen))
+        CURSOR=$((CURSOR + MEND - 1))
+        if (( MBEGIN > 1)); then
+          skip=1
+        fi
+        if (( MEND <= 1)); then
+          if [[ "''${substring:1}" =~ ' *[a-zA-Z0-9_]+| *[^a-zA-Z0-9_ ]+| *' ]]
+          then
+            CURSOR=$((CURSOR + MEND))
             skip=1
           fi
         fi
@@ -457,6 +480,51 @@ let
       ZHM_HISTORY_IDX=1
     }
 
+    function zhm_clipboard_yank {
+      echo -n "$BUFFER[$((ZHM_SELECTION_LEFT + 1)),$((ZHM_SELECTION_RIGHT))]" | xclip -sel clip
+    }
+
+    function zhm_clipboard_paste_after {
+      local prev_cursor=$CURSOR
+      local prev_left=$ZHM_SELECTION_LEFT
+      local prev_right=$ZHM_SELECTION_RIGHT
+
+      local content="$(xclip -o -sel clip)"
+      BUFFER="''${BUFFER:0:$(($ZHM_SELECTION_RIGHT))}$content''${BUFFER:$ZHM_SELECTION_RIGHT}"
+      ZHM_SELECTION_LEFT=$((ZHM_SELECTION_RIGHT))
+      ZHM_SELECTION_RIGHT=$((ZHM_SELECTION_RIGHT + ''${#content}))
+      if (( (prev_left + 1) == prev_right )); then
+        CURSOR=$((ZHM_SELECTION_RIGHT - 1))
+      elif (( prev_cursor == prev_left )); then
+        CURSOR=$ZHM_SELECTION_LEFT
+      else
+        CURSOR=$((ZHM_SELECTION_RIGHT - 1))
+      fi
+
+      __zhm_update_history "$BUFFER" $prev_cursor $prev_left $prev_right $CURSOR $ZHM_SELECTION_LEFT $ZHM_SELECTION_RIGHT
+      __zhm_update_mark
+    }
+
+    function zhm_clipboard_paste_before {
+      local prev_cursor=$CURSOR
+      local prev_left=$ZHM_SELECTION_LEFT
+      local prev_right=$ZHM_SELECTION_RIGHT
+
+      local content="$(xclip -o -sel clip)"
+      BUFFER="''${BUFFER:0:$(($ZHM_SELECTION_LEFT))}$content''${BUFFER:$ZHM_SELECTION_LEFT}"
+      ZHM_SELECTION_RIGHT=$((ZHM_SELECTION_LEFT + ''${#content}))
+      if (( (prev_left + 1) == prev_right )); then
+        CURSOR=$((ZHM_SELECTION_LEFT))
+      elif (( prev_cursor == prev_left )); then
+        CURSOR=$ZHM_SELECTION_LEFT
+      else
+        CURSOR=$((ZHM_SELECTION_RIGHT - 1))
+      fi
+
+      __zhm_update_history "$BUFFER" $prev_cursor $prev_left $prev_right $CURSOR $ZHM_SELECTION_LEFT $ZHM_SELECTION_RIGHT
+      __zhm_update_mark
+    }
+
     function precmd {
       ZHM_EXTENDING=0
       ZHM_SELECTION_LEFT=0
@@ -485,6 +553,7 @@ let
     zle -N zhm_move_down
     zle -N zhm_goto_line_start
     zle -N zhm_goto_line_end
+    zle -N zhm_goto_line_first_nonwhitespace
     zle -N zhm_history_next
     zle -N zhm_history_prev
     zle -N zhm_move_next_word_start
@@ -502,6 +571,9 @@ let
     zle -N zhm_undo
     zle -N zhm_accept
     zle -N zhm_change
+    zle -N zhm_clipboard_yank
+    zle -N zhm_clipboard_paste_after
+    zle -N zhm_clipboard_paste_before
 
     bindkey -N hnor
     bindkey -N hins
@@ -514,6 +586,7 @@ let
     bindkey -M hnor k zhm_move_up
     bindkey -M hnor gh zhm_goto_line_start
     bindkey -M hnor gl zhm_goto_line_end
+    bindkey -M hnor gs zhm_goto_line_first_nonwhitespace
     bindkey -M hnor ^N zhm_history_next
     bindkey -M hnor ^P zhm_history_prev
     bindkey -M hnor i zhm_insert
@@ -528,6 +601,9 @@ let
     bindkey -M hnor U zhm_redo
     bindkey -M hnor "^J" zhm_accept
     bindkey -M hnor "^M" zhm_accept
+    bindkey -M hnor y zhm_clipboard_yank
+    bindkey -M hnor p zhm_clipboard_paste_after
+    bindkey -M hnor P zhm_clipboard_paste_before
 
     bindkey -M hins -R " "-"~" zhm_self_insert
     bindkey -M hins "^?" zhm_delete_char_backward
@@ -545,4 +621,4 @@ let
 in
 { inherit mapZshHelixKeys; }
 #<esc>gelvgl"@y;
-#:w<ret>:sh ~/dotfiles/link <gt>/dev/null; tmux kill-pane -t 3; tmux split-window -t 2 -v; tmux send -t 2 jk%di; tmux send -t 3 "word Space another-word Space some@123host Space \\&\\& Space more Space sauce" Escape b <ret>
+#:w<ret>:sh ~/dotfiles/link <gt>/dev/null; tmux kill-pane -t 3; tmux split-window -t 2 -v; tmux send -t 2 jk%di; tmux send -t 3 "word Space another-word Space some@123host Space \\&\\& Space more Space sauce" Escape b <ret>   
