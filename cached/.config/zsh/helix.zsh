@@ -327,6 +327,20 @@
       CURSOR=$((CURSOR + 1))
     }
 
+    function zhm_insert_at_line_end {
+      CURSOR=${#BUFFER}
+      ZHM_SELECTION_LEFT=$CURSOR
+      ZHM_SELECTION_RIGHT=$CURSOR
+      zhm_insert
+    }
+
+    function zhm_insert_at_line_start {
+      CURSOR=0
+      ZHM_SELECTION_LEFT=0
+      ZHM_SELECTION_RIGHT=0
+      zhm_insert
+    }
+
     function zhm_normal {
       if [[ $ZHM_MODE == insert ]]; then
         if [[ $CURSOR == $ZHM_SELECTION_RIGHT ]]; then
@@ -557,6 +571,8 @@
     zle -N zhm_move_prev_word_start
     zle -N zhm_move_next_word_end
     zle -N zhm_insert
+    zle -N zhm_insert_at_line_end
+    zle -N zhm_insert_at_line_start
     zle -N zhm_append
     zle -N zhm_normal
     zle -N zhm_select
@@ -588,6 +604,8 @@
     bindkey -M hnor ^P zhm_history_prev
     bindkey -M hnor i zhm_insert
     bindkey -M hnor a zhm_append
+    bindkey -M hnor I zhm_insert_at_line_start
+    bindkey -M hnor A zhm_insert_at_line_end
     bindkey -M hnor w zhm_move_next_word_start
     bindkey -M hnor b zhm_move_prev_word_start
     bindkey -M hnor e zhm_move_next_word_end
