@@ -536,6 +536,13 @@
       __zhm_update_mark
     }
 
+    function zhm_expand_or_complete {
+      zle expand-or-complete
+      ZHM_SELECTION_LEFT=$CURSOR
+      ZHM_SELECTION_RIGHT=$CURSOR
+      __zhm_update_mark
+    }
+
     function precmd {
       ZHM_EXTENDING=0
       ZHM_SELECTION_LEFT=0
@@ -587,6 +594,7 @@
     zle -N zhm_clipboard_yank
     zle -N zhm_clipboard_paste_after
     zle -N zhm_clipboard_paste_before
+    zle -N zhm_expand_or_complete
 
     bindkey -N hnor
     bindkey -N hins
@@ -625,7 +633,7 @@
     bindkey -M hins "^J" zhm_accept
     bindkey -M hins "^M" zhm_accept
     bindkey -M hins "^[" zhm_normal
-    bindkey -M hins "^I" expand-or-complete
+    bindkey -M hins "^I" zhm_expand_or_complete
     bindkey -M hins "jk" zhm_normal
     bindkey -M hins "^P" zhm_history_prev
     bindkey -M hins "^N" zhm_history_next
