@@ -377,6 +377,7 @@
 
     function zhm_self_insert {
       local prev_cursor=$CURSOR
+
       zle .self-insert
 
       if (( prev_cursor == ZHM_SELECTION_LEFT )); then
