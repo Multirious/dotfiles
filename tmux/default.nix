@@ -247,7 +247,7 @@ let
     set -g mode-keys vi
     set -g cursor-style 'bar'
     set -g status-interval 1
-    set -g status-keys vi
+    # set -g status-keys vi
     set -g mouse on
     set -g detach-on-destroy off
 
