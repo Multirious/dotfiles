@@ -15,10 +15,13 @@ if has_command starship; then
   PS2=$'%{\e[90m%}∙∙∙%{\e[0m%} '
 fi
 
+if has_command direnv; then
+  eval "$(direnv hook zsh)"
+fi
+
 # HYPHEN_INSENSITIVE="true"
 # HIST_STAMPS="dd/mm/yyyy"
 
-setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT

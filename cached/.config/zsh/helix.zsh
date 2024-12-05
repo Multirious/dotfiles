@@ -544,7 +544,7 @@
       __zhm_update_mark
     }
 
-    function precmd {
+    function zhm_precmd {
       ZHM_EXTENDING=0
       ZHM_SELECTION_LEFT=0
       ZHM_SELECTION_RIGHT=0
@@ -562,9 +562,13 @@
       esac
     }
 
-    function preexec {
+    function zhm_preexec {
+      echo -ne "$ZHM_CURSOR_NORMAL"
       REGION_ACTIVE=0
     }
+
+    precmd_functions+=(zhm_precmd)
+    preexec_functions+=(zhm_preexec)
 
     zle -N zhm_move_left
     zle -N zhm_move_right

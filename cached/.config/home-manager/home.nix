@@ -19,6 +19,7 @@
     (nerdfonts.override { fonts = ["Hack"]; })
     jq
     neofetch
+    direnv
 
     rust-analyzer
     cargo

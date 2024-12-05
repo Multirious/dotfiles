@@ -38,7 +38,7 @@ if [ -t 0 ]; then
     && [[ ! "$TERM" =~ tmux ]] \
     && [ -z "$TMUX" ]
   then
-    tmux -f ~/.config/tmux/tmux.conf new-session -A -s main
+    tmux -f ~/.config/tmux/tmux.conf new-session -A -s main ; exit
   fi
 
   # If colors
