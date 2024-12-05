@@ -26,9 +26,13 @@ if [ -t 0 ]; then
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
 
+  if has_command zsh; then
+    alias nix-shell="nix-shell --run zsh"
+  fi
+
   . ~/.config/shell/scripts
 
-  if command -v tmux &> /dev/null \
+  if has_command tmux \
     && [ -n "$PS1" ] \
     && [[ ! "$TERM" =~ screen ]] \
     && [[ ! "$TERM" =~ tmux ]] \
@@ -36,6 +40,7 @@ if [ -t 0 ]; then
   then
     tmux -f ~/.config/tmux/tmux.conf new-session -A -s main
   fi
+
   # If colors
   # if [ `tput colors` -ge 8 ]; then
   # fi

@@ -11,7 +11,11 @@ function tmux_develop_session {
 
   tmux new-session -d -s "$name" -n "Develop" -c "$dir"
 
-  tmux split-window -t "$name" -h -c "$dir"
+  if has_command nix-shell; then
+    tmux split-window -t "$name" -h -c "$dir" "nix-shell || \$SHELL"
+  else
+    tmux split-window -t "$name" -h -c "$dir"
+  fi
   tmux send-keys -t "$name":1.1 "hx ." Enter
   tmux new-window -t "$name":2 -n "Other" -c "$dir"
 
