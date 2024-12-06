@@ -20,6 +20,9 @@ args = ["client", "--server-path", "/home/peach/.cargo/bin/rust-analyzer"]
 cargo.extraEnv.CARGO_TARGET_DIR = "/home/peach/cargo_builds" 
 checkOnSave.command = "clippy" 
 
+[language-server.nixd]
+command = "nixd"
+
 [[language]]
 name = "rust"
 language-servers = ["rust-analyzer"]

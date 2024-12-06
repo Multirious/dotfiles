@@ -16,13 +16,20 @@
     fzf
     home-manager
     starship
-    (nerdfonts.override { fonts = ["Hack"]; })
+    nerd-fonts.hack
     jq
     neofetch
     direnv
 
-    rust-analyzer
-    cargo
+    (rust-bin.stable.latest.default.override {
+      extensions = [ "rust-analyzer" ];
+      targets = [ "x86_64-pc-windows-gnu" ];
+    })
+    python3
+    gleam
+    ghc
+    go gopls
+    zig zls
   ];
   fonts.fontconfig.enable = true;
 
