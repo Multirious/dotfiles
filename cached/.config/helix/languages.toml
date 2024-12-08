@@ -26,6 +26,7 @@ command = "nixd"
 [[language]]
 name = "rust"
 language-servers = ["rust-analyzer"]
+formatter = { command = "rustfmt" }
 
 # [language.debugger]
 # command = "codelldb"

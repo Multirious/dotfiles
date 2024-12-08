@@ -22,7 +22,7 @@
     direnv
 
     (rust-bin.stable.latest.default.override {
-      extensions = [ "rust-analyzer" ];
+      extensions = [ "rust-analyzer" "rustfmt" ];
       targets = [ "x86_64-pc-windows-gnu" ];
     })
     python3
