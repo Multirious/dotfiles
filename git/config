@@ -2,8 +2,7 @@
 	defaultBranch = main
 [core]
 	editor = hx
-	autocrlf = input
-	safecrlf = false
+	autocrlf = true
 [user]
 	name = Multirious
 	email = multirious@outlook.com
