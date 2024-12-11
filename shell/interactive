@@ -20,6 +20,7 @@ if [ -t 0 ]; then
   alias gl='git log'
   alias gph='git push'
   alias gpu='git pull'
+  alias gd='git diff'
 
   alias hxc='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
 

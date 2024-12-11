@@ -20,9 +20,10 @@
     jq
     neofetch
     direnv
+    zoxide
 
     (rust-bin.stable.latest.default.override {
-      extensions = [ "rust-analyzer" "rustfmt" ];
+      extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" ];
       targets = [ "x86_64-pc-windows-gnu" ];
     })
     python3

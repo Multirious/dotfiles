@@ -29,3 +29,8 @@ setopt PUSHD_SILENT
 source ~/.config/zsh/completion.zsh
 source ~/.config/zsh/dirs.zsh
 source ~/.config/zsh/helix.zsh
+
+# For completions to work, this must be added after compinit is called.
+if has_command zoxide; then
+  eval "$(zoxide init zsh)"
+fi

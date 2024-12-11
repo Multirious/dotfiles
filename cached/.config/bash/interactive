@@ -12,3 +12,7 @@ export HISTFILESIZE=1000
 if has_command starship; then
   eval "$(starship init bash)"
 fi
+
+if has_command zoxide; then
+  eval "$(zoxide init bash)"
+fi
