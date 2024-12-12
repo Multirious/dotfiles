@@ -21,6 +21,7 @@
     neofetch
     direnv
     zoxide
+    evcxr
 
     (rust-bin.stable.latest.default.override {
       extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" ];
