@@ -27,11 +27,15 @@ if [ -t 0 ]; then
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
 
-  if has_command zsh; then
-    alias nix-shell="nix-shell --run zsh"
-  fi
+  # if has_command zsh; then
+  #   alias nix-shell="nix-shell --run zsh"
+  # fi
 
   . ~/.config/shell/scripts
+
+  if [ -d "$HOME/.cargo/bin" ]; then
+    export PATH="$HOME/.cargo/bin:${PATH}"
+  fi
 
   if has_command tmux \
     && [ -n "$PS1" ] \
