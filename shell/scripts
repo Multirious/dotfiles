@@ -1,6 +1,6 @@
 #!/bin/sh
 
-function tmux_develop_session {
+tmux_develop_session () {
   if [ ! $# -eq 2 ]; then
     echo "Expecting a session name and a directory" >> /dev/stderr
     return 1
@@ -18,7 +18,7 @@ function tmux_develop_session {
   tmux select-pane -t "$name":1.1
 }
 
-function tmux_develop {
+tmux_develop () {
   if [ ! $# -eq 1 ]; then
     echo "Expecting a directory" >> /dev/stderr
     return 1
@@ -47,25 +47,3 @@ function tmux_develop {
   fi
 }
 
-function tmux_fzf_sessions {
-  name=$(tmux list-session | fzf)
-
-  if [ -z "$name" ]; then
-    echo "No session selected" >> /dev/stderr
-    return 1
-  fi
-  
-  name=${name%%:*}
-  current_session=$(tmux display-message -p '#S')
-
-  if [ "$current_session" = "$name" ]; then
-    echo "You're already in this session" >> /dev/stderr
-    return 1
-  fi
-
-  if [ -n "$TMUX" ]; then
-    tmux switch -t="$name"
-  else
-    tmux attach-session -t="$name"
-  fi
-}

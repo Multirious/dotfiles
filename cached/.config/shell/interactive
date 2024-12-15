@@ -3,7 +3,9 @@ if [ -t 0 ]; then
   # Disable messsages from other users
   mesg n
 
-  alias cd='z'
+  if has_command zoxide; then
+    alias cd='z'
+  fi
 
   alias ls='ls --color=auto'
   alias ll='ls -alF'
@@ -25,13 +27,10 @@ if [ -t 0 ]; then
   alias gd='git diff'
 
   alias hxc='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
+  alias shx='sudo /home/peach/.nix-profile/bin/hx --config /home/peach/.config/helix/config.toml'
 
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
-
-  # if has_command zsh; then
-  #   alias nix-shell="nix-shell --run zsh"
-  # fi
 
   . ~/.config/shell/scripts
 
