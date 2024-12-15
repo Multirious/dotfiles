@@ -235,6 +235,7 @@ let
   config = writeText "dotconfig-tmuxconf" (/*bash*/''
     set -g default-terminal "xterm-256color"
     set -sa terminal-overrides ",xterm*:Tc"
+    # set -sa terminal-features ",*:sixel"
 
     set -g status-position top
     set -g set-clipboard on
@@ -308,10 +309,10 @@ let
     bind -n M-[ previous-window
     bind -n M-] next-window
 
-    bind -n M-C-h resize-pane -L 5
-    bind -n M-C-j resize-pane -D 5
-    bind -n M-C-k resize-pane -U 5
-    bind -n M-C-l resize-pane -R 5
+    bind -n M-C-h resize-pane -L 1
+    bind -n M-C-j resize-pane -D 1
+    bind -n M-C-k resize-pane -U 1
+    bind -n M-C-l resize-pane -R 1
 
     bind -n M-H run-shell 'old=`tmux display -p "#{pane_index}"`; tmux select-pane -L; tmux swap-pane -t $old'
     bind -n M-J run-shell 'old=`tmux display -p "#{pane_index}"`; tmux select-pane -D; tmux swap-pane -t $old'

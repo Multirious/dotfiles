@@ -49,6 +49,8 @@ formatter = { command = "rustfmt", args = [ "--edition", "2021" ] }
 [[language]]
 name = "nix"
 language-servers = ["nixd"]
+# comment-tokens = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
 
 [[language]]
 name = "gdscript"

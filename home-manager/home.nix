@@ -10,7 +10,15 @@
     nixd
     keepassxc
     helix
-    tmux
+    (tmux.overrideAttrs (finalAttrs: prevAttrs: {
+      version = "ae8f2208c98e3c2d6e3fe4cad2281dce8fd11f31";
+      src = fetchFromGitHub {
+        owner = "tmux";
+        repo = "tmux";
+        rev = "ae8f2208c98e3c2d6e3fe4cad2281dce8fd11f31";
+        hash = "sha256-RkT0BbqzSUn6vK8vmCq3r+vm6rqWDCCtxqbY8eYdL0k=";
+      };
+    }))
     git
     zsh
     fzf
@@ -22,11 +30,23 @@
     direnv
     zoxide
     evcxr
+    lsix
+    libsixel
 
-    (rust-bin.stable.latest.default.override {
-      extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" ];
-      targets = [ "x86_64-pc-windows-gnu" ];
-    })
+    rustup
+
+    # (rust-bin.stable.latest.default.override {
+    #   extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" ];
+    #   targets = [ "x86_64-pc-windows-gnu" ];
+    # })
+    # (rust-bin.selectLatestNightlyWith
+    #   (toolchain: toolchain.default.override
+    #     {
+    #       extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" "rustc-dev" "llvm-tools-preview" ];
+    #       targets = [ "x86_64-pc-windows-gnu" ];
+    #     }
+    #   )
+    # )
     python3
     gleam
     ghc
