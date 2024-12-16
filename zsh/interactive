@@ -15,10 +15,6 @@ if has_command starship; then
   PS2=$'%{\e[90m%}∙∙∙%{\e[0m%} '
 fi
 
-if has_command direnv; then
-  eval "$(direnv hook zsh)"
-fi
-
 # HYPHEN_INSENSITIVE="true"
 # HIST_STAMPS="dd/mm/yyyy"
 
@@ -41,3 +37,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+
+if has_command direnv; then
+  eval "$(direnv hook zsh)"
+fi
