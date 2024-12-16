@@ -6,6 +6,8 @@
   targets.genericLinux.enable = true;
 
   home.packages = with pkgs; [
+    curl
+    xz
     xclip
     nixd
     keepassxc
@@ -41,6 +43,7 @@
     ghc
     go gopls
     zig zls
+    gcc
   ];
   fonts.fontconfig.enable = true;
 
