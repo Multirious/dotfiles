@@ -15,9 +15,14 @@ if has_command less; then
   export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 fi
 
+if [ -d "$HOME/.cargo/bin" ]; then
+  export PATH="$HOME/.cargo/bin:${PATH}"
+fi
+
 if has_command wget; then
   [ -d "$XDG_CONFIG_HOME/wget" ] || mkdir -p "$XDG_CONFIG_HOME/wget"
   alias wget="wget --hsts-file $XDG_CONFIG_HOME/wget/hsts"
 fi
 
 try_source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+

@@ -34,10 +34,6 @@ if [ -t 0 ]; then
 
   . ~/.config/shell/scripts
 
-  if [ -d "$HOME/.cargo/bin" ]; then
-    export PATH="$HOME/.cargo/bin:${PATH}"
-  fi
-
   if has_command tmux \
     && [ -n "$PS1" ] \
     && [[ ! "$TERM" =~ screen ]] \

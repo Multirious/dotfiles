@@ -32,6 +32,8 @@
     evcxr
     lsix
     libsixel
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
     (rust-bin.stable.latest.default.override {
       extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" "rust-src" ];
@@ -45,6 +47,27 @@
     #     }
     #   )
     # )
+=======
+=======
+>>>>>>> Stashed changes
+    gcc
+
+    # (rust-bin.stable.latest.default.override {
+    #   extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" ];
+    #   targets = [ "x86_64-pc-windows-gnu" ];
+    # })
+    (rust-bin.selectLatestNightlyWith
+      (toolchain: toolchain.default.override
+        {
+          extensions = [ "rust-analyzer" "rustfmt" "rust-std" "rust-src" "rustc-dev" "llvm-tools" ];
+          targets = [ "x86_64-pc-windows-gnu" ];
+        }
+      )
+    )
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     python3
     gleam
     ghc
