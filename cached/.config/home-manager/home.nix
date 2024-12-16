@@ -33,16 +33,14 @@
     lsix
     libsixel
 
-    rustup
-
-    # (rust-bin.stable.latest.default.override {
-    #   extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" ];
-    #   targets = [ "x86_64-pc-windows-gnu" ];
-    # })
+    (rust-bin.stable.latest.default.override {
+      extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" "rust-src" ];
+      targets = [ "x86_64-pc-windows-gnu" ];
+    })
     # (rust-bin.selectLatestNightlyWith
     #   (toolchain: toolchain.default.override
     #     {
-    #       extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" "rustc-dev" "llvm-tools-preview" ];
+    #       extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" "rustc-dev" "llvm-tools" ];
     #       targets = [ "x86_64-pc-windows-gnu" ];
     #     }
     #   )

@@ -7,15 +7,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # rust-overlay = {
-    #   url = "github:oxalica/rust-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, /* rust-overlay, */ ... }:
+  outputs = { nixpkgs, home-manager, rust-overlay, ... }:
     let
-      overlays = [ /* (import rust-overlay) */ ];
+      overlays = [ (import rust-overlay) ];
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system overlays;
