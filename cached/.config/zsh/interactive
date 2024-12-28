@@ -6,8 +6,8 @@
 [ -f "$XDG_STATE_HOME/zsh/history" ] || touch "$XDG_STATE_HOME/zsh/history"
 
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
-export SAVEHIST="1000"
-export HISTSIZE="1000"
+export SAVEHIST="2000"
+export HISTSIZE="2000"
 
 if has_command starship; then
   eval "$(starship init zsh)"
@@ -24,7 +24,7 @@ setopt PUSHD_SILENT
 
 source ~/.config/zsh/completion.zsh
 source ~/.config/zsh/dirs.zsh
-source ~/.config/zsh/helix.zsh
+source ~/.config/zsh/plugins.zsh
 
 # For completions to work, this must be added after compinit is called.
 if has_command zoxide; then

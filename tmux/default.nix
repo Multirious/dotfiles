@@ -348,7 +348,7 @@ let
 
     source-file -F "#{d:current_file}/helix.conf"
 
-    set -g @a1 'brightred'
+    set -g @a1 'orange'
     set -g @a2 'yellow'
     set -g @bg 'white'
     set -g @bg2 'darkgray'
