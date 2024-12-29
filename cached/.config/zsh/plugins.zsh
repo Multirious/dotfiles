@@ -1,1 +1,2 @@
-source /nix/store/lg3kyb0circ3805azbmsbx4y5mar5b96-source/zsh-helix-mode.plugin.zsh
+# source /nix/store/20kiw9gxh1b28bwkgykha9f3271k9cxr-source/zsh-helix-mode.plugin.zsh
+# bindkey -M hins "jk" zhm_normal
