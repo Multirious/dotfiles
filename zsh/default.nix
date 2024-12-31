@@ -5,8 +5,8 @@ let
       zsh-helix-mode = fetchFromGitHub {
         owner = "multirious";
         repo = "zsh-helix-mode";
-        rev = "165231b3f8677e15b922d21e7cdbe11991c88e0b";
-        sha256 = "sha256-EbXBWwwXJdt6f97+A55M0wIb2mDUDZDEKs2RxAus14c=";
+        rev = "71a3e5c91e0d647e14670faa4991038211a8c1d1";
+        sha256 = "sha256-mCUKVMp5gxTMDNESjMEC4O6DqUhsJvdhheNBWFfvTks=";
       };
       zsh-autosuggestions = fetchFromGitHub {
         owner = "zsh-users";
@@ -17,7 +17,7 @@ let
     in
     ''
       source ${zsh-helix-mode}/zsh-helix-mode.plugin.zsh
-      bindkey -M hins "jk" zhm_normal
+      bindkey -M hxins "jk" zhm_normal
 
       source ${zsh-autosuggestions}/zsh-autosuggestions.plugin.zsh
       ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
