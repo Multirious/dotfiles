@@ -1,4 +1,4 @@
-source /nix/store/ag093hb1m60cvl673gi0k7195fkw7nzf-source/zsh-helix-mode.plugin.zsh
+source /nix/store/2z2ndi8s4zb80663ismsr43425dsygrm-source/zsh-helix-mode.plugin.zsh
 bindkey -M hxins "jk" zhm_normal
 
 source /nix/store/lqxgy066krnq2z8pvhqxrj7pcldz1xkg-source/zsh-autosuggestions.plugin.zsh
