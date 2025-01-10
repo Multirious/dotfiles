@@ -31,14 +31,14 @@ tmux_develop () {
     return 1
   fi
 
-  name="$(basename "$dir")"
+  name="Develop $(basename "$dir")"
 
   if tmux has-session -t="$name" 2>/dev/null; then
     echo "Session $name already exists"
     return 1
   fi
 
-  tmux_develop_session $name $dir
+  tmux_develop_session "$name" "$dir"
 
   if [ -n "$TMUX" ]; then
     tmux switch -t="$name"

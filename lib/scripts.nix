@@ -55,9 +55,11 @@ let
         if [ -e "$HOME/$name" ] || [ -L "$HOME/$name" ]; then
           rm "$HOME/$name"
           ln -s "$files_dir/$name" "$HOME/$name"
+          nix-store --add-root "$HOME/$name" --realise
           echo "Replaced ~/$name"
         else
           ln -s "$files_dir/$name" "$HOME/$name"
+          nix-store --add-root "$HOME/$name" --realise
           echo "Created ~/$name"
         fi
         linked="true"

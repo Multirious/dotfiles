@@ -13,17 +13,18 @@
     keepassxc
     helix
     (tmux.overrideAttrs (finalAttrs: prevAttrs: {
-      version = "ae8f2208c98e3c2d6e3fe4cad2281dce8fd11f31";
+      version = "00894d188d2a60767a80ae749e7c3fc810fca8cd";
       src = fetchFromGitHub {
         owner = "tmux";
         repo = "tmux";
-        rev = "ae8f2208c98e3c2d6e3fe4cad2281dce8fd11f31";
-        hash = "sha256-RkT0BbqzSUn6vK8vmCq3r+vm6rqWDCCtxqbY8eYdL0k=";
+        rev = "00894d188d2a60767a80ae749e7c3fc810fca8cd";
+        hash = "sha256-aMXYBMmcRap8Q28K/8/2+WTnPxcF7MTu1Tr85t+zliU=";
       };
     }))
     git
     zsh
     fzf
+    eza
     home-manager
     starship
     nerd-fonts.hack

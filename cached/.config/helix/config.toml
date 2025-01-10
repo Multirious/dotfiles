@@ -12,6 +12,7 @@ color-modes = true
 true-color = true
 popup-border = "all"
 jump-label-alphabet = "fjdkrueivmchgytnbslwoxaqpz"
+end-of-line-diagnostics = "hint"
 
 [editor.search]
 smart-case = false
@@ -37,6 +38,9 @@ newline = "⏎"
 [editor.indent-guides]
 render = true
 character = "╎"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
 
 [keys.insert]
 j.k = "normal_mode"
