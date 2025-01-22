@@ -5,8 +5,8 @@ let
       zsh-helix-mode = fetchFromGitHub {
         owner = "multirious";
         repo = "zsh-helix-mode";
-        rev = "9cce1e0ce3fe314e07d02943303d575073b62872";
-        sha256 = "sha256-f4SC8/mCXHAUGgVmZ1/JeOAVtkm+tdPkjgQZZYb2pvY=";
+        rev = "05ed261ea98affcab328a2fbe905d7643c33ce27";
+        sha256 = "sha256-z4W/iY1wvjpAKYCmlrNP1swSmBN1Z61xIJHNbit1eNc=";
       };
       zsh-autosuggestions = fetchFromGitHub {
         owner = "zsh-users";
