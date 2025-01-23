@@ -30,10 +30,11 @@ let
         zhm_history_prev
         zhm_history_next
         zhm_prompt_accept
+        zhm_accept
+        zhm_accept_or_insert_newline
       )
       ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
         zhm_move_right
-        zhm_goto_line_end
       )
       ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
         zhm_move_next_word_start
