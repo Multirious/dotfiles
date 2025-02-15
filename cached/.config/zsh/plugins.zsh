@@ -1,3 +1,5 @@
+source <(fzf --zsh)
+
 source /nix/store/1glag614jki2v5hhrkm0ycgwk628mj8i-source/zsh-helix-mode.plugin.zsh
 bindkey -M hxins "jk" zhm_normal
 

@@ -22,6 +22,8 @@ let
       };
     in
     ''
+      source <(fzf --zsh)
+      
       source ${zsh-helix-mode}/zsh-helix-mode.plugin.zsh
       bindkey -M hxins "jk" zhm_normal
 
