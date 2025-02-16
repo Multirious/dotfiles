@@ -27,11 +27,15 @@ if [ -t 0 ]; then
   alias gpu='git pull'
   alias gd='git diff'
 
-  alias hxc='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
+  alias hxdf='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
   alias shx='sudo /home/peach/.nix-profile/bin/hx --config /home/peach/.config/helix/config.toml'
+  alias hxnc='shx /etc/nixos/configuration.nix'
 
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
+
+  alias nix-reswitch='sudo nix-rebuild switch'
+  alias nix-reboot='sudo nix-rebuild boot && reboot'
 
   . ~/.config/shell/scripts
 

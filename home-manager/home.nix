@@ -5,6 +5,8 @@
 
   targets.genericLinux.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = 
   with pkgs; let
     tmux = pkgs.tmux.overrideAttrs (finalAttrs: prevAttrs:
@@ -46,6 +48,9 @@
     keepassxc
     yt-dlp
     ffmpeg
+    steam
+    reaper
+    firefox
 
     neofetch
 
