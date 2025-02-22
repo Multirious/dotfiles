@@ -90,7 +90,14 @@ let
     '';
     y = /*bash*/''
       send -X copy-selection-and-cancel
-      run -b "tmux show-buffer | xclip -sel clip"
+      run-shell -b '
+        if [[ -n $WAYLAND_DISPLAY ]]; then
+          tmux show-buffer | wl-copy
+        elif [[ -n $DISPLAY ]]; then
+          tmux show-buffer | xclip -sel clip
+        else
+          tmux display-message "No configured copy command (Maybe WAYLAND_DISPLAY or DISPLAY is not set)"
+        fi'
     '';
     x = /*bash*/''
       ${extraVar}

@@ -34,8 +34,8 @@ if [ -t 0 ]; then
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
 
-  alias nix-reswitch='sudo nix-rebuild switch'
-  alias nix-reboot='sudo nix-rebuild boot && reboot'
+  alias nixos-rs='sudo nixos-rebuild switch'
+  alias nixos-rb='sudo nixos-rebuild boot && reboot'
 
   . ~/.config/shell/scripts
 
@@ -43,7 +43,8 @@ if [ -t 0 ]; then
     && [ -n "$PS1" ] \
     && [[ ! "$TERM" =~ screen ]] \
     && [[ ! "$TERM" =~ tmux ]] \
-    && [ -z "$TMUX" ]
+    && [ -z "$TMUX" ] \
+    && [[ $XDG_SESSION_TYPE != "tty" ]]
   then
     tmux -f ~/.config/tmux/tmux.conf new-session -A -s main ; exit
   fi
