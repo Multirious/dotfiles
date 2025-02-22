@@ -1,16 +1,14 @@
-{ pkgs, mkConfig, dontPatch, keyMappings, writeScript, callPackage }:
-let
-  plugins = writeScript "dotconfig-zsh-plugins" (callPackage ./plugins.nix {});
-in
-mkConfig {
-  name = "dotconfig-zsh";
+{ writeScript, callPackage }:
+{
   files = {
-    "env" = ./env;
-    "login" = ./login;
-    "logout" = ./logout;
-    "interactive" = ./interactive;
-    "completion.zsh" = ./completion.zsh;
-    "dirs.zsh" = ./dirs.zsh;
-    "plugins.zsh" = "${plugins}";
+    ".zshenv" = ./.zshenv;
+    ".zshrc" = ./.zshrc;
+    ".zprofile" = ./.zprofile;
+    ".config/zsh/env" = ./env;
+    ".config/zsh/login" = ./login;
+    ".config/zsh/logout" = ./logout;
+    ".config/zsh/interactive" = ./interactive;
+    ".config/zsh/completion.zsh" = ./completion.zsh;
+    ".config/zsh/plugins.zsh" = writeScript "zsh-plugins" (callPackage ./plugins.nix {});
   };
 }

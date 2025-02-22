@@ -23,7 +23,6 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 
 source ~/.config/zsh/completion.zsh
-source ~/.config/zsh/dirs.zsh
 source ~/.config/zsh/plugins.zsh
 
 # For completions to work, this must be added after compinit is called.

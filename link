@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
 script_dir="$(dirname $(realpath "$0"))"
-nix-build "$script_dir" -o "$script_dir/result" >/dev/null
-"$script_dir/result/update_cache" "$script_dir"
-"$script_dir/result/link" "$@"
+nix-build "$script_dir" -o "$script_dir/built" >/dev/null
+# "$script_dir/result/update_cache" "$script_dir"
+"$script_dir/built/link-nixed.sh" "$script_dir/built" "$@"

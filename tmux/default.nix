@@ -1,6 +1,9 @@
-{ mkConfig, callPackage, pkgs, dontPatch ? false }:
+{ callPackage, pkgs }:
 let
-  inherit (pkgs) writeScript writeText symlinkJoin;
+  inherit (pkgs) writeText symlinkJoin;
+  keyMapper = (modalKeyMappings:
+    callPackage ./tmux-key-mapper.nix { inherit modalKeyMappings; }
+  );
 
   runPlugin = plugin:
     let
@@ -9,9 +12,6 @@ let
     ''
       run-shell '#{d:current_file}/plugins/${rtp}'
     '';
-  keyMapper = (modalKeyMappings:
-    callPackage ./tmux-key-mapper.nix { inherit modalKeyMappings; }
-  );
 
   plugins = with pkgs.tmuxPlugins; {
     # yank = yank;
@@ -25,12 +25,8 @@ let
     # });
   };
   pluginsDrv = symlinkJoin {
-    name = "dotconfig-tmux-plugins";
-    paths = map
-      (p: p.overrideAttrs (attr: {
-        dontPatchShebangs = dontPatch;
-      }))
-      (builtins.attrValues plugins);
+    name = "dotfiles-tmux-plugins";
+    paths = (builtins.attrValues plugins);
   };
 
   modalKeyMappings =
@@ -236,10 +232,10 @@ let
       send -X search-reverse
     '';
   };
-  helixConf = writeText "dotconfig-tmux-helixconf" ''
+  helixConf = writeText "dotfiles-tmux-helixconf" ''
     ${keyMapper modalKeyMappings}
   '';
-  config = writeText "dotconfig-tmuxconf" (/*bash*/''
+  config = writeText "dotfiles-tmuxconf" (/*bash*/''
     set -g default-terminal "xterm-256color"
     set -sa terminal-overrides ",xterm*:Tc"
     # set -sa terminal-features ",*:sixel"
@@ -418,12 +414,10 @@ let
     set -g menu-selected-style 'bg=#{@a1} fg=#{@fg}'
   '');
 in
-mkConfig {
-  name = "dotconfig-tmux";
+{
   files = {
-    "tmux.conf" = "${config}";
-    "helix.conf" = "${helixConf}";
-    "plugins" = "${pluginsDrv}";
+    ".config/tmux/tmux.conf" = config;
+    ".config/tmux/helix.conf" = helixConf;
+    ".config/tmux/plugins" = pluginsDrv;
   };
 }
-#:w<ret>:sh<space>~/dotfiles/link<space>1<gt>/dev/null<space>&&<space>tmux<space>source<space>~/.config/tmux/tmux.conf<space>&&<space>tmux<space>display<space>reloaded<ret>

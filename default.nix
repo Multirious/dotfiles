@@ -3,11 +3,9 @@
     overlays = [
       (final: prev:
         let
-          mylib = prev.callPackage ./lib {};
           keyMappings = import ./keyMappings;
         in
         {
-          inherit (mylib) mkConfig mkDotfiles mkFiles;
           inherit keyMappings;
         }
       )
@@ -16,28 +14,17 @@
   },
 }: 
 let
-  inherit (pkgs) callPackage mkDotfiles mkFiles;
+  mkFiles = (callPackage ./lib/make-files.nix {}).mkFiles;
+  inherit (pkgs) callPackage;
 in
-mkDotfiles ({ dontPatch }:
-  mkFiles {
-    ".bash_logout" = ./.bash_logout;
-    ".bashrc" = ./.bashrc;
-    ".bash_profile" = ./.bash_profile;
-    ".profile" = ./.profile;
-    ".zshenv" = ./.zshenv;
-    ".zshrc" = ./.zshrc;
-    ".zprofile" = ./.zprofile;
-
-    ".config/shell" = ./shell;
-    ".config/sh" = ./sh;
-    ".config/zsh" = callPackage ./zsh { inherit dontPatch; };
-    ".config/bash" = ./bash;
-
-    ".config/home-manager" = ./home-manager;
-    ".config/starship.toml" = ./starship.toml;
-
-    ".config/tmux" = callPackage ./tmux { inherit dontPatch; };
-    ".config/helix" = callPackage ./helix { inherit dontPatch; };
-    ".config/git" = callPackage ./git { inherit dontPatch; };
-  }
+mkFiles (
+     (callPackage ./bash         {}).files
+  // (callPackage ./helix        {}).files
+  // (callPackage ./shell        {}).files
+  // (callPackage ./tmux         {}).files
+  // (callPackage ./git          {}).files
+  // (callPackage ./home-manager {}).files
+  // (callPackage ./sh           {}).files
+  // (callPackage ./starship     {}).files
+  // (callPackage ./zsh          {}).files
 )
