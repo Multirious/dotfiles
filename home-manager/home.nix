@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  imports = [];
+
   home.username = "peach";
   home.homeDirectory = "/home/peach";
 
