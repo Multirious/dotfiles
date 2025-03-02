@@ -28,4 +28,5 @@ mkFiles (
   // (callPackage ./starship     {}).files
   // (callPackage ./zsh          {}).files
   // (callPackage ./kitty        {}).files
+  // (callPackage ./sway         {}).files
 )

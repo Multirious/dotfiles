@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-  imports = [];
-
   home.username = "peach";
   home.homeDirectory = "/home/peach";
 
@@ -68,6 +66,10 @@
     kitty
     gephi
     lan-mouse
+    obs-studio
+    xdg-desktop-portal-wlr
+    slurp
+    htop
 
     neofetch
 

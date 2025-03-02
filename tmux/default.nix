@@ -367,7 +367,7 @@ let
 
     set -g status-right-length 100
     set -g status-left-length 100
-    set -g status-left '#[fg=#{@fg} bg=#{@bg}]#[push-default]#[fg=#{@bg} bg=#{@fill}]#[default]  #{session_name} #[fg=#{@bg} bg=#{@fill}]#[pop-default]'
+    set -g status-left '#[fg=#{@fg} bg=#{@bg}]#[push-default]#[fg=#{@bg} bg=#{@fill}]█#[default]  #{session_name} #[fg=#{@bg} bg=#{@fill}]#[pop-default]'
     set -g status-right '#[fg=#{@fg} bg=#{@bg}]#[push-default]#[fg=#{@a1} bg=#{@fill}]#[bg=#{@a1}] #[fg=#{@bg2} bg=#{@a1}]#[default bg=#{@bg2}] #{host} #[fg=#{@bg} bg=#{@bg2}]#[default] %H:%M:%S  %d/%b/%y #[pop-default]'
 
     set -g window-status-bell-style '''
