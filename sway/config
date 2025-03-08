@@ -20,7 +20,7 @@ input type:touch {
 }
 
 output eDP-1 {
-    background /home/peach/bg.jpg fill #161616
+    background /home/peach/.local/share/backgrounds/desert.jpg fill #161616
     mode 1920x1080@144hz position 1920,0
 }
 
@@ -34,8 +34,8 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec kitty
-bindsym $mod+Shift+q kill
-bindsym $mod+d exec wofi --show=run
+bindsym $mod+q kill
+bindsym $mod+r exec wofi --show=drun
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
 
 # Drag floating windows by holding down $mod and left mouse button.
@@ -135,7 +135,7 @@ bindsym Print exec grim
 
 # Style =======================================================================
 
-font "Meera Inimai Medium 13" 
+font "RobotoMono Nerd Font 13" 
 
 corner_radius 20
 
@@ -165,26 +165,7 @@ client.unfocused #00000000 #ddddddbb #222222ff #ffa500bb
 
 titlebar_separator disable
  
-bar {
-    position bottom
-    bar gaps 0 0 5 0
-    height 27
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%d/%m/%y %H:%M:%S'; do sleep 1; done
-
-    separator_symbol " "
-
-    tray_padding 4
-
-    colors {
-        background #ffffff44
-        statusline #111111
-        focused_workspace #00000000 #11111177 #ffffff55
-        inactive_workspace #00000000 #11111177 #ffffff55
-    }
-}
+bar swaybar_command waybar
 
 # Startups ====================================================================
 
@@ -192,8 +173,8 @@ exec lan-mouse
 for_window [title="^Lan Mouse$"] move scratchpad, resize set 500 600
 
 exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000' \
+    timeout 300 'swaylock -f' \
     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-    before-sleep 'swaylock -f -c 000000'
+    before-sleep 'swaylock -f'
 
 include /etc/sway/config.d/*

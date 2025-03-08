@@ -15,18 +15,36 @@
 }: 
 let
   mkFiles = (callPackage ./lib/make-files.nix {}).mkFiles;
+  callFilePackages = filePackages:
+    let
+      filesList =
+        (builtins.map
+          (filePackage:
+            (callPackage filePackage {}).files
+          )
+          filePackages
+        );
+    in
+    builtins.foldl'
+      (allFiles: files: allFiles // files)
+      {}
+      filesList;
   inherit (pkgs) callPackage;
 in
-mkFiles (
-     (callPackage ./bash         {}).files
-  // (callPackage ./helix        {}).files
-  // (callPackage ./shell        {}).files
-  // (callPackage ./tmux         {}).files
-  // (callPackage ./git          {}).files
-  // (callPackage ./home-manager {}).files
-  // (callPackage ./sh           {}).files
-  // (callPackage ./starship     {}).files
-  // (callPackage ./zsh          {}).files
-  // (callPackage ./kitty        {}).files
-  // (callPackage ./sway         {}).files
-)
+mkFiles (callFilePackages [
+  ./bash
+  ./helix
+  ./shell
+  ./tmux
+  ./git
+  ./home-manager
+  ./sh
+  ./starship
+  ./zsh
+  ./kitty
+  ./sway
+  ./swaylock-effects
+  ./waybar
+  ./misc
+  ./hypr
+])

@@ -1,0 +1,5 @@
+[keys.normal."+"]
+r.l = [":w", ":sh ./link"]
+r.s = [":w", ":sh ./link && swaymsg reload"]
+r.h = [":w", ":sh ./link && home-manager switch"]
+r.p = [":w", ":sh ./link && hyprctl reload"]

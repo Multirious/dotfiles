@@ -23,17 +23,39 @@
       extensions = [ "rust-analyzer" "rustfmt" "rust-src" "rust-std" "rust-src" ];
       targets = [ "x86_64-pc-windows-gnu" ];
     };
-    firefox = pkgs.firefox.overrideAttrs (a:
+    librewolf-wayland = pkgs.librewolf-wayland.overrideAttrs (a:
       {
         buildCommand = a.buildCommand + ''
           wrapProgram "$executablePath" \
-            --set 'HOME' '${config.home.homeDirectory}/.config'
+            --set 'HOME' '${config.home.homeDirectory}/.local/share/librewolf'
         '';
       }
     );
+    # tor-browser = pkgs.tor-browser.overrideAttrs (a:
+    #   {
+    #     buildCommand = a.buildCommand + ''
+    #       wrapProgram "$executablePath" \
+    #         --set 'HOME' '${config.home.homeDirectory}/.local/share/tor'
+    #     '';
+    #   }
+    # );
     steam = pkgs.steam.override {
-      extraEnv.HOME = "${config.home.homeDirectory}/.config";
+      extraEnv.HOME = "${config.home.homeDirectory}/.local/share/steam";
     };
+    # lan-mouse = pkgs.lan-mouse.overrideAttrs (old: rec {
+    #   pname = "lan-mouse";
+    #   version = "latest";
+    #   src = fetchFromGitHub {
+    #     owner = "feschber";
+    #     repo = "lan-mouse";
+    #     rev = "latest";
+    #     hash = "sha256-vh5PknQOp4mzSQSS5lChw5ZzbbfBmUPqi1vgcZ4noSI=";
+    #   };
+    #   cargoDeps = old.cargoDeps.overrideAttrs {
+    #     inherit src;
+    #     outputHash = lib.fakeHash;
+    #   };
+    # });
   in
   [
     wl-clipboard
@@ -44,6 +66,8 @@
     tmux
     fzf
     eza
+    tldr
+    file
 
     helix
     git
@@ -61,7 +85,8 @@
     ffmpeg
     steam
     reaper
-    firefox
+    librewolf-wayland
+    tor-browser
     megasync
     kitty
     gephi
@@ -85,6 +110,9 @@
     zig zls
 
     sqlx-cli
+
+    waybar
+    hyprpaper
   ];
   fonts.fontconfig.enable = true;
 
