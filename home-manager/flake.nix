@@ -11,20 +11,30 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, rust-overlay, ... }:
-    let
-      overlays = [ (import rust-overlay) ];
-      system = "x86_64-linux";
+  outputs = { nixpkgs, home-manager, rust-overlay, ... } @ inputs: {
+    homeConfigurations."peach" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
-        inherit system overlays;
+        system = "x86_64-linux";
+        overlays = [ (import rust-overlay) ];
       };
-    in {
-      homeConfigurations."peach" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        modules = [ ./home.nix ];
+      extraSpecialArgs = {
+        externalPkgs = {
+          inherit (inputs) Hyprspace;
+        };
       };
+      modules = [ ./home.nix ];
     };
+  };
 }
