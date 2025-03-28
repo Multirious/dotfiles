@@ -45,7 +45,9 @@ cursor-line = "error"
 [keys.insert]
 j.k = "normal_mode"
 
-# my special keybinds pack
+[keys.normal."C-w"]
+h = "hsplit"
+
 [keys.normal."+"]
 l = ":lsp-restart"
 

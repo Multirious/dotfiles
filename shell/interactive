@@ -28,8 +28,7 @@ if [ -t 0 ]; then
   alias gd='git diff'
 
   alias hxdf='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
-  alias shx='sudo /home/peach/.nix-profile/bin/hx --config /home/peach/.config/helix/config.toml'
-  alias hxnc='shx /etc/nixos/configuration.nix'
+  alias hxnc='su -p -c "hx /etc/nixos; nixos-rs"'
 
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
@@ -37,7 +36,7 @@ if [ -t 0 ]; then
   alias nixos-rs='sudo nixos-rebuild switch'
   alias nixos-rb='sudo nixos-rebuild boot && reboot'
 
-  . ~/.config/shell/scripts
+  . ~/.config/shell/tmux_functions
 
   if has_command tmux \
     && [ -n "$PS1" ] \

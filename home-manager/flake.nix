@@ -21,6 +21,10 @@
       url = "github:KZDKM/Hyprspace";
       inputs.hyprland.follows = "hyprland";
     };
+    hypr-dynamic-cursors = {
+      url = "github:VirtCode/hypr-dynamic-cursors";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = { nixpkgs, home-manager, rust-overlay, ... } @ inputs: {
@@ -31,7 +35,7 @@
       };
       extraSpecialArgs = {
         externalPkgs = {
-          inherit (inputs) Hyprspace;
+          inherit (inputs) Hyprspace hypr-dynamic-cursors;
         };
       };
       modules = [ ./home.nix ];

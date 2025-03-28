@@ -1,0 +1,95 @@
+* {
+  font-family: "RobotoMono Nerd Font";
+  font-weight: bold;
+  font-size: 15px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+.modules-left {
+  margin-left: 20px;
+}
+
+.modules-right {
+  margin-right: 20px;
+}
+
+@keyframes normal {
+  from {
+    background: #EEEEEE;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes show {
+  from {
+    background: transparent;
+  }
+  to {
+    background: #EEEEEE;
+  }
+}
+
+.module {
+  background: transparent;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  animation: normal 0.1s ease-out;
+}
+
+.module:hover {
+  background: #EEEEEE;
+  animation: show 0.1s ease-out;
+}
+
+#workspaces button {
+  background: transparent;
+}
+
+#idle_inhibitor {
+  min-width: 40px;
+}
+
+#pulseaudio {
+  min-width: 100px;
+}
+
+#network {
+  
+}
+
+#cpu {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#memory {
+  border-radius: 0px;
+}
+
+#temperature {
+  border-radius: 0px;
+}
+
+#backlight {
+  border-radius: 0px;
+}
+
+#battery {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+#custom-power {
+  min-width: 30px;
+}
+
+#clock {
+  min-width: 100px;
+}

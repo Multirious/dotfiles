@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+    <style>
+      <class name="power-menu"/>
+    </style>
+
+    <child>
+      <object class="GtkMenuItem" id="suspend">
+        <property name="label"></property>
+        <property name="tooltip-text">Sleep</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="hibernate">
+        <property name="label"></property>
+        <property name="tooltip-text">Hibernate</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="reboot">
+        <property name="label">󰜉</property>
+        <property name="tooltip-text">Restart</property>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkMenuItem" id="shutdown">
+        <property name="label">󰐥</property>
+        <property name="tooltip-text">Shutdown</property>
+      </object>
+    </child>
+
+  </object>
+</interface>
+

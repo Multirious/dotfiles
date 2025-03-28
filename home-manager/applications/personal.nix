@@ -12,5 +12,15 @@
     steam
     reaper
     megasync
+    discord
+    libsForQt5.dolphin
+    lan-mouse
+    blender
+    vlc
+    zip
+    unzip
+    rar
+    steam-run
+    p7zip
   ];
 }

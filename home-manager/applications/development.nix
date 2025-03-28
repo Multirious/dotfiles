@@ -12,5 +12,6 @@
     rust
     python3
     sqlx-cli
+    gcc
   ];
 }
