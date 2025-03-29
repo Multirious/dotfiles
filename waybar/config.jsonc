@@ -26,10 +26,11 @@
         "cpu",
         "memory",
         "temperature",
-        "backlight",
+       "backlight",
         "keyboard-state",
         "sway/language",
         "battery",
+        "hyprland/language",
         "clock"
     ],
     // Modules configuration
@@ -49,7 +50,12 @@
         //     "default": ""
         // }
     },
-    "keyboard-state": {
+    "hyprland/language": {
+        "format": "{}",
+        "format-th": "TH",
+        "format-en": "EN",
+    },
+     "keyboard-state": {
         "numlock": true,
         "capslock": true,
         "format": "{name} {icon}",
@@ -163,7 +169,7 @@
     },
     "pulseaudio": {
         "scroll-step": 5,
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{icon}  {volume}% {format_source}",
         "format-bluetooth": "{icon}󰂯 {volume}% {format_source}",
         "format-bluetooth-muted": "󰝟 󰂯 {format_source}",
         "format-muted": "󰝟 {format_source}",
@@ -198,7 +204,7 @@
         "menu": "on-click",
         "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
         "menu-actions": {
-            "shutdown": "shutdown",
+            "shutdown": "shutdown now",
             "reboot": "reboot",
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate"

@@ -22,5 +22,6 @@
     rar
     steam-run
     p7zip
+    udiskie
   ];
 }

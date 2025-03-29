@@ -13,6 +13,8 @@ in
     swaylock-effects
     hypridle
     Hyprspace
+    mako
+    hyprpolkitagent
   ];
   home.file.".local/state/hyprland/plugins.conf".text = ''
     plugin = ${Hyprspace}/lib/lib${Hyprspace.pname}.so
