@@ -54,6 +54,7 @@
         "format": "{}",
         "format-th": "TH",
         "format-en": "EN",
+        "format-us": "US",
     },
      "keyboard-state": {
         "numlock": true,
