@@ -24,5 +24,6 @@
     p7zip
     udiskie
     postgresql
+    bottles
   ];
 }
