@@ -1,18 +1,4 @@
-{
-  pkgs ? import <nixpkgs> {
-    overlays = [
-      (final: prev:
-        let
-          keyMappings = import ./keyMappings;
-        in
-        {
-          inherit keyMappings;
-        }
-      )
-    ];
-    config = {};
-  },
-}: 
+{ pkgs ? import <nixpkgs> {}, }: 
 let
   mkFiles = (callPackage ./lib/make-files.nix {}).mkFiles;
   callFilePackages = filePackages:

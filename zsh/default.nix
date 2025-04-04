@@ -1,9 +1,9 @@
 { writeScript, callPackage }:
 {
   files = {
-    ".zshenv" = ./.zshenv;
-    ".zshrc" = ./.zshrc;
-    ".zprofile" = ./.zprofile;
+    ".zshenv" = ./zshenv;
+    ".zshrc" = ./zshrc;
+    ".zprofile" = ./zprofile;
     ".config/zsh/env" = ./env;
     ".config/zsh/login" = ./login;
     ".config/zsh/logout" = ./logout;

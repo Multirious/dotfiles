@@ -4,14 +4,15 @@
   let
     tmux = pkgs.tmux.overrideAttrs (finalAttrs: prevAttrs:
       {
-        version = "9a377485becdd34dda695f38cb73ee5082d9088b";
+        version = "d3c39375d5e9f4a0dcb5bd210c912d70ceca5de9";
         src = fetchFromGitHub {
           owner = "tmux";
           repo = "tmux";
-          rev = "9a377485becdd34dda695f38cb73ee5082d9088b";
-          hash = "sha256-WLcV5ybiZCs+CBCIXUUDRf6YuNOFsiCL0WDLZmlR/5U=";
+          rev = "d3c39375d5e9f4a0dcb5bd210c912d70ceca5de9";
+          hash = "sha256-CTo6NJTuS2m5W6WyqTHg4G6NiRqt874pFGvVgmbKeC8=";
         };
-      });
+      }
+    );
   in
   [
     helix
