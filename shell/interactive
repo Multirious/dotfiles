@@ -21,14 +21,14 @@ if [ -t 0 ]; then
   alias gcm='git commit -m'
   alias gc='git commit'
   alias gs='git status'
-  alias gl='git log -10 --pretty=oneline --abbrev-commit --reverse'
+  alias gl='git log -20 --pretty=oneline --abbrev-commit --reverse'
   alias gll='git log'
   alias gph='git push'
   alias gpu='git pull'
   alias gd='git diff'
 
   alias hxdf='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
-  alias hxnc='su -p -c "hx /etc/nixos; nixos-rs"'
+  alias hxnc='su -p -c "hx /etc/nixos"'
 
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
