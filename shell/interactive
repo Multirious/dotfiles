@@ -8,9 +8,10 @@ if [ -t 0 ]; then
   fi
 
   alias ls='eza'
-  alias ll='eza -l'
-  alias lla='eza -la'
+  alias ll='eza -lg'
+  alias lla='eza -lga'
   alias la='eza -a'
+  alias l='lla'
 
   alias grep='grep --color=auto'
 

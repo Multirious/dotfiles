@@ -26,5 +26,6 @@
     postgresql
     bottles
     obsidian
+    geary
   ];
 }
