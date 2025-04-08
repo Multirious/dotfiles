@@ -25,5 +25,6 @@
     udiskie
     postgresql
     bottles
+    obsidian
   ];
 }
