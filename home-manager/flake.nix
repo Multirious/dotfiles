@@ -27,18 +27,22 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, rust-overlay, ... } @ inputs: {
-    homeConfigurations."peach" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        overlays = [ (import rust-overlay) ];
+  outputs = inputs:
+  let
+    home = system: module: inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        overlays = [ (import inputs.rust-overlay )];
       };
       extraSpecialArgs = {
         externalPkgs = {
           inherit (inputs) Hyprspace hypr-dynamic-cursors;
         };
       };
-      modules = [ ./home.nix ];
+      modules = [ ./home.nix module ];
     };
+  in
+  {
+    homeConfigurations."peach" = home "x86_64-linux" ./users/peach.nix;
   };
 }

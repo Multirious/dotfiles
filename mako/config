@@ -1,0 +1,11 @@
+max-history=20
+sort=+time
+outer-margin=0,0,5
+background-color=#EEEEEE
+text-color=#222222
+font=monospace 11
+border-radius=10
+border-size=2
+border-color=#FFA500
+default-timeout=10000
+anchor=bottom-right

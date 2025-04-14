@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [ ./user.nix ];
   home.packages = [ pkgs.home-manager ];
   targets.genericLinux.enable = true;
   nixpkgs.config.allowUnfree = true;

@@ -27,5 +27,6 @@
     bottles
     obsidian
     geary
+    fyi
   ];
 }

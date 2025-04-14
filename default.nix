@@ -33,4 +33,5 @@ mkFiles (callFilePackages [
   ./waybar
   ./misc
   ./hypr
+  ./mako
 ])

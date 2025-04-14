@@ -9,6 +9,8 @@ export HISTFILE="$XDG_STATE_HOME/bash/history"
 export HISTSIZE=1000
 export HISTFILESIZE=1000
 
+[ -f "$HOME/.bash_history" ] && rm "$HOME/.bash_history"
+
 if has_command starship; then
   eval "$(starship init bash)"
 fi
