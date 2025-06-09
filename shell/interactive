@@ -32,7 +32,7 @@ if [ -t 0 ]; then
   alias ses='tmux_fzf_sessions'
 
   alias shx='sudo --preserve-env=EDITOR,TERM,TERMINFO,TERMINFO_DIRS,XDG_CONFIG_DIRS,XDG_DATA_DIRS,XDG_CONFIG_HOME hx'
-  alias hxdf='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
+  alias hxdf='hx "$HOME/dotfiles/" && dswitch'
   alias hxnc='shx /etc/nixos'
 
   alias dswitch='~/dotfiles/switch'

@@ -1,6 +1,10 @@
-{ ... }:
+{ config, lib, ... }:
+let
+  cfg = config.shell;
+in
 {
-  config.files = {
+  options.shell.enable = lib.mkEnableOption "Enable generic shell configuration";
+  config.files = lib.mkIf cfg.enable {
     ".config/shell/env" = ./env;
     ".config/shell/login" = ./login;
     ".config/shell/logout" = ./logout;

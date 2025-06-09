@@ -1,10 +1,10 @@
-{ pkgs, writeText, ... }:
+{ config, lib, ... }:
+let
+  cfg = config.sway;
+in
 {
-  config.files = {
-    # ".config/sway/config" = writeText "dotfiles-sway" ''
-    #   ${builtins.readFile ./config}
-    #   exec --no-startup-id ${pkgs.xdg-desktop-portal-wlr}/libexec/xdg-desktop-portal-wlr -r
-    # '';
+  options.sway.enable = lib.mkEnableOption "Enable Sway configuration";
+  config.files = lib.mkIf cfg.enable {
     ".config/sway/config" = ./config;
   };
 }

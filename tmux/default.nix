@@ -1,13 +1,14 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (pkgs) writeText symlinkJoin callPackage;
+  cfg = config.tmux;
   keyMapper = (modalKeyMappings:
     callPackage ./tmux-key-mapper.nix { inherit modalKeyMappings; }
   );
 
   runPlugin = plugin:
     let
-      rtp = pkgs.lib.strings.removePrefix "${plugin.out}/" plugin.rtp;
+      rtp = lib.strings.removePrefix "${plugin.out}/" plugin.rtp;
     in
     ''
       run-shell '#{d:current_file}/plugins/${rtp}'
@@ -237,7 +238,8 @@ let
   '';
 in
 {
-  config.files = {
+  options.tmux.enable = lib.mkEnableOption "Enable Tmux configuration";
+  config.files = lib.mkIf cfg.enable {
     ".config/tmux/tmux.conf" = ./tmux.conf;
     ".config/tmux/helix.conf" = helixConf;
     ".config/tmux/plugins" = pluginsDrv;

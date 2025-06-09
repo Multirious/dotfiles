@@ -3,6 +3,7 @@ let
   dotfiles = (pkgs.callPackage ./lib/dotfiles.nix {}).dotfiles;
 in
 dotfiles [
+  ./config.nix
   ./bash
   ./helix
   ./shell

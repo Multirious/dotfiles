@@ -25,7 +25,7 @@
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
     };
-   };
+  };
 
   outputs = inputs:
   let

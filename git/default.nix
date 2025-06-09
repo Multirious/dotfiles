@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  cfg = config.git;
+in
 let
   inherit (pkgs) writeText;
   draculaTheme = pkgs.fetchgit {
@@ -11,7 +14,8 @@ let
   '';
 in
 {
-  config.files = {
+  options.git.enable = lib.mkEnableOption "Enable Git configuration";
+  config.files = lib.mkIf cfg.enable {
     ".config/git/gitk" = gitk;
     ".config/git/config" = ./config;
   };
