@@ -12,12 +12,12 @@ in
     hyprpaper
     swaylock-effects
     hypridle
-    Hyprspace
+    # Hyprspace
     mako
     hyprpolkitagent
   ];
-  home.file.".local/state/hyprland/plugins.conf".text = ''
-    plugin = ${Hyprspace}/lib/lib${Hyprspace.pname}.so
-    # plugin = ${hypr-dynamic-cursors}/lib/libhypr-dynamic-cursors.so
-  '';
+  # home.file.".local/state/hyprland/plugins.conf".text = ''
+  #   # plugin = ${Hyprspace}/lib/lib${Hyprspace.pname}.so
+  #   # plugin = ${hypr-dynamic-cursors}/lib/libhypr-dynamic-cursors.so
+  # '';
 }

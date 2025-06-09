@@ -1,0 +1,6 @@
+# Usage: try <nixpkgs name> <command>
+try () {
+ package="$1"
+ shift
+ nix shell "nixpkgs#$package" --command $*
+}

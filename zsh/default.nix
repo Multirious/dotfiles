@@ -1,6 +1,9 @@
-{ writeScript, callPackage }:
+{ pkgs, ... }:
+let
+  inherit (pkgs) writeScript callPackage;
+in
 {
-  files = {
+  config.files = {
     ".zshenv" = ./zshenv;
     ".zshrc" = ./zshrc;
     ".zprofile" = ./zprofile;

@@ -1,3 +1,5 @@
+export HOME="/home/peach"
+
 export EDITOR=hx
 export VISUAL=$EDITOR
 
@@ -22,7 +24,7 @@ export XDG_VIDEOS_DIR="$HOME/videos"
 export XCURSOR_THEME="posy_cursor"
 export XCURSOR_SIZE="10"
 
-if has_command less; then
+if has-command less; then
   [ -d "$XDG_STATE_HOME/less" ] || mkdir -p "$XDG_STATE_HOME/less"
   export LESSHISTFILE="$XDG_STATE_HOME/less/history"
   [ -f "$HOME/.lesshst" ] && rm "$HOME/.lesshst"
@@ -32,10 +34,11 @@ if [ -d "$HOME/.cargo/bin" ]; then
   export PATH="$HOME/.cargo/bin:${PATH}"
 fi
 
-if has_command wget; then
+if has-command wget; then
   [ -d "$XDG_CONFIG_HOME/wget" ] || mkdir -p "$XDG_CONFIG_HOME/wget"
   alias wget="wget --hsts-file $XDG_CONFIG_HOME/wget/hsts"
 fi
 
-try_source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+try-source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
+export PATH="$HOME/.local/bin:$PATH"

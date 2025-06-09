@@ -1,6 +1,6 @@
-{}:
+{ ... }:
 {
-  files = {
+  config.files = {
     ".config/starship.toml" = ./starship.toml;
   };
 }

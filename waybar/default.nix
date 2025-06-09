@@ -1,6 +1,6 @@
-{}:
+{ ... }:
 {
-  files = {
+  config.files = {
     ".config/waybar/config.jsonc" = ./config.jsonc;
     ".config/waybar/style.css" = ./style.css;
     ".config/waybar/mediaplayer.py" = ./mediaplayer.py;

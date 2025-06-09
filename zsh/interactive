@@ -11,7 +11,7 @@ export HISTSIZE="2000"
 
 source ~/.config/zsh/completion.zsh
 
-if has_command starship; then
+if has-command starship; then
   eval "$(starship init zsh)"
 
   PS2=$'%{\e[90m%}∙∙∙%{\e[0m%} '
@@ -22,7 +22,7 @@ HYPHEN_INSENSITIVE="true"
 source ~/.config/zsh/plugins.zsh
 
 # For completions to work, this must be added after compinit is called.
-if has_command zoxide; then
+if has-command zoxide; then
   eval "$(zoxide init zsh)"
 fi
 
@@ -33,6 +33,6 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
-if has_command direnv; then
+if has-command direnv; then
   eval "$(direnv hook zsh)"
 fi

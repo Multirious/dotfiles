@@ -9,6 +9,8 @@
     ../apps/terminal-emulator.nix
     ../apps/tools.nix
     ../apps/nix.nix
+    ../apps/audio-plugins.nix
+    ../apps/games.nix
     ../theme/cursor.nix
   ];
   home.username = "peach";

@@ -1,6 +1,6 @@
-{}:
+{ ... }:
 {
-  files = {
+  config.files = {
     ".profile" = ./.profile;
   };
 }

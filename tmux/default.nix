@@ -1,6 +1,6 @@
-{ callPackage, pkgs }:
+{ pkgs, ... }:
 let
-  inherit (pkgs) writeText symlinkJoin;
+  inherit (pkgs) writeText symlinkJoin callPackage;
   keyMapper = (modalKeyMappings:
     callPackage ./tmux-key-mapper.nix { inherit modalKeyMappings; }
   );
@@ -237,7 +237,7 @@ let
   '';
 in
 {
-  files = {
+  config.files = {
     ".config/tmux/tmux.conf" = ./tmux.conf;
     ".config/tmux/helix.conf" = helixConf;
     ".config/tmux/plugins" = pluginsDrv;

@@ -1,4 +1,4 @@
-{ pkgs, callPackage }:
+{ pkgs }:
 let
   attrsToKv = attrs:
     pkgs.lib.concatStringsSep "\n"

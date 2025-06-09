@@ -1,23 +1,8 @@
-{ pkgs ? import <nixpkgs> {}, }: 
+{ pkgs ? import <nixpkgs> {} }: 
 let
-  mkFiles = (callPackage ./lib/make-files.nix {}).mkFiles;
-  callFilePackages = filePackages:
-    let
-      filesList =
-        (builtins.map
-          (filePackage:
-            (callPackage filePackage {}).files
-          )
-          filePackages
-        );
-    in
-    builtins.foldl'
-      (allFiles: files: allFiles // files)
-      {}
-      filesList;
-  inherit (pkgs) callPackage;
+  dotfiles = (pkgs.callPackage ./lib/dotfiles.nix {}).dotfiles;
 in
-mkFiles (callFilePackages [
+dotfiles [
   ./bash
   ./helix
   ./shell
@@ -34,4 +19,4 @@ mkFiles (callFilePackages [
   ./misc
   ./hypr
   ./mako
-])
+]

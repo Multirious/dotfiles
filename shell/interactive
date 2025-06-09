@@ -3,7 +3,7 @@ if [ -t 0 ]; then
   # Disable messsages from other users
   mesg n
 
-  if has_command zoxide; then
+  if has-command zoxide; then
     alias cd='z'
   fi
 
@@ -28,18 +28,25 @@ if [ -t 0 ]; then
   alias gpu='git pull'
   alias gd='git diff'
 
-  alias hxdf='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
-  alias hxnc='su -p -c "hx /etc/nixos"'
-
   alias dev='tmux_develop'
   alias ses='tmux_fzf_sessions'
 
-  alias nixos-rs='sudo nixos-rebuild switch'
-  alias nixos-rb='sudo nixos-rebuild boot && reboot'
+  alias shx='sudo --preserve-env=EDITOR,TERM,TERMINFO,TERMINFO_DIRS,XDG_CONFIG_DIRS,XDG_DATA_DIRS,XDG_CONFIG_HOME hx'
+  alias hxdf='hx "$HOME/dotfiles/" && "$HOME/dotfiles/link"'
+  alias hxnc='shx /etc/nixos'
+
+  alias dswitch='~/dotfiles/switch'
+  alias hswitch='home-manager switch'
+
+  if [ -f "/etc/NIXOS" ]; then
+    alias switch='sudo nixos-rebuild switch'
+    alias rswitch='sudo nixos-rebuild boot && reboot'
+  fi
 
   . ~/.config/shell/tmux_functions
+  . ~/.config/shell/nix_functions
 
-  if has_command tmux \
+  if has-command tmux \
     && [ -n "$PS1" ] \
     && [[ ! "$TERM" =~ screen ]] \
     && [[ ! "$TERM" =~ tmux ]] \

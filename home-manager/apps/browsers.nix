@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  home.packages = with pkgs;
+  home.packages = 
   let
     librewolf-wayland = pkgs.librewolf-wayland.overrideAttrs (a:
       {
@@ -10,6 +10,14 @@
         '';
       }
     );
+    tor-browser = (import (builtins.fetchGit {
+      name = "nixpkgs-with-tor-browser-v14.0.9";
+      url = "https://github.com/NixOS/nixpkgs/";
+      ref = "refs/heads/nixpkgs-unstable";
+      rev = "7d7ba194bf834a5194dadfa8f9debcfabaa718bb";
+    }) {
+      inherit (pkgs) system;
+    }).tor-browser;
   in
   [
     tor-browser

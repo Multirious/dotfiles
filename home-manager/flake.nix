@@ -25,14 +25,16 @@
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
     };
-  };
+   };
 
   outputs = inputs:
   let
     home = system: module: inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import inputs.nixpkgs {
         inherit system;
-        overlays = [ (import inputs.rust-overlay )];
+        overlays = [
+          (import inputs.rust-overlay)
+        ];
       };
       extraSpecialArgs = {
         externalPkgs = {

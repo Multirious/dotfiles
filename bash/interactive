@@ -11,10 +11,10 @@ export HISTFILESIZE=1000
 
 [ -f "$HOME/.bash_history" ] && rm "$HOME/.bash_history"
 
-if has_command starship; then
+if has-command starship; then
   eval "$(starship init bash)"
 fi
 
-if has_command zoxide; then
+if has-command zoxide; then
   eval "$(zoxide init bash)"
 fi

@@ -1,12 +1,12 @@
-# Usage: try_source filename
-try_source () {
+# Usage: try-source filename
+try-source () {
     if [ -r "$1" ]; then
         . "$1"
     fi
 }
 
-# Usage: if has_command command
-has_command () {
+# Usage: if has-command command
+has-command () {
     command -v "$1" 2>&1 >/dev/null
     return $?
 }

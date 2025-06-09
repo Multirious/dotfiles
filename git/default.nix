@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 let
   inherit (pkgs) writeText;
   draculaTheme = pkgs.fetchgit {
@@ -11,7 +11,7 @@ let
   '';
 in
 {
-  files = {
+  config.files = {
     ".config/git/gitk" = gitk;
     ".config/git/config" = ./config;
   };
