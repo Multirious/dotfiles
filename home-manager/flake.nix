@@ -2,7 +2,8 @@
   description = "Home Manager configuration of peach";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    system.url = "/etc/nixos/";
+    nixpkgs.follows ="system/nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -38,6 +38,8 @@ if [ -t 0 ]; then
   alias dswitch='~/dotfiles/switch'
   alias hswitch='home-manager switch'
 
+  alias switchaud='~/scripts/switch-audio-device'
+
   if [ -f "/etc/NIXOS" ]; then
     alias switch='sudo nixos-rebuild switch'
     alias rswitch='sudo nixos-rebuild boot && reboot'
