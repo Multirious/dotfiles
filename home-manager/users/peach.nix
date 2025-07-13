@@ -7,7 +7,6 @@
     audioWorkspace.enable = true;
     browser.enable = true;
     compatibility.enable = true;
-    crypto.enable = true;
     desktop.enable = true;
     document.enable = true;
     game.enable = true;
