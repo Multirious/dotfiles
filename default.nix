@@ -20,4 +20,5 @@ dotfiles [
   ./misc
   ./hypr
   ./mako
+  ./wofi
 ]

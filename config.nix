@@ -14,4 +14,5 @@
   home-manager.enable = true;
   kitty.enable = true;
   user-dirs.enable = true;
+  wofi.enable = true;
 }

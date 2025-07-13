@@ -21,9 +21,6 @@ export XDG_PUBLICSHARE_DIR="$HOME/public"
 export XDG_TEMPLATES_DIR="$HOME/templates"
 export XDG_VIDEOS_DIR="$HOME/videos"
 
-export XCURSOR_THEME="posy_cursor"
-export XCURSOR_SIZE="10"
-
 if has-command less; then
   [ -d "$XDG_STATE_HOME/less" ] || mkdir -p "$XDG_STATE_HOME/less"
   export LESSHISTFILE="$XDG_STATE_HOME/less/history"

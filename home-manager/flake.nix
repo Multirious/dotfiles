@@ -30,7 +30,7 @@
 
   outputs = inputs:
   let
-    home = system: module: inputs.home-manager.lib.homeManagerConfiguration {
+    home = system: userModule: inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import inputs.nixpkgs {
         inherit system;
         overlays = [
@@ -42,7 +42,7 @@
           inherit (inputs) Hyprspace hypr-dynamic-cursors;
         };
       };
-      modules = [ ./home.nix module ];
+      modules = [ ./home.nix ./modules userModule ];
     };
   in
   {

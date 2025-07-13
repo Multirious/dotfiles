@@ -13,3 +13,8 @@
 	format = ssh
 [diff]
 	algorithm = patience
+[commit]
+	gpgsign = true
+
+[includeIf "gitdir:~/university/"]
+	path = /home/peach/university/.gitconfig-university

@@ -1,18 +1,25 @@
 { ... }:
 {
-  imports = [
-    ../de/hyprland.nix
-    ../apps/browsers.nix
-    ../apps/personal.nix
-    ../apps/preferred.nix
-    ../apps/sixel.nix
-    ../apps/terminal-emulator.nix
-    ../apps/tools.nix
-    ../apps/nix.nix
-    ../apps/audio-plugins.nix
-    ../apps/games.nix
-    ../theme/cursor.nix
-  ];
   home.username = "peach";
   home.homeDirectory = "/home/peach";
+  myModules = {
+    archive.enable = true;
+    audioWorkspace.enable = true;
+    browser.enable = true;
+    compatibility.enable = true;
+    crypto.enable = true;
+    desktop.enable = true;
+    document.enable = true;
+    game.enable = true;
+    hyprlandEnvironment.enable = true;
+    image.enable = true;
+    linuxWorkspace.enable = true;
+    mail.enable = true;
+    modelingWorkspace.enable = true;
+    multimedia.enable = true;
+    nixWorkspace.enable = true;
+    password.enable = true;
+    sixel.enable = true;
+    theme.enable = true;
+  };
 }

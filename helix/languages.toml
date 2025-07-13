@@ -2,7 +2,8 @@
 timeout = 600
 
 [language-server.rust-analyzer.config]
-checkOnSave.command = "clippy" 
+checkOnSave = true 
+check.command = "clippy"
 
 [language-server.godot]
 command = "ncat.exe"
@@ -25,7 +26,7 @@ command = "nixd"
 [[language]]
 name = "rust"
 language-servers = ["rust-analyzer"]
-formatter = { command = "rustfmt", args = [ "--edition", "2021" ] }
+formatter = { command = "rustfmt", args = [ "--edition", "2024" ] }
 
 # [language.debugger]
 # command = "codelldb"

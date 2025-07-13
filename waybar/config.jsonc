@@ -22,14 +22,13 @@
         "idle_inhibitor",
         "pulseaudio",
         "network",
-        "power-profiles-daemon",
         "cpu",
         "memory",
         "temperature",
-       "backlight",
+        "backlight",
         "keyboard-state",
         "sway/language",
-        "battery",
+        "custom/tlp-battery",
         "hyprland/language",
         "clock"
     ],
@@ -134,28 +133,17 @@
         "scroll-step": 10,
         "tooltip": false
     },
-    "battery": {
-        "states": {
-            "good": 60,
-            "warning": 30,
-            "critical": 10
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": "󱐋{icon} {capacity}%",
-        "format-plugged": "󰚥{icon} {capacity}%",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-    // "power-profiles-daemon": {
-    //   "format": "{icon}",
-    //   "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-    //   "tooltip": true,
-    //   "format-icons": {
-    //     "default": "",
-    //     "performance": "",
-    //     "balanced": "",
-    //     "power-saver": ""
-    //   }
+    // "battery": {
+    //     "states": {
+    //         "good": 60,
+    //         "warning": 30,
+    //         "critical": 10
+    //     },
+    //     "format": "{icon} {capacity}%",
+    //     "format-charging": "󱐋{icon} {capacity}%",
+    //     "format-plugged": "󰚥{icon} {capacity}%",
+    //     "format-alt": "{time} {icon}",
+    //     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     // },
     "network": {
         "format-wifi": "󰖩 {essid} ({signalStrength}%)",
@@ -207,5 +195,14 @@
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate"
         }
+    },
+    "custom/tlp-battery": {
+        "format": "{text}",
+        "exec": "$HOME/system-scripts/waybar-custom-tlp-battery 2>/dev/null",
+        "return-type": "json",
+        "interval": 60,
+        "on-click": "echo this-forces-the-thing-to-update",
+        "on-scroll-up": "sudo $HOME/system-scripts/cycle-battery-threshold up && sleep 2",
+        "on-scroll-down": "sudo $HOME/system-scripts/cycle-battery-threshold down && sleep 2"
     }
 }
