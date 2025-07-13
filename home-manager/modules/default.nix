@@ -19,5 +19,6 @@
     ./password.nix
     ./sixel.nix
     ./theme.nix
+    ./university.nix
   ];
 }

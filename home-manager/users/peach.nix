@@ -20,5 +20,6 @@
     password.enable = true;
     sixel.enable = true;
     theme.enable = true;
+    university.enable = true;
   };
 }
