@@ -1,11 +1,12 @@
 { fetchFromGitHub }:
 let
-  zsh-helix-mode = fetchFromGitHub {
-    owner = "multirious";
-    repo = "zsh-helix-mode";
-    rev = "0b5293208689b10144be268e9e8bb06e56f9ef0f";
-    sha256 = "sha256-K9PiLF0Blt/p+62BUap2U8TpX17JYYpDxX+s/XJmdAU=";
-  };
+  # zsh-helix-mode = fetchFromGitHub {
+  #   owner = "multirious";
+  #   repo = "zsh-helix-mode";
+  #   rev = "3df28e4e75ff678f20f4776a6e07c6940e567a8e";
+  #   sha256 = "sha256-4toXpJhc2Q2ItPzxo8Qrr4UIusk1lSrwxRQVJwVJHJY=";
+  # };
+  zsh-helix-mode = /home/peach/code-projects/zsh-helix-mode;
   zsh-autosuggestions = fetchFromGitHub {
     owner = "zsh-users";
     repo = "zsh-autosuggestions";
@@ -35,6 +36,7 @@ in
   )
   ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
     zhm_move_right
+    zhm_clear_selection_move_right
   )
   ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
     zhm_move_next_word_start

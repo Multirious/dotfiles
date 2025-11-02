@@ -1,6 +1,21 @@
-# Usage: try <nixpkgs name> <command>
-try () {
- package="$1"
- shift
- nix shell "nixpkgs#$package" --command $*
+# Usage: nix-try <nixpkgs name> <command>
+nix-try () {
+  package="$1"
+  shift
+  nix shell "nixpkgs#$package" --command $*
+}
+
+# Usage: nix-view <nixpkgs name>
+nix-view () {
+  cd $(nix-build '<nixpkgs>' --attr "$1" --no-out-link)
+}
+
+nix-full-update () {
+  sudo nix-collect-garbage
+  sudo nix flake update --flake /etc/nixos
+  sudo nixos-rebuild boot
+  nix flake update --flake ~/dotfiles/home-manager
+  home-manager switch
+  sudo nix-collect-garbage
+  reboot
 }

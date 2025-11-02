@@ -3,22 +3,23 @@ let
   dotfiles = (pkgs.callPackage ./lib/dotfiles.nix {}).dotfiles;
 in
 dotfiles [
-  ./config.nix
   ./bash
-  ./helix
-  ./shell
-  ./tmux
+  ./config.nix
   ./git
+  ./helix
   ./home-manager
-  ./sh
-  ./starship
-  ./zsh
+  ./hypr
   ./kitty
+  ./mako
+  ./misc
+  ./scripts
+  ./sh
+  ./shell
+  ./starship
   ./sway
   ./swaylock-effects
+  ./tmux
   ./waybar
-  ./misc
-  ./hypr
-  ./mako
   ./wofi
+  ./zsh
 ]

@@ -30,20 +30,24 @@
 
   outputs = inputs:
   let
-    home = system: userModule: inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-        overlays = [
-          (import inputs.rust-overlay)
-        ];
-      };
-      extraSpecialArgs = {
-        externalPkgs = {
-          inherit (inputs) Hyprspace hypr-dynamic-cursors;
+    home = system: userModule:
+      let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [
+            (import inputs.rust-overlay)
+          ];
         };
+      in inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          externalPkgs = {
+            inherit (inputs) Hyprspace hypr-dynamic-cursors;
+            inherit (import ./custom-packages { inherit pkgs; }) sitala;
+          };
+        };
+        modules = [ ./home.nix ./modules userModule ];
       };
-      modules = [ ./home.nix ./modules userModule ];
-    };
   in
   {
     homeConfigurations."peach" = home "x86_64-linux" ./users/peach.nix;

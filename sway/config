@@ -20,7 +20,7 @@ input type:touch {
 }
 
 output eDP-1 {
-    background /home/peach/.local/share/backgrounds/desert.jpg fill #161616
+    background /home/peach/.local/share/backgrounds/desert_lake.jpg fill #161616
     mode 1920x1080@144hz position 1920,0
 }
 
@@ -106,21 +106,21 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+# mode "resize" {
+#     # left will shrink the containers width
+#     # right will grow the containers width
+#     # up will shrink the containers height
+#     # down will grow the containers height
+#     bindsym $left resize shrink width 10px
+#     bindsym $down resize grow height 10px
+#     bindsym $up resize shrink height 10px
+#     bindsym $right resize grow width 10px
 
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
+#     # Return to default mode
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
+# bindsym $mod+r mode "resize"
 
 # Audio 
 bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
@@ -137,21 +137,21 @@ bindsym Print exec grim
 
 font "RobotoMono Nerd Font 13" 
 
-corner_radius 20
+# corner_radius 20
 
-blur enable
-blur_passes 3
-blur_radius 10
-blur_noise 0.0
-blur_brightness 0.7
-blur_contrast 0.5
-blur_saturation 1.0
+# blur enable
+# blur_passes 3
+# blur_radius 10
+# blur_noise 0.0
+# blur_brightness 0.7
+# blur_contrast 0.5
+# blur_saturation 1.0
 
-shadows enable
-shadow_blur_radius 20
-shadow_color #ffa50099
-shadow_offset 0 0
-shadow_inactive_color #00000099
+# shadows enable
+# shadow_blur_radius 20
+# shadow_color #ffa50099
+# shadow_offset 0 0
+# shadow_inactive_color #00000099
 
 gaps inner 10
 default_border pixel 5
@@ -163,14 +163,14 @@ titlebar_border_thickness 0
 client.focused #00000000 #ffa500bb #222222ff #ffa500bb 
 client.unfocused #00000000 #ddddddbb #222222ff #ffa500bb 
 
-titlebar_separator disable
+# titlebar_separator disable
  
 bar swaybar_command waybar
 
 # Startups ====================================================================
 
-exec lan-mouse
 for_window [title="^Lan Mouse$"] move scratchpad, resize set 500 600
+for_window [class="REAPER"] floating enable
 
 exec swayidle -w \
     timeout 300 'swaylock -f' \

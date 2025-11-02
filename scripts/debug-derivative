@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+case "$1" in
+  "-f" | "--flake")
+    nix_mode="flake"
+    attribute="${2:-default}"
+    ;;
+  *)
+    nix_mode="auto"
+    attribute="${1:-default}"
+    ;;
+esac
+
+if [ "$nix_mode" = "auto" ]; then
+  if [ -f "$(pwd)/default.nix" ]; then
+    nix_mode="default"
+  elif [ -f "$(pwd)/flake.nix" ]; then
+    nix_mode="flake"
+  else
+    echo "Neither flake.nix nor default.nix found" 1>&2
+    exit 1
+  fi
+fi
+
+if [ "$nix_mode" = "flake" ]; then
+  temp_out_dir=$(mktemp -d)
+  temp_dir=$(mktemp -d)
+  nix-shell \
+    --expr "
+      let
+        flake = builtins.getFlake \"$(pwd)\";
+      in
+      flake.packages.\${builtins.currentSystem}.$attribute
+    " \
+    --command "export out=$temp_out_dir; cd $temp_dir; return"
+  rm -rf $temp_dir 2>/dev/null || sudo rm -rf $temp_dir
+  rm -rf $temp_out_dir 2>/dev/null || sudo rm -rf $temp_out_dir
+else
+  echo "Unimplemented" 1>&2
+  exit 1
+fi
+

@@ -8,5 +8,10 @@ in
     home.packages = with pkgs; [
       libreoffice
     ];
+    xdg.mimeApps = {
+      defaultApplications = {
+        "application/vnd.oasis.opendocument.text" = [ "writer.desktop" ];
+      };
+    };
   };
 }

@@ -7,6 +7,10 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       nixd
+      pkgs.nixfmt-rfc-style
     ];
+    programs.nix-index.enable = true;
+    programs.nix-index.enableBashIntegration = false;
+    programs.nix-index.enableZshIntegration = false;
   };
 }

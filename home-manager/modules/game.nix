@@ -15,7 +15,7 @@ in
       in
       [
         steam
-        pkgs.prismlauncher
+        # pkgs.prismlauncher
       ];
   };
 }

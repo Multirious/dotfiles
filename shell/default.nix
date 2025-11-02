@@ -12,5 +12,6 @@ in
     ".config/shell/tmux_functions" = ./tmux_functions;
     ".config/shell/env_functions" = ./env_functions;
     ".config/shell/nix_functions" = ./nix_functions;
+    ".config/shell/de_functions" = ./de_functions;
   };
 }

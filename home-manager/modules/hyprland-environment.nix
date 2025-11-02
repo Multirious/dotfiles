@@ -19,9 +19,9 @@ in
         hyprpolkitagent
         zenity
       ];
-      home.file.".local/state/hyprland/plugins.conf".text = ''
-        # plugin = ${Hyprspace}/lib/lib${Hyprspace.pname}.so
-        # plugin = ${hypr-dynamic-cursors}/lib/libhypr-dynamic-cursors.so
-      '';
+      # home.file.".local/state/hyprland/plugins.conf".text = ''
+      #   # plugin = ${Hyprspace}/lib/lib${Hyprspace.pname}.so
+      #   # plugin = ${hypr-dynamic-cursors}/lib/libhypr-dynamic-cursors.so
+      # '';
   };
 }

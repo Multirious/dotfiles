@@ -1,18 +1,20 @@
 { ... }:
 {
-  git.enable = true;
   bash.enable = true;
-  tmux.enable = true;
-  swaylock-effects.enable = true;
-  waybar.enable = true;
-  sh.enable = true;
+  git.enable = true;
   helix.enable = true;
-  hypr.enable = true;
-  mako.enable = true;
-  zsh.enable = true;
-  starship.enable = true;
   home-manager.enable = true;
+  hypr.enable = true;
   kitty.enable = true;
+  mako.enable = true;
+  scripts.enable = true;
+  sh.enable = true;
+  starship.enable = true;
+  sway.enable = true;
+  swaylock-effects.enable = true;
+  tmux.enable = true;
   user-dirs.enable = true;
+  waybar.enable = true;
   wofi.enable = true;
+  zsh.enable = true;
 }

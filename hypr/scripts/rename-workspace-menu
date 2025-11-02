@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+choices="obsidian
+terminal
+"
+choosen="$(echo -e "$choices" | wofi -d)"
+if [ -z "$choosen" ]; then
+  exit
+fi
+current_workspace=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .activeWorkspace.id')
+hyprctl dispatch renameworkspace "$current_workspace" "$choosen"

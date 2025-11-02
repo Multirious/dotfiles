@@ -47,6 +47,9 @@ if [ -t 0 ]; then
 
   . ~/.config/shell/tmux_functions
   . ~/.config/shell/nix_functions
+  . ~/.config/shell/de_functions
+
+  export PATH="$PATH:~/scripts"
 
   if has-command tmux \
     && [ -n "$PS1" ] \

@@ -7,6 +7,10 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.gimp
+      pkgs.inkscape
     ];
+    xdg.mimeApps.defaultApplications = {
+      "image/svg+xml" = "org.inkscape.Inkscape.desktop";
+    };
   };
 }

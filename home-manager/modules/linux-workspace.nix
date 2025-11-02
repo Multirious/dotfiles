@@ -9,18 +9,25 @@ in
       let
         tmux = pkgs.tmux.overrideAttrs
           (finalAttrs: prevAttrs: {
-            version = "d3c39375d5e9f4a0dcb5bd210c912d70ceca5de9";
+            version = "865117a05fa1e850da07f67b422a469ee58fe019";
             src = pkgs.fetchFromGitHub {
               owner = "tmux";
               repo = "tmux";
-              rev = "d3c39375d5e9f4a0dcb5bd210c912d70ceca5de9";
-              hash = "sha256-CTo6NJTuS2m5W6WyqTHg4G6NiRqt874pFGvVgmbKeC8=";
+              rev = "865117a05fa1e850da07f67b422a469ee58fe019";
+              hash = "sha256-hjiNXGMlUC+jjPvw9a6EXUAGuHbGwRFY0cGi4/K+lak=";
             };
           });
+        helix = pkgs.helix.overrideAttrs (final: prev: {
+          patches = prev.patches ++ [
+            ../catppuccin_mocha.patch
+          ];
+        });
       in [
         pkgs.kitty
 
-        pkgs.helix
+        pkgs.zed-editor
+
+        helix
         pkgs.zsh
         pkgs.starship
         tmux
@@ -38,5 +45,42 @@ in
         pkgs.btop
         pkgs.scooter
       ];
+    xdg.desktopEntries.Helix = {
+      name = "Helix";
+      genericName = "Text Editor";
+      exec = "kitty hx %F";
+      comment = "Edit text files";
+      type = "Application";
+      icon = "helix";
+      categories = [ "Utility" "TextEditor" ];
+      mimeType = [
+        "text/english"
+        "text/markdown"
+        "text/plain"
+        "text/x-makefile"
+        "text/x-c++hdr"
+        "text/x-c++src"
+        "text/x-chdr"
+        "text/x-csrc"
+        "text/x-java"
+        "text/x-moc"
+        "text/x-pascal"
+        "text/x-tcl"
+        "text/x-tex"
+        "application/x-shellscript"
+        "text/x-c"
+        "text/x-c++"
+      ];
+    };
+    xdg.mimeApps = {
+      defaultApplications = {
+        "text/plain"    = [ "Helix.desktop" ];
+        "text/css"      = [ "Helix.desktop" ];
+        "text/csv"      = [ "Helix.desktop" ];
+        "text/html"     = [ "Helix.desktop" ];
+        "text/markdown" = [ "Helix.desktop" ];
+        "text/xml"      = [ "Helix.desktop" ];
+      };
+    };
   };
 }

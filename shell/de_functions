@@ -1,0 +1,12 @@
+# Usage: open <path>
+open () {
+  local file="$1"
+  case "$XDG_CURRENT_DESKTOP" in
+    "Hyprland")
+      hyprctl dispatch exec xdg-open "$(readlink -f "$file")"
+      ;;
+    *)
+      echo "Unknown desktop"
+      ;;
+  esac
+}

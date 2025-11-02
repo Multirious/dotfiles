@@ -13,12 +13,15 @@
     ./image.nix
     ./linux-workspace.nix
     ./mail.nix
+    ./miscellaneous.nix
     ./modeling-workspace.nix
     ./multimedia.nix
     ./nix-workspace.nix
     ./password.nix
+    ./recording.nix
     ./sixel.nix
     ./theme.nix
+    ./toy.nix
     ./university.nix
   ];
 }

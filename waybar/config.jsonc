@@ -39,7 +39,8 @@
         "warp-on-scroll": false,
         "format": "{icon}",
         "format-icons": {
-            "1": "",
+            "terminal": "",
+            "obsidian": "󱞁",
             "urgent": "",
             // "focused": "",
             // "default": ""
@@ -158,7 +159,7 @@
         "format": "{icon}  {volume}% {format_source}",
         "format-bluetooth": "{icon}󰂯 {volume}% {format_source}",
         "format-bluetooth-muted": "󰝟 󰂯 {format_source}",
-        "format-muted": "󰝟 {format_source}",
+        "format-muted": "󰝟  {volume}% {format_source}",
         "format-source": "󰍬 {volume}%",
         "format-source-muted": "󰍭",
         "format-icons": {
